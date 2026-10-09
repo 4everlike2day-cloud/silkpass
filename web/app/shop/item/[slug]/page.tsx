@@ -27,7 +27,7 @@ export default async function ProductPage({params}: {params: Promise<{slug: stri
         </p>
         <div className="pdp">
           <div className="gallery">
-            {p.images.length ? p.images.map((im, i) => <img key={i} src={`${im.url}?w=1000&h=1000&fit=crop&auto=format`} alt={i === 0 ? p.title : ''} />) : <div className="ph-img">Photo</div>}
+            {p.images.length ? p.images.map((im, i) => <img key={i} src={`${im.url}?w=1000&h=1000&fit=crop&auto=format`} alt={i === 0 ? p.title : ''} />) : <img src="/placeholder.jpg" alt={`${p.title}: photo coming soon`} />}
           </div>
           <div style={{display: 'grid', gap: 18}}>
             <h1 style={{fontSize: 'clamp(2rem,4vw,3rem)'}}>{p.title}</h1>

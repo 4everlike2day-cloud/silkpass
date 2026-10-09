@@ -1,0 +1,13 @@
+{
+  "routes": [
+    {
+      "routePath": "/api/lead",
+      "mountPath": "/api",
+      "method": "POST",
+      "module": [
+        "api/lead.ts:onRequestPost"
+      ]
+    }
+  ],
+  "baseURL": "/"
+}
