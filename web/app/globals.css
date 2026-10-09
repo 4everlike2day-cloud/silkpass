@@ -1,24 +1,28 @@
 
 /* Welcome 2 UZB. Layout: single-column editorial site, 1120px max, route-driven pages; stamps are the one bold element.
-   Palette: softened Uzbek flag. Sky blue = main accent, green = progress and steps, red = thin lines only. */
+   Palette: SilkPass design system, taken from the Gur-Emir domes. --dome = light turquoise fill (dark text on it),
+   --accent = deep turquoise for text, lines, stamps and buttons, --cobalt and --sand as helpers, flag colours only in the flagline. */
 :root{
-  --bg:#f5f8f7; --surface:#ffffff; --ink:#14282e; --muted:#566a6f; --line:#dce5e4;
-  --accent:#23809a; --accent-ink:#ffffff; --accent-soft:#e2f1f4; --ph:#fff7e0; --ph-ink:#7a5a00;
-  --green:#3a8f55; --green-soft:#e5f2e8; --red:#c4584f;
+  --bg:#f6f5f0; --surface:#ffffff; --ink:#13313a; --muted:#5a6a6c; --line:#e3e4dd;
+  --accent:#10706e; --accent-ink:#ffffff; --accent-soft:#d8f0ec; --ph:#f6ecd8; --ph-ink:#7b5a24;
+  --dome:#3fb8b1; --on-dome:#0e3a3e; --cobalt:#1f4e9e; --sky:#d6e9f5; --sand:#e7d3ac;
+  --green:#2f8a4e; --green-soft:#e3f2e7; --red:#c4584f;
   --display:"Bricolage Grotesque",ui-sans-serif,system-ui,sans-serif;
   --body:"Onest",ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
   --r:14px; --max:1120px;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
-  --bg:#0b1619; --surface:#122329; --ink:#e7f0f0; --muted:#9cb1b4; --line:#223a40;
-  --accent:#6cc0d8; --accent-ink:#0b1619; --accent-soft:#143740; --ph:#2c2610; --ph-ink:#f1d27a;
+  --bg:#0c1a1d; --surface:#13262a; --ink:#e8f1ef; --muted:#9db3b2; --line:#22393d;
+  --accent:#6fd6cf; --accent-ink:#0c1a1d; --accent-soft:#143a3b; --ph:#3a3020; --ph-ink:#e6c98f;
+  --dome:#56c9c2; --on-dome:#0c1a1d; --cobalt:#2f5fb3; --sky:#163040; --sand:#3a3020;
   --green:#72c98c; --green-soft:#163824; --red:#e0897f; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --bg:#0b1619; --surface:#122329; --ink:#e7f0f0; --muted:#9cb1b4; --line:#223a40;
-  --accent:#6cc0d8; --accent-ink:#0b1619; --accent-soft:#143740; --ph:#2c2610; --ph-ink:#f1d27a;
+  --bg:#0c1a1d; --surface:#13262a; --ink:#e8f1ef; --muted:#9db3b2; --line:#22393d;
+  --accent:#6fd6cf; --accent-ink:#0c1a1d; --accent-soft:#143a3b; --ph:#3a3020; --ph-ink:#e6c98f;
+  --dome:#56c9c2; --on-dome:#0c1a1d; --cobalt:#2f5fb3; --sky:#163040; --sand:#3a3020;
   --green:#72c98c; --green-soft:#163824; --red:#e0897f; color-scheme:dark}
-.flagline{height:9px;background:linear-gradient(to bottom,var(--accent) 0 3px,var(--red) 3px 4px,var(--surface) 4px 5px,var(--red) 5px 6px,var(--green) 6px 9px)}
+.flagline{height:9px;background:linear-gradient(to bottom,var(--dome) 0 3px,var(--red) 3px 4px,var(--surface) 4px 5px,var(--red) 5px 6px,var(--green) 6px 9px)}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body);-webkit-font-smoothing:antialiased}
 a{color:inherit}
@@ -106,7 +110,7 @@ a.card:hover{border-color:var(--accent);transform:translateY(-2px)}
 @media (max-width:640px){.city-hero{grid-template-columns:1fr}.city-hero .stamp{width:150px}}
 .stamp-point{display:grid;grid-template-columns:1.2fr 1fr;gap:0;border:2px solid var(--accent);border-radius:var(--r);overflow:hidden;background:var(--surface)}
 .stamp-point > div{padding:26px;min-width:0}
-.stamp-point .side{background:var(--accent-soft);display:flex;flex-direction:column;gap:12px;justify-content:center}
+.stamp-point .side{background:var(--sky);display:flex;flex-direction:column;gap:12px;justify-content:center}
 @media (max-width:720px){.stamp-point{grid-template-columns:1fr}}
 dl.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:16px 0 0}
 dl.kv dt{font:500 .72rem/1.9 var(--mono);text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
@@ -117,14 +121,14 @@ ol.places li:first-child{border-top:1px solid var(--line)}
 ol.places .n{font:500 .85rem/1.6 var(--mono);color:var(--green)}
 ol.places h3{font-size:1.1rem;margin-bottom:4px}
 .ad{border:1px solid var(--line);border-radius:var(--r);padding:22px;display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;background:var(--surface)}
-.next{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:var(--ink);color:var(--bg);border-radius:20px;padding:clamp(24px,5vw,44px)}
-.next .label{color:color-mix(in srgb,var(--bg) 65%,transparent)}
-.next .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.next{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;background:var(--dome);color:var(--on-dome);border-radius:20px;padding:clamp(24px,5vw,44px)}
+.next .label{color:color-mix(in srgb,var(--on-dome) 75%,transparent)}
+.next .btn{background:var(--on-dome);color:var(--dome);border-color:var(--on-dome)}
 .next h2{margin-top:10px}
 .travel{font:500 .9rem/1.5 var(--mono);opacity:.8;margin-top:10px}
 .progress{display:flex;gap:8px;margin-top:22px}
-.progress span{width:34px;height:6px;border-radius:3px;background:color-mix(in srgb,var(--bg) 25%,transparent)}
-.progress span.done{background:var(--bg)}
+.progress span{width:34px;height:6px;border-radius:3px;background:color-mix(in srgb,var(--on-dome) 20%,transparent)}
+.progress span.done{background:var(--on-dome)}
 
 /* forms */
 form.f{display:grid;gap:14px}
