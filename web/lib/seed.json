@@ -1,0 +1,326 @@
+{
+ "settings": {
+  "heroTitle": "Collect Uzbekistan, one stamp at a time.",
+  "heroLede": "A pocket passport for the classic route: Tashkent, Samarkand, Bukhara and Khiva. Get an original stamp in every city and take the whole trip home in your pocket.",
+  "hashtag": "#welcome2uz",
+  "passportPrice": null,
+  "rewardText": "Collect all four stamps and show the full passport at the Khiva stamp point to claim your reward.",
+  "instagram": "silkpass",
+  "telegram": null,
+  "whatsapp": null,
+  "email": null
+ },
+ "cities": [
+  {
+   "slug": "tashkent",
+   "nameUz": "Toshkent",
+   "name": "Tashkent",
+   "order": 1,
+   "rot": -8,
+   "intro": "The capital and your gateway. Most international flights land here, so this is where the route begins. Soviet-era boulevards, a metro that doubles as a gallery, and the busiest bazaar in the country.",
+   "places": [
+    {
+     "title": "Hazrati Imam complex",
+     "text": "Old-city religious centre, home to one of the oldest surviving Qur'an manuscripts.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Chorsu Bazaar",
+     "text": "Blue domed market. Come in the morning for bread, dried fruit and spices.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Tashkent Metro",
+     "text": "Every station is decorated differently. Kosmonavtlar and Alisher Navoiy are the stand-outs.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Amir Timur Square",
+     "text": "The modern centre of the city, next to the Hotel Uzbekistan and the Timurid Museum.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Minor Mosque",
+     "text": "White marble mosque on the Ankhor canal, especially photogenic at sunset.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Museum of Applied Arts",
+     "text": "A merchant's mansion filled with carved wood, ganch plaster and suzani embroidery.",
+     "mapsUrl": null
+    }
+   ],
+   "food": [
+    "Plov at lunchtime: it is traditionally served until early afternoon",
+    "Samsa from a tandir oven",
+    "Green tea everywhere, served in a piala bowl"
+   ],
+   "nextTravel": "Afrosiyob high-speed train · about 2 h 15 min",
+   "image": null
+  },
+  {
+   "slug": "samarkand",
+   "nameUz": "Samarqand",
+   "name": "Samarkand",
+   "order": 2,
+   "rot": 6,
+   "intro": "Timur's capital and the most famous view in Central Asia. Three madrasahs facing one square, turquoise domes and a necropolis of tiled mausoleums.",
+   "places": [
+    {
+     "title": "Registan",
+     "text": "Three madrasahs around one square. Visit twice: in daylight and for the evening lights.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Gur-e-Amir",
+     "text": "The mausoleum of Amir Timur, with a ribbed azure dome and gilded interior.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Shah-i-Zinda",
+     "text": "An avenue of tiled tombs, the finest majolica in the country.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Bibi-Khanym Mosque",
+     "text": "Once one of the largest mosques in the Islamic world.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Siyob Bazaar",
+     "text": "Right next to Bibi-Khanym. Buy Samarkand non, the famous round bread.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Ulugh Beg Observatory",
+     "text": "Remains of a 15th-century observatory and its giant meridian arc.",
+     "mapsUrl": null
+    }
+   ],
+   "food": [
+    "Samarkand plov, cooked with yellow carrots",
+    "Fresh Samarkand non straight from the bazaar",
+    "Shashlik in the evening"
+   ],
+   "nextTravel": "Afrosiyob high-speed train · about 1 h 30 min",
+   "image": null
+  },
+  {
+   "slug": "bukhara",
+   "nameUz": "Buxoro",
+   "name": "Bukhara",
+   "order": 3,
+   "rot": -4,
+   "intro": "A living old town where you walk everywhere. Trading domes, a 12th-century minaret and a citadel that ruled the emirate.",
+   "places": [
+    {
+     "title": "Poi Kalyan",
+     "text": "The Kalyan Minaret and mosque, Bukhara's symbol since 1127.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Ark Fortress",
+     "text": "The citadel of the Bukhara emirs, with museums inside its walls.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Lyabi-Hauz",
+     "text": "A pool shaded by old mulberry trees. The evening meeting point of the old town.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Trading domes",
+     "text": "Covered bazaars for jewellers, hat-makers and money-changers.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Samanid Mausoleum",
+     "text": "A 10th-century brick masterpiece in a quiet park.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Chor Minor",
+     "text": "A small gatehouse with four turquoise towers, hidden in the side streets.",
+     "mapsUrl": null
+    }
+   ],
+   "food": [
+    "Tea by Lyabi-Hauz in the evening",
+    "Bukhara plov",
+    "Halva and sweets from the trading domes"
+   ],
+   "nextTravel": "Train or car · about 6–7 h. Start early in the morning.",
+   "image": null
+  },
+  {
+   "slug": "khiva",
+   "nameUz": "Xiva",
+   "name": "Khiva",
+   "order": 4,
+   "rot": 9,
+   "intro": "The last stamp. Itchan Kala is a whole walled city of minarets, palaces and mosques, best explored on foot at sunrise and sunset.",
+   "places": [
+    {
+     "title": "Itchan Kala",
+     "text": "The walled inner city, a UNESCO World Heritage site. One ticket covers most sights.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Kalta Minor",
+     "text": "The unfinished turquoise minaret, Khiva's best-known landmark.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Islam Khoja Minaret",
+     "text": "The tallest minaret in Khiva. Climb it for a view over the whole old town.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Kunya-Ark",
+     "text": "The old fortress with a watchtower made for sunset photos.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Juma Mosque",
+     "text": "A prayer hall supported by more than 200 carved wooden columns.",
+     "mapsUrl": null
+    },
+    {
+     "title": "Tash-Hauli Palace",
+     "text": "The khan's palace and harem, with some of the richest tilework in Khiva.",
+     "mapsUrl": null
+    }
+   ],
+   "food": [
+    "Shivit oshi: green dill noodles, a Khorezm speciality",
+    "Tukhum barak, local egg dumplings",
+    "Tea on a rooftop terrace at sunset"
+   ],
+   "nextTravel": null,
+   "image": null
+  }
+ ],
+ "partners": [],
+ "deals": [],
+ "ads": [],
+ "categories": [
+  {
+   "slug": "passports",
+   "title": "Passports",
+   "description": "The Welcome 2 UZB passport, pair sets and passports with special numbers.",
+   "order": 1
+  },
+  {
+   "slug": "covers",
+   "title": "Covers",
+   "description": "Covers to protect your passport on the road.",
+   "order": 2
+  },
+  {
+   "slug": "stickers",
+   "title": "Sticker packs",
+   "description": "City and region sticker packs for your passport.",
+   "order": 3
+  },
+  {
+   "slug": "gift-boxes",
+   "title": "Gift boxes",
+   "description": "Passport, stickers and a cover in one box.",
+   "order": 4
+  },
+  {
+   "slug": "handmade",
+   "title": "Handmade souvenirs",
+   "description": "Small pieces from local craftspeople.",
+   "order": 5
+  }
+ ],
+ "products": [
+  {
+   "slug": "welcome-2-uzb-passport",
+   "title": "Welcome 2 UZB passport",
+   "categorySlug": "passports",
+   "price": null,
+   "oldPrice": null,
+   "images": [],
+   "description": "Souvenir passport for Tashkent, Samarkand, Bukhara and Khiva. Example product: edit it in the admin.",
+   "maker": "SilkPass",
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "slug": "pair-set",
+   "title": "Pair set: two passports",
+   "categorySlug": "passports",
+   "price": null,
+   "oldPrice": null,
+   "images": [],
+   "description": "Two passports with consecutive numbers, for couples and friends. Example product.",
+   "maker": "SilkPass",
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "slug": "classic-cover",
+   "title": "Classic passport cover",
+   "categorySlug": "covers",
+   "price": null,
+   "oldPrice": null,
+   "images": [],
+   "description": "Example product: edit it in the admin.",
+   "maker": null,
+   "inStock": true,
+   "featured": false
+  },
+  {
+   "slug": "city-sticker-pack",
+   "title": "City sticker pack",
+   "categorySlug": "stickers",
+   "price": null,
+   "oldPrice": null,
+   "images": [],
+   "description": "Example product: edit it in the admin.",
+   "maker": null,
+   "inStock": true,
+   "featured": true
+  },
+  {
+   "slug": "welcome-gift-box",
+   "title": "Welcome gift box",
+   "categorySlug": "gift-boxes",
+   "price": null,
+   "oldPrice": null,
+   "images": [],
+   "description": "Passport, sticker pack and cover in one box. Example product.",
+   "maker": "SilkPass",
+   "inStock": true,
+   "featured": false
+  }
+ ],
+ "faq": [
+  {
+   "q": "Is this a real passport?",
+   "a": "No. It is a souvenir travel journal made to look like a passport. It is not an identity document."
+  },
+  {
+   "q": "Do I have to follow the route in order?",
+   "a": "No. Start wherever your trip starts. The numbers are only the most common direction of travel."
+  },
+  {
+   "q": "What if a stamp point is closed?",
+   "a": "Check the hours on the city page. If it is closed during the posted hours, message us and we'll find a solution."
+  },
+  {
+   "q": "Can I get a stamp without visiting the city?",
+   "a": "No. Stamps are given only in person at official stamp points."
+  },
+  {
+   "q": "How do I claim the reward?",
+   "a": "Show your passport with all four stamps at the final stamp point in Khiva."
+  },
+  {
+   "q": "Is the site available in other languages?",
+   "a": "Russian and Uzbek versions are coming soon."
+  }
+ ]
+}
