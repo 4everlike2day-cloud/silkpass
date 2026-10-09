@@ -47,21 +47,24 @@ silkpass/
 
 ### Шаг 3. Сайт на Cloudflare Pages
 
-1. [dash.cloudflare.com](https://dash.cloudflare.com) → **Workers & Pages → Create → Pages → Connect to Git**, выберите репозиторий.
-2. Настройки сборки:
-   - Framework preset: **Next.js (Static HTML Export)**
-   - Root directory: `web`
-   - Build command: `npm run build`
-   - Build output directory: `out`
-3. **Environment variables** (Settings → Variables and secrets):
-   | Переменная | Значение |
-   |---|---|
-   | `NEXT_PUBLIC_SANITY_PROJECT_ID` | ваш Project ID |
-   | `NEXT_PUBLIC_SANITY_DATASET` | `production` |
-   | `TELEGRAM_BOT_TOKEN` | токен бота (шаг 5) |
-   | `TELEGRAM_CHAT_ID` | ID чата (шаг 5) |
-   | `NODE_VERSION` | `22` |
-4. Нажмите **Save and Deploy**. Сайт откроется по адресу вида `silkpass.pages.dev`.
+Сайт выкладывается через GitHub Actions (файл `.github/workflows/deploy.yml`), без подключения GitHub к Cloudflare.
+
+1. Первая выкладка с компьютера создаёт проект в Cloudflare:
+   ```powershell
+   cd web
+   copy .env.example .env.local   # впишите Project ID
+   npm install
+   npm run build
+   npx wrangler pages deploy out --project-name welcome2
+   ```
+   Проект называется `welcome2`, адрес: https://welcome2-dll.pages.dev
+2. В Cloudflare создайте API-токен: My Profile → API Tokens → Create Custom Token, право **Account → Cloudflare Pages → Edit**.
+3. В GitHub → Settings → Secrets and variables → Actions:
+   - Secrets: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`
+   - Variables: `SANITY_PROJECT_ID`
+4. Проверка: GitHub → Actions → Deploy site → Run workflow.
+
+Сайт пересобирается сам: при `git push` в папке `web/`, при Publish в админке (шаг 6) и вручную кнопкой Run workflow.
 
 ### Шаг 4. Домен welcome2.uz
 
@@ -72,18 +75,22 @@ silkpass/
 ### Шаг 5. Telegram-бот для заказов
 
 1. В Telegram откройте **@BotFather** → `/newbot` → получите токен.
-2. Создайте группу «Заказы Welcome 2 UZB», добавьте туда бота, отправьте любое сообщение.
-3. Откройте в браузере `https://api.telegram.org/bot<ТОКЕН>/getUpdates` и найдите `"chat":{"id":-100…}`. Это и есть `TELEGRAM_CHAT_ID`.
-4. Впишите оба значения в Cloudflare (шаг 3) и пересоберите сайт (**Deployments → Retry deployment**).
+2. Создайте группу «Заказы Welcome 2 UZB», добавьте туда бота, отправьте `/start@имя_бота`.
+3. Откройте `https://api.telegram.org/bot<ТОКЕН>/getUpdates` и найдите `"chat":{"id":-100…}`. Это `TELEGRAM_CHAT_ID` (с минусом).
+4. Cloudflare → Workers & Pages → `welcome2` → Settings → Variables and Secrets:
+   - `TELEGRAM_BOT_TOKEN` (тип Secret)
+   - `TELEGRAM_CHAT_ID` (тип Text)
+5. Перевыложите сайт (Run workflow), чтобы переменные подхватились.
 
-### Шаг 6. Автопересборка после правок в админке
+### Шаг 6. Автопересборка после Publish в админке
 
-1. Cloudflare Pages → **Settings → Builds → Deploy hooks** → создайте хук, скопируйте URL.
-2. sanity.io/manage → **API → Webhooks → Create webhook**:
-   - URL: адрес хука из Cloudflare
-   - Dataset: `production`, Trigger on: Create, Update, Delete
+1. GitHub: создайте fine-grained токен (github.com/settings/personal-access-tokens/new), доступ только к `silkpass`, право **Contents: Read and write**, срок 1 год. **Через год перевыпустить и обновить в Sanity.**
+2. sanity.io/manage → API → Webhooks → Create webhook:
+   - URL: `https://api.github.com/repos/4everlike2day-cloud/silkpass/dispatches`
+   - Dataset: `production`, Trigger on: Create, Update, Delete, drafts выключены
+   - Projection: `{"event_type": "sanity-publish"}`
    - HTTP method: POST
-3. Готово: каждый Publish в админке обновляет сайт примерно за 1–2 минуты.
+   - Headers: `Authorization: Bearer <токен>`, `Accept: application/vnd.github+json`
 
 ---
 
