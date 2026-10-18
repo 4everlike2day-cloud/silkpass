@@ -23,7 +23,7 @@ export default function Header() {
   return (
     <header className="site">
       <div className="wrap">
-        <Link className="logo" href="/"><i>W2</i>Welcome 2 UZB</Link>
+        <Link className="logo" href="/"><img src="/brand/w2uz-mark.png" alt="" width={44} height={44} />Welcome 2 UZB</Link>
         <button className="menu-btn" aria-expanded={open} aria-controls="nav" onClick={() => setOpen(!open)}>Menu</button>
         <nav className={`main${open ? ' open' : ''}`} id="nav">
           {LINKS.map((l) => (

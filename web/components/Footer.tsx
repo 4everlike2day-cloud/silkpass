@@ -8,7 +8,7 @@ export default function Footer({cities, settings}: {cities: City[]; settings: Se
       <footer className="site">
         <div className="wrap">
           <div>
-            <Link className="logo" href="/" style={{color: 'var(--ink)'}}><i>W2</i>Welcome 2 UZB</Link>
+            <Link href="/" aria-label="Welcome 2 UZB"><img className="footer-logo" src="/brand/w2uz-logo.png" alt="Welcome 2 UZB · W2-UZ" width={140} height={160} /></Link>
             <p className="muted" style={{marginTop: 12, maxWidth: '36ch'}}>
               A souvenir passport for Uzbekistan&apos;s four classic cities. A SilkPass project.
             </p>

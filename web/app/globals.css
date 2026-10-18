@@ -41,6 +41,8 @@ p{margin:0}
 header.site{position:sticky;top:env(safe-area-inset-top,0px);z-index:10;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 header.site .wrap{display:flex;align-items:center;gap:20px;padding-block:14px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;font:800 1.15rem/1 var(--display);letter-spacing:-.02em}
+.logo img{width:44px;height:44px;display:block}
+.footer-logo{width:120px;height:auto;display:block}
 .logo i{width:30px;height:30px;border-radius:50%;border:2px solid var(--accent);display:grid;place-items:center;font:500 .6rem/1 var(--mono);color:var(--accent);font-style:normal}
 nav.main{display:flex;gap:4px;margin-left:auto;align-items:center}
 nav.main a{text-decoration:none;padding:8px 12px;border-radius:999px;font-weight:500;font-size:.95rem;color:var(--muted)}
