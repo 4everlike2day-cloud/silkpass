@@ -20,7 +20,7 @@ export const LOCAL_GUIDES: Guide[] = [
     citySlug: 'tashkent',
     title: 'Murals of Tashkent',
     summary: 'Ten big walls worth a detour, from space dreams to Uzbek ornament.',
-    cover: img('tashkent-murals', '3'),
+    cover: img('tashkent-murals', 'cover'),
     intro:
       'Tashkent has turned dozens of Soviet apartment blocks into an open-air gallery. Most murals are in residential districts, away from the usual sights, so they are a good excuse to ride the metro and see the city locals live in.\n\nTap a mural to open it on the map. Paintings change: some fade, new ones appear every season.',
     order: 1,
