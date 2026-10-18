@@ -142,7 +142,7 @@ export default async function CityPage({params}: {params: Promise<{city: string}
                 <div>
                   <p className="label">Final stamp</p>
                   <h2>Route complete</h2>
-                  <p className="travel">Show your full passport at the {c.name} stamp point to claim your reward.</p>
+                  <p className="travel">All four stamps collected? Show your passport at any stamp point to get the Route complete stamp and your gift.</p>
                   <div className="progress">{cities.map((x) => <span key={x.slug} className="done" />)}</div>
                 </div>
                 <Link className="btn" href="/reward">Claim your reward</Link>
