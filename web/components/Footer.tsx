@@ -25,6 +25,7 @@ export default function Footer({cities, settings}: {cities: City[]; settings: Se
           <div>
             <p className="label" style={{marginBottom: 10}}>Info</p>
             <Link href="/how-it-works">How it works</Link>
+            <Link href="/reward">Reward</Link>
             <Link href="/where-to-buy">Get a passport</Link>
             <Link href="/shop">Shop</Link>
             <Link href="/partners">For partners</Link>

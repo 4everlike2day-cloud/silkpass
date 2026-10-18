@@ -1,17 +1,17 @@
+import Link from 'next/link'
 import {getCities, getSettings, pad} from '@/lib/data'
 
 export const metadata = {title: 'How it works'}
 
 export default async function HowItWorks() {
   const [settings, cities] = await Promise.all([getSettings(), getCities()])
-  const last = cities[cities.length - 1]
   const steps: [string, React.ReactNode][] = [
     ['Get a passport', 'Buy it at a partner point on the route or in our online shop. Write your name on the owner page.'],
     ['Open the city page', 'Each city spread has a QR code. Scan it to see the stamp point, its opening hours and a short city guide.'],
     ['Get the stamp', 'Show your passport at the stamp point. Staff will stamp the city page. One stamp per city.'],
     ['Write the date', 'Add the date in the space under the stamp, by hand. It becomes your travel record.'],
     ['Share it', <>Post a photo of your passport and tag <b>{settings.hashtag}</b>. Partners sometimes have bonuses for posts.</>],
-    ['Complete the route', `Collect all ${cities.length} stamps${last ? ` and show the full passport at the ${last.name} stamp point` : ''} for your reward.`],
+    ['Complete the route', `Collect all ${cities.length} stamps and show the passport at any stamp point. You get the Route complete stamp and a gift.`],
   ]
   return (
     <>
@@ -27,7 +27,7 @@ export default async function HowItWorks() {
       </section>
       <section>
         <div className="wrap grid2">
-          <div className="card"><p className="label">Reward</p><h3>All {cities.length} stamps</h3><p className="muted">{settings.rewardText}</p></div>
+          <div className="card"><p className="label">Reward</p><h3>All {cities.length} stamps</h3><p className="muted">Show the full passport at any stamp point to get the Route complete stamp and a gift.</p><p style={{marginTop: 14}}><Link className="btn ghost" href="/reward">Reward details</Link></p></div>
           <div className="card"><p className="label">Rules</p><h3>Keep it fair</h3><p className="muted">Stamps are given only in person at official stamp points. The order of cities does not matter, so start wherever your trip starts.</p></div>
         </div>
       </section>
