@@ -5,7 +5,7 @@ import 'leaflet/dist/leaflet.css'
 type Pt = {n: number; title: string; lat: number; lon: number; href: string}
 
 // Карта на Leaflet + OpenStreetMap. Leaflet подгружается только в браузере.
-export default function GuideMap({points}: {points: Pt[]}) {
+export default function GuideMap({points, seePhoto = "See photo ↓"}: {points: Pt[]; seePhoto?: string}) {
   const el = useRef<HTMLDivElement>(null)
   useEffect(() => {
     let map: import('leaflet').Map | null = null
@@ -21,7 +21,7 @@ export default function GuideMap({points}: {points: Pt[]}) {
         L.marker([p.lat, p.lon], {
           icon: L.divIcon({className: 'map-pin', html: `<span>${p.n}</span>`, iconSize: [30, 30], iconAnchor: [15, 15]}),
           title: p.title,
-        }).bindPopup(`<b>${p.n}. ${p.title}</b><br><a href="${p.href}">See photo ↓</a>`),
+        }).bindPopup(`<b>${p.n}. ${p.title}</b><br><a href="${p.href}">${seePhoto}</a>`),
       )
       const group = L.featureGroup(markers).addTo(map)
       map.fitBounds(group.getBounds().pad(0.15))
@@ -30,6 +30,6 @@ export default function GuideMap({points}: {points: Pt[]}) {
       cancelled = true
       map?.remove()
     }
-  }, [points])
+  }, [points, seePhoto])
   return <div ref={el} className="guide-map" role="region" aria-label="Map" />
 }

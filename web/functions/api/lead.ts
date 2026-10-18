@@ -32,6 +32,7 @@ function format(d: Record<string, any>): string | null {
         `<b>Город:</b> ${esc(d.city)}`,
         `<b>Адрес:</b> ${esc(d.address)}`,
         d.note ? `<b>Комментарий:</b> ${esc(d.note)}` : '',
+        d.lang ? `<b>Язык сайта:</b> ${esc(String(d.lang).toUpperCase())}` : '',
       ].filter(Boolean).join('\n')
     }
     case 'partner':
@@ -42,6 +43,7 @@ function format(d: Record<string, any>): string | null {
         `<b>Формат:</b> ${esc(d.format)}`,
         `<b>Контакт:</b> ${esc(d.contact)}`,
         d.note ? `<b>Комментарий:</b> ${esc(d.note)}` : '',
+        d.lang ? `<b>Язык сайта:</b> ${esc(String(d.lang).toUpperCase())}` : '',
       ].filter(Boolean).join('\n')
     case 'notify':
       return `🔔 <b>Подписка на новости шопа</b>\n${esc(d.email)}`

@@ -1,17 +1,7 @@
-import CartView from './CartView'
-import {getCities} from '@/lib/data'
+import View, {cartMeta} from '@/views/Cart'
 
-export const metadata = {title: 'Cart'}
+export const metadata = cartMeta("en")
 
-export default async function CartPage() {
-  const cities = await getCities()
-  return (
-    <section>
-      <div className="wrap" style={{maxWidth: 820}}>
-        <p className="label">Cart</p>
-        <h1 style={{marginTop: 18, marginBottom: 28}}>Your order</h1>
-        <CartView cities={cities.map((c) => c.name)} />
-      </div>
-    </section>
-  )
+export default function Page() {
+  return <View lang="en" />
 }

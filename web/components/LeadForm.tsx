@@ -1,5 +1,6 @@
 'use client'
 import {useState} from 'react'
+import {t, type Lang} from '@/lib/i18n'
 
 // Отправка заявок на /api/lead (функция Cloudflare пересылает их в Telegram).
 export async function sendLead(payload: Record<string, unknown>) {
@@ -13,7 +14,7 @@ export async function sendLead(payload: Record<string, unknown>) {
 
 type Field = {id: string; label: string; type?: 'text' | 'email' | 'tel' | 'textarea' | 'select'; required?: boolean; options?: string[]; placeholder?: string}
 
-export default function LeadForm({kind, fields, submitLabel, success}: {kind: string; fields: Field[]; submitLabel: string; success: string}) {
+export default function LeadForm({kind, fields, submitLabel, success, lang = 'en'}: {kind: string; fields: Field[]; submitLabel: string; success: string; lang?: Lang}) {
   const [state, setState] = useState<'idle' | 'sending' | 'ok' | 'error'>('idle')
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -22,7 +23,7 @@ export default function LeadForm({kind, fields, submitLabel, success}: {kind: st
     const data = Object.fromEntries(new FormData(form).entries())
     setState('sending')
     try {
-      await sendLead({kind, ...data})
+      await sendLead({kind, lang, ...data})
       setState('ok')
       form.reset()
     } catch {
@@ -48,8 +49,8 @@ export default function LeadForm({kind, fields, submitLabel, success}: {kind: st
       ))}
       <input className="hp" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
       <div className="row" style={{alignItems: 'center'}}>
-        <button className="btn" type="submit" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : submitLabel}</button>
-        {state === 'error' && <span className="err">Could not send. Please try again or message us on Instagram.</span>}
+        <button className="btn" type="submit" disabled={state === 'sending'}>{state === 'sending' ? t(lang).sending : submitLabel}</button>
+        {state === 'error' && <span className="err">{t(lang).formError}</span>}
       </div>
     </form>
   )
