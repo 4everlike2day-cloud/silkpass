@@ -23,7 +23,15 @@ export const Q = {
     "places": coalesce(places[]{"title": ${t('title')}, "text": ${t('text')}, "mapsUrl": coalesce(mapsUrl, null)}, []),
     "food": coalesce(food[]{"t": ${t('@')}}, []),
     "nextTravel": ${t('nextTravel')},
-    "image": ${img('heroImage')}
+    "image": ${img('heroImage')}, wikiUrl, eventsUrl, eventsLabel
+  }`,
+  guides: `*[_type == "guide" && active != false && defined(slug.current) && defined(city->slug.current)] | order(order asc){
+    "slug": slug.current, "citySlug": city->slug.current, "title": ${t('title')}, "summary": ${t('summary')},
+    "cover": ${img('cover')}, "intro": ${t('intro')}, "order": coalesce(order, 10),
+    "items": coalesce(items[]{"title": ${t('title')}, "text": ${t('text')}, "image": ${img('image')}, "mapsUrl": coalesce(mapsUrl, null),
+      "lat": location.lat, "lon": location.lng, "area": ${t('area')}, credit}, []),
+    sourceUrl, "sourceLabel": ${t('sourceLabel')}, "sourceText": ${t('sourceText')},
+    "gallery": coalesce(gallery[defined(asset)]{"url": asset->url, "alt": ""}, [])
   }`,
   partners: `*[_type == "partner" && active != false]{
     "id": _id, name, "citySlug": city->slug.current, "roles": coalesce(roles, []),

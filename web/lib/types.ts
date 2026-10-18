@@ -25,6 +25,35 @@ export type City = {
   food: string[]
   nextTravel: string | null
   image: Img
+  wikiUrl?: string | null
+  eventsUrl?: string | null
+  eventsLabel?: string | null
+}
+
+export type GuideItem = {
+  title: string
+  text: string | null
+  image: Img
+  images?: NonNullable<Img>[]
+  mapsUrl: string | null
+  lat?: number | null
+  lon?: number | null
+  area?: string | null
+  credit?: string | null
+}
+export type Guide = {
+  slug: string
+  citySlug: string
+  title: string
+  summary: string | null
+  cover: Img
+  intro: string | null
+  items: GuideItem[]
+  gallery: NonNullable<Img>[]
+  order: number
+  sourceUrl?: string | null
+  sourceLabel?: string | null
+  sourceText?: string | null
 }
 
 export type Role = 'stamp' | 'sales' | 'deal' | 'ad'

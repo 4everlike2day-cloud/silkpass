@@ -21,6 +21,7 @@ export default defineConfig({
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
             S.divider(),
             S.documentTypeListItem('city').title('Города'),
+            S.documentTypeListItem('guide').title('Подборки по городам'),
             S.documentTypeListItem('partner').title('Партнёры'),
             S.documentTypeListItem('deal').title('Скидки'),
             S.documentTypeListItem('adSlot').title('Реклама'),

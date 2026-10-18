@@ -7,5 +7,6 @@ import {adSlot} from './adSlot'
 import {category} from './category'
 import {product} from './product'
 import {faq} from './faq'
+import {guide} from './guide'
 
-export const schemaTypes = [localeString, localeText, siteSettings, city, partner, deal, adSlot, category, product, faq]
+export const schemaTypes = [localeString, localeText, siteSettings, city, partner, deal, adSlot, category, product, faq, guide]

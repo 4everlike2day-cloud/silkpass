@@ -39,6 +39,9 @@ export const city = defineType({
       ],
     }),
     defineField({name: 'food', title: 'Что попробовать', type: 'array', of: [defineArrayMember({type: 'localeString'})]}),
+    defineField({name: 'wikiUrl', title: 'Ссылка на Википедию', description: 'Если пусто, берётся английская статья о городе', type: 'url'}),
+    defineField({name: 'eventsUrl', title: 'Ссылка на афишу событий', description: 'Например https://www.afisha.uz/ru/calendar', type: 'url'}),
+    defineField({name: 'eventsLabel', title: 'Подпись к афише', description: 'Например: Afisha.uz · events calendar (in Russian)', type: 'string'}),
     defineField({
       name: 'nextTravel',
       title: 'Как добраться до следующего города',

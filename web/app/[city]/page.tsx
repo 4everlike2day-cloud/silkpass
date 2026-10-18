@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import Stamp from '@/components/Stamp'
-import {getAds, getCities, getCity, getDeals, getPartners, pad} from '@/lib/data'
+import {getAds, getCities, getCity, getDeals, getGuides, getPartners, pad} from '@/lib/data'
+import {events, wikiUrl} from '@/lib/cityLinks'
 
 // Адреса городов (/tashkent, /samarkand…) зашиты в QR-кодах паспорта. Не переименовывайте их после печати.
 export const dynamicParams = false
@@ -15,7 +16,7 @@ export async function generateMetadata({params}: {params: Promise<{city: string}
 
 export default async function CityPage({params}: {params: Promise<{city: string}>}) {
   const {city: slug} = await params
-  const [c, cities, partners, deals, ads] = await Promise.all([getCity(slug), getCities(), getPartners(), getDeals(), getAds()])
+  const [c, cities, partners, deals, ads, allGuides] = await Promise.all([getCity(slug), getCities(), getPartners(), getDeals(), getAds(), getGuides()])
   if (!c) notFound()
   const total = cities.length
   const idx = cities.findIndex((x) => x.slug === c.slug)
@@ -23,6 +24,8 @@ export default async function CityPage({params}: {params: Promise<{city: string}
   const stampPoints = partners.filter((p) => p.citySlug === c.slug && p.roles.includes('stamp'))
   const cityDeals = deals.filter((d) => d.citySlug === c.slug)
   const ad = ads.find((a) => a.citySlug === c.slug)
+  const guides = allGuides.filter((g) => g.citySlug === c.slug)
+  const ev = events(c)
 
   return (
     <>
@@ -31,7 +34,7 @@ export default async function CityPage({params}: {params: Promise<{city: string}
           <div>
             <p className="label">Stop {pad(c.order)} of {pad(total)} · W2-UZ</p>
             <h1 style={{marginTop: 16}}>{c.nameUz}</h1>
-            <p className="en muted">{c.name}</p>
+            <p className="en muted">{c.name} · <a href={wikiUrl(c)} target="_blank" rel="noopener">Wikipedia ↗</a></p>
             <p style={{marginTop: 22, maxWidth: '56ch', fontSize: '1.08rem'}}>{c.intro}</p>
           </div>
           <Stamp {...c} size={200} total={total} />
@@ -112,6 +115,28 @@ export default async function CityPage({params}: {params: Promise<{city: string}
           </div>
         </div>
       </section>
+
+
+      {(guides.length > 0 || ev) && (
+        <section>
+          <div className="wrap">
+            <div className="sec-head"><div><p className="label">More in {c.name}</p><h2 style={{marginTop: 12}}>Beyond the stamp</h2></div></div>
+            <div className="more-grid">
+              {guides.map((g) => (
+                <Link key={g.slug} className="more-card" href={`/${c.slug}/${g.slug}`}>
+                  {g.cover && <img src={`${g.cover.url}?w=640&h=400&fit=crop&auto=format`} alt="" loading="lazy" />}
+                  <div><h3>{g.title}</h3>{g.summary && <p className="muted">{g.summary}</p>}<span className="go">Open →</span></div>
+                </Link>
+              ))}
+              {ev && (
+                <a className="more-card" href={ev.url} target="_blank" rel="noopener">
+                  <div><p className="label">Events</p><h3>What&apos;s on in {c.name}</h3><p className="muted">{ev.label}</p><span className="go">Open ↗</span></div>
+                </a>
+              )}
+            </div>
+          </div>
+        </section>
+      )}
 
       {ad && (
         <section>
