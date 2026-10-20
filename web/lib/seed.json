@@ -207,7 +207,7 @@
   {
    "slug": "passports",
    "title": "Passports",
-   "description": "The Welcome 2 UZB passport, pair sets and passports with special numbers.",
+   "description": "The Welcome 2 UZ passport, pair sets and passports with special numbers.",
    "order": 1
   },
   {
@@ -238,7 +238,7 @@
  "products": [
   {
    "slug": "welcome-2-uzb-passport",
-   "title": "Welcome 2 UZB passport",
+   "title": "Welcome 2 UZ passport",
    "categorySlug": "passports",
    "price": null,
    "oldPrice": null,

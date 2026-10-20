@@ -166,7 +166,8 @@ export const CONTENT_TR: Record<string, Tr> = {
 
   // Магазин
   Passports: {ru: 'Паспорта', uz: 'Pasportlar'},
-  'The Welcome 2 UZB passport, pair sets and passports with special numbers.': {ru: 'Паспорт Welcome 2 UZB, парные наборы и паспорта с особыми номерами.', uz: "Welcome 2 UZB pasporti, juft to'plamlar va maxsus raqamli pasportlar."},
+  'The Welcome 2 UZB passport, pair sets and passports with special numbers.': {ru: 'Паспорт Welcome 2 UZ, парные наборы и паспорта с особыми номерами.', uz: "Welcome 2 UZ pasporti, juft to'plamlar va maxsus raqamli pasportlar."},
+  'The Welcome 2 UZ passport, pair sets and passports with special numbers.': {ru: 'Паспорт Welcome 2 UZ, парные наборы и паспорта с особыми номерами.', uz: "Welcome 2 UZ pasporti, juft to'plamlar va maxsus raqamli pasportlar."},
   Covers: {ru: 'Обложки', uz: 'Muqovalar'},
   'Covers to protect your passport on the road.': {ru: 'Обложки, чтобы паспорт не пострадал в дороге.', uz: "Yo'lda pasportni asrash uchun muqovalar."},
   'Sticker packs': {ru: 'Наборы стикеров', uz: "Stikerlar to'plami"},
@@ -175,7 +176,8 @@ export const CONTENT_TR: Record<string, Tr> = {
   'Passport, stickers and a cover in one box.': {ru: 'Паспорт, стикеры и обложка в одной коробке.', uz: 'Pasport, stikerlar va muqova bitta qutida.'},
   'Handmade souvenirs': {ru: 'Сувениры ручной работы', uz: "Qo'lda yasalgan esdaliklar"},
   'Small pieces from local craftspeople.': {ru: 'Небольшие вещи от местных мастеров.', uz: 'Mahalliy hunarmandlarning kichik buyumlari.'},
-  'Welcome 2 UZB passport': {ru: 'Паспорт Welcome 2 UZB', uz: 'Welcome 2 UZB pasporti'},
+  'Welcome 2 UZB passport': {ru: 'Паспорт Welcome 2 UZ', uz: 'Welcome 2 UZ pasporti'},
+  'Welcome 2 UZ passport': {ru: 'Паспорт Welcome 2 UZ', uz: 'Welcome 2 UZ pasporti'},
   'Pair set: two passports': {ru: 'Парный набор: два паспорта', uz: "Juft to'plam: ikkita pasport"},
   'Classic passport cover': {ru: 'Классическая обложка для паспорта', uz: 'Klassik pasport muqovasi'},
   'City sticker pack': {ru: 'Набор стикеров городов', uz: "Shahar stikerlari to'plami"},

@@ -8,7 +8,7 @@ const singletons = new Set(['siteSettings'])
 
 export default defineConfig({
   name: 'default',
-  title: 'SilkPass · Welcome 2 UZB',
+  title: 'SilkPass · Welcome 2 UZ',
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'your_project_id',
   dataset: process.env.SANITY_STUDIO_DATASET || 'production',
   plugins: [

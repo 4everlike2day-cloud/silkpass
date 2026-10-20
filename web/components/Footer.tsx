@@ -46,8 +46,8 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
         <div className="wrap">
           <div className="footer-main">
             <div>
-              <Link href={href(lang, '/')} aria-label="Welcome 2 UZB" className="footer-logo-link">
-                <img className="footer-logo" src="/brand/w2uz-logo.png" alt="Welcome 2 UZB · W2-UZ" width={64} height={73} />
+              <Link href={href(lang, '/')} aria-label="Welcome 2 UZ" className="footer-logo-link">
+                <img className="footer-logo" src="/brand/w2uz-logo.png" alt="Welcome 2 UZ · W2-UZ" width={64} height={73} />
               </Link>
               <div className="social">
                 {social.map((s) => (

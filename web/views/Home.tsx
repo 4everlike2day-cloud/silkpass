@@ -26,7 +26,7 @@ export default async function Home({lang}: {lang: Lang}) {
           </div>
           <div className="passport" aria-hidden="true">
             <div style={{display: 'flex', justifyContent: 'space-between'}}>
-              <span className="label">Welcome 2 UZB</span><span className="label">№ 000127</span>
+              <span className="label">Welcome 2 UZ</span><span className="label">№ 000127</span>
             </div>
             <div className="grid">{cities.map((c) => <Stamp key={c.slug} {...c} size={118} total={total} />)}</div>
             <div className="mrz">

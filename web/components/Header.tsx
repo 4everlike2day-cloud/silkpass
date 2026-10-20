@@ -34,7 +34,7 @@ export default function Header() {
   return (
     <header className="site">
       <div className="wrap">
-        <Link className="logo" href={href(lang, '/')}><img src="/brand/w2uz-mark.png" alt="" width={44} height={44} />Welcome 2 UZB</Link>
+        <Link className="logo" href={href(lang, '/')}><img src="/brand/w2uz-mark.png" alt="" width={44} height={44} />Welcome 2 UZ</Link>
         <button className="menu-btn" aria-expanded={open} aria-controls="nav" onClick={() => setOpen(!open)}>{d.menu}</button>
         <nav className={`main${open ? ' open' : ''}`} id="nav">
           {links.map((l) => (

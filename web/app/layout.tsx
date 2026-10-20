@@ -8,9 +8,9 @@ import {getCities, getSettings} from '@/lib/data'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://welcome2.uz'),
-  title: {default: 'Welcome 2 UZB · Souvenir passport for Uzbekistan', template: '%s · Welcome 2 UZB'},
+  title: {default: 'Welcome 2 UZ · Souvenir passport for Uzbekistan', template: '%s · Welcome 2 UZ'},
   description: 'A pocket passport for Tashkent, Samarkand, Bukhara and Khiva. Collect an original stamp in every city.',
-  openGraph: {siteName: 'Welcome 2 UZB', type: 'website'},
+  openGraph: {siteName: 'Welcome 2 UZ', type: 'website'},
 }
 export const viewport: Viewport = {themeColor: [{media: '(prefers-color-scheme: light)', color: '#f3f7f6'}, {media: '(prefers-color-scheme: dark)', color: '#0c1a1d'}], width: 'device-width', initialScale: 1}
 
