@@ -21,6 +21,14 @@ const ICON: Record<string, ReactNode> = {
   ),
 }
 
+// Другие серии паспорта. Пока заглушки: когда у серии появится сайт, добавьте url, и строка станет ссылкой.
+const VERSIONS: {name: string; url?: string}[] = [
+  {name: 'Welcome 2 KZ'},
+  {name: 'Welcome 2 KG'},
+  {name: 'Welcome 2 TJ'},
+  {name: 'SilkRoad'},
+]
+
 export default function Footer({cities, settings}: {cities: Record<Lang, City[]>; settings: Settings}) {
   const {lang} = splitPath(usePathname() || '/')
   const d = t(lang)
@@ -61,6 +69,12 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
               <Link href={href(lang, '/shop')}>{d.nav.shop}</Link>
               <Link href={href(lang, '/partners')}>{d.nav.partners}</Link>
               <Link href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
+            </div>
+            <div className="footer-versions">
+              <p className="label" style={{marginBottom: 10}}>{d.footer.versions}</p>
+              {VERSIONS.map((v) => v.url
+                ? <a key={v.name} href={v.url} target="_blank" rel="noopener">{v.name}</a>
+                : <span key={v.name} className="soon-item">{v.name} <small>{d.footer.soon}</small></span>)}
             </div>
           </div>
           <p className="copyright">© {new Date().getFullYear()} SilkPass</p>
