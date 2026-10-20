@@ -237,6 +237,11 @@ footer.site .copyright{margin-top:32px;padding-top:18px;border-top:1px solid var
 .source-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:28px;border-radius:var(--r);background:var(--accent-soft,#d8f0ec);text-decoration:none;color:var(--ink)}
 .source-cta h3{margin:8px 0 0}
 
-/* В тёмной теме логотипы серии лежат на светлом круге, иначе тёмные линии теряются на фоне */
-:root[data-theme="dark"] .logo img,:root[data-theme="dark"] .footer-logo{background:#eef4f3;border-radius:50%}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .logo img,:root:not([data-theme="light"]) .footer-logo{background:#eef4f3;border-radius:50%}}
+/* В тёмной теме логотипы серии лежат на светлой подложке, иначе тёмные линии теряются на фоне.
+   Значок в шапке круглый, а логотип в футере выше, чем шире, поэтому у него скруглённый прямоугольник. */
+:root[data-theme="dark"] .logo img{background:#eef4f3;border-radius:50%}
+:root[data-theme="dark"] .footer-logo{background:#eef4f3;border-radius:14px;padding:7px;width:78px}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .logo img{background:#eef4f3;border-radius:50%}
+  :root:not([data-theme="light"]) .footer-logo{background:#eef4f3;border-radius:14px;padding:7px;width:78px}
+}
