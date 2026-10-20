@@ -3,6 +3,7 @@ import Link from 'next/link'
 import {usePathname} from 'next/navigation'
 import {useEffect, useState} from 'react'
 import {useCart} from './CartProvider'
+import ThemeToggle from './ThemeToggle'
 import {LANGS, LANG_LABEL, href, splitPath, t} from '@/lib/i18n'
 
 export default function Header() {
@@ -56,6 +57,7 @@ export default function Header() {
               </Link>
             ))}
           </div>
+          <ThemeToggle label={t(lang).theme} />
         </nav>
       </div>
     </header>

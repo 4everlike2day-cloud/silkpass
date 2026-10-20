@@ -4,24 +4,25 @@ import {href, t, type Lang} from '@/lib/i18n'
 
 export const rewardMeta = (lang: Lang) => ({title: t(lang).reward.label, description: t(lang).reward.meta})
 
-const STEPS: Record<Lang, [string, string][]> = {
-  en: [
-    ['Collect the 4 main stamps', 'One stamp in each city: Toshkent, Samarqand, Buxoro and Xiva. The order does not matter. Extra stamps from cafés and workshops do not count.'],
-    ['Get the Route complete stamp', 'Show your passport at any stamp point. The partner checks all four stamps and puts the Route complete stamp in the frame on page 17.'],
-    ['Take your gift', 'The partner gives you a small souvenir, such as a postcard or a magnet, and signs the Gift received line.'],
-    ['No souvenirs left?', 'It happens. Send us a photo of page 17 with the Route complete stamp and you will get a promo code for our online shop. Or pick up the gift at the next partner.'],
+// Шаги получения подарка. tag — хештег проекта из настроек сайта (#welcome2uz).
+const STEPS: Record<Lang, (tag: string) => [string, string][]> = {
+  en: (tag) => [
+    ['Collect all four cities', 'Get a stamp from our partners in Tashkent, Samarkand, Bukhara and Khiva. The order does not matter. Only stamps collected in person count.'],
+    ['Get the Route complete stamp', 'Show your passport to any of our partners. They check the four city stamps, add Route complete on page 17 and write your passport number next to it.'],
+    ['Post a photo', `Share page 17 with the Route complete stamp and your passport number on Instagram or Threads with ${tag}.`],
+    ['Get your promo code', 'Send us the link to your post. We check the passport number and send you a 20% code for our souvenir shop. It also works on a passport for a friend.'],
   ],
-  ru: [
-    ['Соберите 4 основных штампа', 'По одному в каждом городе: Ташкент, Самарканд, Бухара и Хива. Порядок не важен. Дополнительные штампы кафе и мастерских не считаются.'],
-    ['Получите штамп Route complete', 'Покажите паспорт в любой точке штампа. Партнёр проверит все четыре штампа и поставит штамп Route complete в рамку на странице 17.'],
-    ['Заберите подарок', 'Партнёр вручит небольшой сувенир, например открытку или магнит, и распишется в строке Gift received.'],
-    ['Сувениры закончились?', 'Бывает. Пришлите нам фото страницы 17 со штампом Route complete и получите промокод в наш онлайн-магазин. Или заберите подарок у следующего партнёра.'],
+  ru: (tag) => [
+    ['Соберите все четыре города', 'Получите печать у наших партнёров в Ташкенте, Самарканде, Бухаре и Хиве. Порядок не важен. Считаются только печати, собранные лично.'],
+    ['Получите печать Route complete', 'Покажите паспорт любому нашему партнёру. Он проверит печати четырёх городов, поставит Route complete на странице 17 и впишет рядом номер вашего паспорта.'],
+    ['Опубликуйте фото', `Выложите в Instagram или Threads фото страницы 17 с печатью Route complete и номером паспорта, добавьте ${tag}.`],
+    ['Получите промокод', 'Пришлите нам ссылку на пост. Мы сверим номер паспорта и отправим промокод на скидку 20% в сувенир-шопе. Он действует и на паспорт в подарок другу.'],
   ],
-  uz: [
-    ["4 ta asosiy muhrni yig'ing", "Har bir shaharda bittadan muhr: Toshkent, Samarqand, Buxoro va Xiva. Tartib muhim emas. Kafe va ustaxonalarning qo'shimcha muhrlari hisobga olinmaydi."],
-    ['Route complete muhrini oling', "Pasportingizni istalgan muhr nuqtasida ko'rsating. Hamkor to'rtta muhrni tekshirib, 17-sahifadagi ramkaga Route complete muhrini qo'yadi."],
-    ["Sovg'angizni oling", "Hamkor sizga kichik esdalik sovg'a beradi (otkritka yoki magnit) va Gift received qatoriga imzo qo'yadi."],
-    ["Sovg'a qolmaganmi?", "Bunday bo'ladi. Route complete muhri bor 17-sahifa suratini bizga yuboring va onlayn do'kon uchun promokod oling. Yoki sovg'ani keyingi hamkordan oling."],
+  uz: (tag) => [
+    ["To'rtta shaharni yig'ing", "Toshkent, Samarqand, Buxoro va Xivadagi hamkorlarimizdan muhr oling. Tartib muhim emas. Faqat shaxsan to'plangan muhrlar hisobga olinadi."],
+    ['Route complete muhrini oling', "Pasportingizni istalgan hamkorimizga ko'rsating. U to'rtta shahar muhrini tekshiradi, 17-sahifaga Route complete muhrini bosadi va yoniga pasport raqamingizni yozadi."],
+    ["Surat joylang", `Route complete muhri va pasport raqami ko'rinadigan 17-sahifa suratini ${tag} bilan Instagram yoki Threads'ga joylang.`],
+    ['Promokodingizni oling', "Post havolasini bizga yuboring. Pasport raqamini tekshirib, suvenir do'konimiz uchun 20% chegirma promokodini yuboramiz. U do'stingizga sovg'a pasport uchun ham amal qiladi."],
   ],
 }
 
@@ -45,7 +46,7 @@ export default async function Reward({lang}: {lang: Lang}) {
         <div className="wrap"><div style={{maxWidth: 820}}>
           <p className="label" style={{marginBottom: 18}}>{r.howTitle}</p>
           <ol className="places">
-            {STEPS[lang].map(([title, text], i) => (
+            {STEPS[lang](settings.hashtag || '#welcome2uz').map(([title, text], i) => (
               <li key={i}><span className="n">{pad(i + 1)}</span><div><h3>{title}</h3><p className="muted">{text}</p></div></li>
             ))}
           </ol>

@@ -7,20 +7,20 @@ type Tr = {ru: string; uz: string}
 export const CONTENT_TR: Record<string, Tr> = {
   // Настройки
   'Collect Uzbekistan, one stamp at a time.': {
-    ru: 'Соберите Узбекистан, штамп за штампом.',
+    ru: 'Соберите Узбекистан, город за городом.',
     uz: "O'zbekistonni yig'ing: har shaharda bir muhr.",
   },
   'A pocket passport for the classic route: Tashkent, Samarkand, Bukhara and Khiva. Get an original stamp in every city and take the whole trip home in your pocket.': {
-    ru: 'Карманный паспорт для классического маршрута: Ташкент, Самарканд, Бухара и Хива. Получите оригинальный штамп в каждом городе и увезите всю поездку с собой.',
+    ru: 'Карманный паспорт для классического маршрута: Ташкент, Самарканд, Бухара и Хива. Получите оригинальную печать в каждом городе и увезите всю поездку с собой.',
     uz: "Mumtoz yo'nalish uchun cho'ntak pasporti: Toshkent, Samarqand, Buxoro va Xiva. Har bir shaharda original muhr oling va butun safarni uyga olib keting.",
   },
   'Collect all four stamps and show the passport at any stamp point to get the Route complete stamp and a gift.': {
-    ru: 'Соберите все четыре штампа и покажите паспорт в любой точке штампа, чтобы получить штамп Route complete и подарок.',
-    uz: "To'rttala muhrni yig'ing va pasportni istalgan muhr nuqtasida ko'rsating: Route complete muhri va sovg'a olasiz.",
+    ru: 'Соберите все четыре города и покажите паспорт любому нашему партнёру: он поставит печать Route complete. После поста с #welcome2uz вы получите промокод на скидку 20% в сувенир-шопе.',
+    uz: "To'rtta shaharni yig'ing va pasportni istalgan hamkorimizga ko'rsating: u Route complete muhrini bosadi. #welcome2uz bilan post joylagach, suvenir do'kon uchun 20% promokod olasiz.",
   },
   'Collect all four stamps and show the full passport at the Khiva stamp point to claim your reward.': {
-    ru: 'Соберите все четыре штампа и покажите паспорт в любой точке штампа, чтобы получить штамп Route complete и подарок.',
-    uz: "To'rttala muhrni yig'ing va pasportni istalgan muhr nuqtasida ko'rsating: Route complete muhri va sovg'a olasiz.",
+    ru: 'Соберите все четыре города и покажите паспорт любому нашему партнёру: он поставит печать Route complete. После поста с #welcome2uz вы получите промокод на скидку 20% в сувенир-шопе.',
+    uz: "To'rtta shaharni yig'ing va pasportni istalgan hamkorimizga ko'rsating: u Route complete muhrini bosadi. #welcome2uz bilan post joylagach, suvenir do'kon uchun 20% promokod olasiz.",
   },
 
   // Города
@@ -139,7 +139,7 @@ export const CONTENT_TR: Record<string, Tr> = {
 
   // Хива
   'The last stamp. Itchan Kala is a whole walled city of minarets, palaces and mosques, best explored on foot at sunrise and sunset.': {
-    ru: 'Последний штамп. Ичан-Кала — целый город за стенами: минареты, дворцы и мечети. Лучше всего гулять пешком на рассвете и закате.',
+    ru: 'Последняя печать. Ичан-Кала — целый город за стенами: минареты, дворцы и мечети. Лучше всего гулять пешком на рассвете и закате.',
     uz: "Oxirgi muhr. Ichan qal'a devorlar ichidagi butun bir shahar: minoralar, saroylar va masjidlar. Uni tong va shom paytida piyoda aylanish yaxshi.",
   },
   'Itchan Kala': {ru: 'Ичан-Кала', uz: "Ichan qal'a"},
@@ -192,21 +192,21 @@ export const CONTENT_TR: Record<string, Tr> = {
     ru: 'Нет. Начинайте там, где начинается ваша поездка. Номера показывают только самое частое направление.',
     uz: "Yo'q. Safaringiz qayerdan boshlansa, o'sha yerdan boshlang. Raqamlar faqat eng ko'p tanlanadigan yo'nalishni ko'rsatadi.",
   },
-  'What if a stamp point is closed?': {ru: 'Что делать, если точка штампа закрыта?', uz: "Muhr nuqtasi yopiq bo'lsa-chi?"},
+  'What if a stamp point is closed?': {ru: 'Что делать, если партнёр закрыт?', uz: "Hamkor yopiq bo'lsa-chi?"},
   "Check the hours on the city page. If it is closed during the posted hours, message us and we'll find a solution.": {
     ru: 'Проверьте часы работы на странице города. Если в рабочее время закрыто, напишите нам, и мы найдём решение.',
     uz: "Shahar sahifasida ish vaqtini tekshiring. Ish vaqtida yopiq bo'lsa, bizga yozing, yechim topamiz.",
   },
-  'Can I get a stamp without visiting the city?': {ru: 'Можно получить штамп, не побывав в городе?', uz: 'Shaharga bormasdan muhr olsa bo\'ladimi?'},
-  'No. Stamps are given only in person at official stamp points.': {ru: 'Нет. Штампы ставят только лично, в официальных точках.', uz: "Yo'q. Muhrlar faqat rasmiy muhr nuqtalarida shaxsan qo'yiladi."},
+  'Can I get a stamp without visiting the city?': {ru: 'Можно получить печать, не побывав в городе?', uz: 'Shaharga bormasdan muhr olsa bo\'ladimi?'},
+  'No. Stamps are given only in person at official stamp points.': {ru: 'Нет. Печати ставят только лично, у наших партнёров.', uz: "Yo'q. Muhrlar faqat hamkorlarimizda shaxsan bosiladi."},
   'How do I claim the reward?': {ru: 'Как получить подарок?', uz: "Sovg'ani qanday olaman?"},
   'Show your passport with all four main stamps at any stamp point. The partner puts the Route complete stamp on page 17 and gives you a gift. Details: welcome2.uz/reward.': {
-    ru: 'Покажите паспорт с четырьмя основными штампами в любой точке штампа. Партнёр поставит штамп Route complete на страницу 17 и вручит подарок. Подробнее: welcome2.uz/ru/reward.',
-    uz: "To'rtta asosiy muhrli pasportni istalgan muhr nuqtasida ko'rsating. Hamkor 17-sahifaga Route complete muhrini qo'yadi va sovg'a beradi. Batafsil: welcome2.uz/uz/reward.",
+    ru: 'Соберите печати четырёх городов, покажите паспорт любому нашему партнёру и получите печать Route complete. Затем выложите фото страницы 17 с #welcome2uz и пришлите нам ссылку: мы отправим промокод на скидку 20% в сувенир-шопе. Подробнее: welcome2.uz/ru/reward',
+    uz: "To'rtta shahar muhrini to'plang, pasportni istalgan hamkorimizga ko'rsating va Route complete muhrini oling. So'ng 17-sahifa suratini #welcome2uz bilan joylang va havolani bizga yuboring: suvenir do'konimiz uchun 20% promokod yuboramiz. Batafsil: welcome2.uz/uz/reward",
   },
   'Show your passport with all four stamps at the final stamp point in Khiva.': {
-    ru: 'Покажите паспорт с четырьмя основными штампами в любой точке штампа. Партнёр поставит штамп Route complete на страницу 17 и вручит подарок. Подробнее: welcome2.uz/ru/reward.',
-    uz: "To'rtta asosiy muhrli pasportni istalgan muhr nuqtasida ko'rsating. Hamkor 17-sahifaga Route complete muhrini qo'yadi va sovg'a beradi. Batafsil: welcome2.uz/uz/reward.",
+    ru: 'Соберите печати четырёх городов, покажите паспорт любому нашему партнёру и получите печать Route complete. Затем выложите фото страницы 17 с #welcome2uz и пришлите нам ссылку: мы отправим промокод на скидку 20% в сувенир-шопе. Подробнее: welcome2.uz/ru/reward',
+    uz: "To'rtta shahar muhrini to'plang, pasportni istalgan hamkorimizga ko'rsating va Route complete muhrini oling. So'ng 17-sahifa suratini #welcome2uz bilan joylang va havolani bizga yuboring: suvenir do'konimiz uchun 20% promokod yuboramiz. Batafsil: welcome2.uz/uz/reward",
   },
   'Is the site available in other languages?': {ru: 'Сайт есть на других языках?', uz: 'Sayt boshqa tillarda bormi?'},
   'Russian and Uzbek versions are coming soon.': {ru: 'Да: на английском, русском и узбекском. Язык переключается вверху страницы.', uz: "Ha: ingliz, rus va o'zbek tillarida. Tilni sahifa tepasida almashtirish mumkin."},

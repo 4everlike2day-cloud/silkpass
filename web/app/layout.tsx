@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {themeColor: '#23809a', width: 'device-width', initialScale: 1}
 
 export default async function RootLayout({children}: {children: React.ReactNode}) {
-  const [cities, settings] = await Promise.all([getCities(), getSettings()])
+  // Футер общий для всех языков, поэтому названия городов берём сразу на трёх языках.
+  const [en, ru, uz, settings] = await Promise.all([getCities('en'), getCities('ru'), getCities('uz'), getSettings()])
+  const cities = {en, ru, uz}
   return (
     <html lang="en">
       <head>
