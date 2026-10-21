@@ -67,6 +67,11 @@ export default function CartView({cities, lang = 'en'}: {cities: string[]; lang?
         <label className="fl" htmlFor="o-note">{c.note}<textarea id="o-note" name="note" placeholder={c.notePh} /></label>
         <input className="hp" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
         <p className="muted" style={{fontSize: '.9rem'}}>{c.payNote}</p>
+        <p className="muted" style={{fontSize: '.85rem'}}>
+          {t(lang).legal.agree} <Link href={href(lang, '/offer')}>{t(lang).legal.agreeLink}</Link>
+          {'. '}
+          <Link href={href(lang, '/delivery')}>{t(lang).legal.names.delivery}</Link> · <Link href={href(lang, '/returns')}>{t(lang).legal.names.returns}</Link>
+        </p>
         <div className="row" style={{alignItems: 'center'}}>
           <button className="btn accent" type="submit" disabled={state === 'sending'}>{state === 'sending' ? t(lang).sending : c.place(formatPrice(total))}</button>
           {state === 'error' && <span className="err">{c.error}</span>}

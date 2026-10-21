@@ -22,8 +22,8 @@ export default async function HowItWorks({lang}: {lang: Lang}) {
       </section>
       <section>
         <div className="wrap grid2">
-          <div className="card"><p className="label">{d.reward}</p><h3>{d.rewardTitle(cities.length)}</h3><p className="muted">{d.rewardText}</p><p style={{marginTop: 14}}><Link className="btn ghost" href={href(lang, '/reward')}>{d.rewardMore}</Link></p></div>
-          <div className="card"><p className="label">{d.rules}</p><h3>{d.rulesTitle}</h3><p className="muted">{d.rulesText}</p></div>
+          <div className="card"><p className="label">{d.reward}</p><h3>{d.rewardTitle(cities.length)}</h3><p className="muted">{d.rewardText}</p><p style={{marginTop: 14}}><Link className="btn" href={href(lang, '/reward') + '#claim'}>{d.rewardMore}</Link></p></div>
+          <div className="card"><p className="label">{d.rules}</p><h3>{d.rulesTitle}</h3><p className="muted">{d.rulesText}</p><p style={{marginTop: 14}}><Link className="btn ghost" href={href(lang, '/reward')}>{d.rulesMore}</Link></p></div>
         </div>
       </section>
     </>

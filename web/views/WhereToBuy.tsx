@@ -48,7 +48,7 @@ export default async function WhereToBuy({lang}: {lang: Lang}) {
           })}
         </div>
       </section>
-      {(s.telegram || s.whatsapp) && (
+      {(s.telegram || s.whatsapp || s.instagram) && (
         <section>
           <div className="wrap">
             <div className="card">
@@ -57,6 +57,7 @@ export default async function WhereToBuy({lang}: {lang: Lang}) {
               <div className="row">
                 {s.whatsapp && <a className="btn ghost" href={`https://wa.me/${s.whatsapp}`} target="_blank" rel="noopener">WhatsApp</a>}
                 {s.telegram && <a className="btn ghost" href={`https://t.me/${s.telegram}`} target="_blank" rel="noopener">Telegram @{s.telegram}</a>}
+                {s.instagram && <a className="btn ghost" href={`https://instagram.com/${s.instagram}`} target="_blank" rel="noopener">Instagram @{s.instagram}</a>}
               </div>
             </div>
           </div>

@@ -4,6 +4,8 @@ import {usePathname} from 'next/navigation'
 import type {ReactNode} from 'react'
 import type {City, Settings} from '@/lib/types'
 import {href, splitPath, t, type Lang} from '@/lib/i18n'
+import {SITE_VERSION} from '@/lib/version'
+import {LEGAL_SLUGS} from '@/lib/legal'
 
 // Иконки соцсетей: простые контурные значки в цвете текста.
 const ICON: Record<string, ReactNode> = {
@@ -64,11 +66,10 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
             <div>
               <p className="label" style={{marginBottom: 10}}>{d.footer.info}</p>
               <Link href={href(lang, '/how-it-works')}>{d.nav.how}</Link>
-              <Link href={href(lang, '/reward')}>{d.nav.reward}</Link>
+              <Link href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
               <Link href={href(lang, '/where-to-buy')}>{d.nav.buy}</Link>
               <Link href={href(lang, '/shop')}>{d.nav.shop}</Link>
               <Link href={href(lang, '/partners')}>{d.nav.partners}</Link>
-              <Link href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
             </div>
             <div className="footer-versions">
               <p className="label" style={{marginBottom: 10}}>{d.footer.versions}</p>
@@ -77,7 +78,12 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
                 : <span key={v.name} className="soon-item">{v.name} <small>{d.footer.soon}</small></span>)}
             </div>
           </div>
-          <p className="copyright">© {new Date().getFullYear()} SilkPass</p>
+          <div className="footer-bottom">
+            <p className="copyright">© {new Date().getFullYear()} SilkPass <span className="version">v{SITE_VERSION}</span></p>
+            <nav className="legal-links" aria-label={d.legal.label}>
+              {LEGAL_SLUGS.map((x) => <Link key={x} href={href(lang, `/${x}`)}>{d.legal.names[x]}</Link>)}
+            </nav>
+          </div>
         </div>
       </footer>
     </>
