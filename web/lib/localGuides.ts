@@ -115,8 +115,187 @@ function mural(m: MuralSrc, lang: Lang): GuideItem {
   }
 }
 
+// Метро Ташкента: 13 красивых станций. Фото обработаны ретро-фильтром, лежат в public/guides/tashkent-metro.
+// Координаты станций — по Википедии. Линии: синяя O'zbekiston, красная Chilonzor, зелёная Yunusobod.
+const LINE: Record<'uzb' | 'chil' | 'yun', L> = {
+  uzb: {en: 'Oʻzbekiston line · blue', ru: 'Узбекистанская линия · синяя', uz: "O'zbekiston liniyasi · ko'k"},
+  chil: {en: 'Chilonzor line · red', ru: 'Чиланзарская линия · красная', uz: 'Chilonzor liniyasi · qizil'},
+  yun: {en: 'Yunusobod line · green', ru: 'Юнусабадская линия · зелёная', uz: 'Yunusobod liniyasi · yashil'},
+}
+type StationSrc = {n: string; line: keyof typeof LINE; lat: number; lon: number; title: L; text: L}
+
+const STATIONS: StationSrc[] = [
+  {
+    n: 'beruniy', line: 'uzb', lat: 41.345428, lon: 69.206767,
+    title: {en: 'Beruniy', ru: 'Беруни', uz: 'Beruniy'},
+    text: {
+      en: 'Calm, solemn architecture: a domed ceiling with a marble pattern and hanging chandeliers over the platform. Named after Abu Rayhan al-Biruni, the great scholar-encyclopedist of the medieval East. Look at how symmetry, stone and soft light work together.',
+      ru: 'Спокойная, торжественная архитектура: купольная композиция с мраморным рисунком и подвесные люстры над платформой. Название напоминает об Абу Райхане Беруни — выдающемся учёном-энциклопедисте средневекового Востока. Обратите внимание на сочетание симметрии, каменной отделки и мягкого света.',
+      uz: "Osoyishta va tantanali me'morchilik: platforma ustida marmar naqshli gumbazsimon shift va osma qandillar. Nomi o'rta asr Sharqining buyuk qomusiy olimi Abu Rayhon Beruniyni eslatadi. Simmetriya, tosh qoplama va yumshoq yorug'lik uyg'unligiga e'tibor bering.",
+    },
+  },
+  {
+    n: 'tinchlik', line: 'uzb', lat: 41.331861, lon: 69.219925,
+    title: {en: 'Tinchlik', ru: 'Тинчлик', uz: 'Tinchlik'},
+    text: {
+      en: 'A richly decorated station: coloured glass panels, marble columns and lamps set a rhythm that runs the whole length of the platform. The name means “peace”. A treat for anyone who likes to study interior details.',
+      ru: 'Станция с насыщенным декоративным оформлением: цветные витражные поверхности, мраморные колонны и светильники создают ритм вдоль всей платформы. Название переводится как «мир». Интересная остановка для тех, кто любит рассматривать детали интерьеров.',
+      uz: "Bezakka boy bekat: rangli vitrajlar, marmar ustunlar va chiroqlar platforma bo'ylab ritm yaratadi. Nomi «tinchlik» degani. Interyer tafsilotlarini tomosha qilishni yaxshi ko'radiganlar uchun qiziqarli bekat.",
+    },
+  },
+  {
+    n: 'gafur-gulom', line: 'uzb', lat: 41.327831, lon: 69.246981,
+    title: {en: 'Gʻafur Gʻulom', ru: 'Гафур Гулям', uz: "G'afur G'ulom"},
+    text: {
+      en: 'Massive columns contrast with colourful ceramic panels; turquoise stone and ornament make the hall expressive without overloading it. Named after Gafur Gulam, the 20th-century Uzbek poet and writer.',
+      ru: 'Интерьер строится на контрасте массивных колонн и красочных керамических панно. Бирюзовые оттенки камня и орнамент придают залу выразительность, не перегружая его. Станция названа в честь Гафура Гуляма — узбекского поэта и писателя XX века.',
+      uz: "Interyer ulkan ustunlar va rang-barang sopol panolar qarama-qarshiligiga qurilgan. Toshning feruza tuslari va naqshlar zalni ortiqcha yuklamasdan ifodali qiladi. Bekat XX asr o'zbek shoiri va yozuvchisi G'afur G'ulom nomi bilan atalgan.",
+    },
+  },
+  {
+    n: 'alisher-navoiy', line: 'uzb', lat: 41.321125, lon: 69.254714,
+    title: {en: 'Alisher Navoiy', ru: 'Алишер Навои', uz: 'Alisher Navoiy'},
+    text: {
+      en: 'One of the most recognisable stations in Tashkent. Arches, blue domes and fine ornament echo the historic madrasas and mosques of Uzbekistan, while ceramic panels tell the story of the poet Alisher Navoi. Transfer to Paxtakor.',
+      ru: 'Одна из самых узнаваемых станций Ташкента. Арки, синие купольные мотивы и изящный орнамент напоминают исторические медресе и мечети Узбекистана, а керамические панно связаны с наследием поэта Алишера Навои. Здесь переход на «Пахтакор».',
+      uz: "Toshkentning eng taniqli bekatlaridan biri. Ravoqlar, ko'k gumbaz naqshlari va nafis bezaklar O'zbekistonning tarixiy madrasa va masjidlarini eslatadi, sopol panolar esa Alisher Navoiy merosi haqida hikoya qiladi. Bu yerda «Paxtakor»ga o'tish bor.",
+    },
+  },
+  {
+    n: 'kosmonavtlar', line: 'uzb', lat: 41.305022, lon: 69.265344,
+    title: {en: 'Kosmonavtlar', ru: 'Космонавтлар', uz: 'Kosmonavtlar'},
+    text: {
+      en: 'A station about space. Deep blues fade into darker tones, and a long light line on the ceiling looks like the Milky Way. Ceramic medallions show the heroes of space flight, including Yuri Gagarin and Valentina Tereshkova. One of the most unusual interiors in the metro.',
+      ru: 'Станция о космосе. Глубокие синие оттенки переходят в более тёмные, а протяжённый световой элемент на потолке напоминает Млечный Путь. Керамические медальоны посвящены героям космонавтики — среди них Юрий Гагарин и Валентина Терешкова. Один из самых необычных интерьеров ташкентского метро.',
+      uz: "Koinot haqidagi bekat. Chuqur ko'k ranglar to'qroq tuslarga o'tadi, shiftdagi uzun yorug'lik chizig'i esa Somon yo'lini eslatadi. Sopol medalyonlar kosmonavtika qahramonlariga bag'ishlangan, ular orasida Yuriy Gagarin va Valentina Tereshkova bor. Toshkent metrosining eng g'ayrioddiy interyerlaridan biri.",
+    },
+  },
+  {
+    n: 'tashkent', line: 'uzb', lat: 41.292136, lon: 69.28615,
+    title: {en: 'Toshkent', ru: 'Ташкент', uz: 'Toshkent'},
+    text: {
+      en: 'Dedicated to the history and image of the capital, with blue-and-white ceramic panels about city life and Uzbek heritage. A good example of how the metro uses art to tell the story of the city, not just to move passengers. Next to the main railway station.',
+      ru: 'Станция посвящена истории и образу столицы: керамические панно в сине-белой гамме, композиции о городской жизни и наследии Узбекистана. Хороший пример того, как метро рассказывает о городе, а не только перевозит пассажиров. Рядом главный железнодорожный вокзал.',
+      uz: "Bekat poytaxt tarixi va qiyofasiga bag'ishlangan: ko'k-oq sopol panolar, shahar hayoti va O'zbekiston merosi haqidagi kompozitsiyalar. Metro yo'lovchi tashishdan tashqari shahar haqida ham hikoya qilishiga yaxshi misol. Yonida asosiy temir yo'l vokzali.",
+    },
+  },
+  {
+    n: 'chilonzor', line: 'chil', lat: 41.274547, lon: 69.204739,
+    title: {en: 'Chilonzor', ru: 'Чиланзар', uz: 'Chilonzor'},
+    text: {
+      en: 'Part of the very first section of the Tashkent metro, opened in 1977. Colourful ceramic panels and huge chandeliers; less obvious symbolism than elsewhere, but you can feel the monumental style of the early metro: rich materials, big scale and careful symmetry.',
+      ru: 'Входит в первый участок ташкентского метро, открытый в 1977 году. Цветные керамические панно и крупные светильники. Тематической символики меньше, чем на других станциях, зато хорошо ощущается монументальный стиль раннего метро: выразительные материалы, крупный масштаб и выверенная симметрия.',
+      uz: "1977 yilda ochilgan Toshkent metrosining birinchi qismiga kiradi. Rangli sopol panolar va katta qandillar. Ramziy bezaklar boshqa bekatlardagidan kamroq, lekin ilk metroning monumental uslubi yaxshi seziladi: ifodali materiallar, katta ko'lam va puxta simmetriya.",
+    },
+  },
+  {
+    n: 'xalqlar-dostligi', line: 'chil', lat: 41.311881, lon: 69.241392,
+    title: {en: 'Xalqlar Doʻstligi', ru: 'Халклар дустлиги', uz: "Xalqlar do'stligi"},
+    text: {
+      en: 'A restrained, strict station: a clear rhythm of columns and laconic geometry create a sense of space and order. The name means “Friendship of Peoples”. In 2008–2018 it was called Bunyodkor, after the football club, and then got its historic name back.',
+      ru: 'Сдержанная, строгая станция: чёткий ритм колонн и лаконичная геометрия создают ощущение простора и порядка. Название переводится как «Дружба народов». В 2008–2018 годах станция называлась «Бунёдкор», в честь футбольного клуба, а затем ей вернули историческое имя.',
+      uz: "Vazmin va qat'iy bekat: ustunlarning aniq ritmi va lo'nda geometriya kenglik va tartib hissini beradi. 2008–2018 yillarda bekat futbol klubi sharafiga «Bunyodkor» deb atalgan, keyin unga tarixiy nomi qaytarilgan.",
+    },
+  },
+  {
+    n: 'paxtakor', line: 'chil', lat: 41.321264, lon: 69.254325,
+    title: {en: 'Paxtakor', ru: 'Пахтакор', uz: 'Paxtakor'},
+    text: {
+      en: 'The main motif is the cotton plant: blue-green mosaics with plant forms recall the crop that shaped Uzbekistan’s economy and daily life for decades. The name means “cotton grower”. Linked by a passage to Alisher Navoiy, so it is easy to add to an art-metro walk.',
+      ru: 'Главный мотив — хлопчатник: сине-зелёные мозаики с растительными формами отсылают к культуре, которая долго определяла экономику и повседневную жизнь Узбекистана. Название переводится как «хлопкороб». Станция соединена переходом с «Алишер Навои», её удобно включить в маршрут.',
+      uz: "Asosiy naqsh — g'o'za: o'simlik shakllaridagi ko'k-yashil mozaikalar uzoq yillar O'zbekiston iqtisodiyoti va kundalik hayotini belgilagan ekinga ishora qiladi. Bekat «Alisher Navoiy» bilan o'tish yo'li orqali bog'langan, uni yo'nalishga qo'shish qulay.",
+    },
+  },
+  {
+    n: 'mustaqillik-maydoni', line: 'chil', lat: 41.318925, lon: 69.271292,
+    title: {en: 'Mustaqillik Maydoni', ru: 'Мустакиллик майдони', uz: 'Mustaqillik maydoni'},
+    text: {
+      en: 'Independence Square, one of the grandest stations of the old metro. Light stone, columns and a carefully built perspective give the hall a ceremonial look. Look down at the floor pattern and at how the stone plays with light. The square itself is right above.',
+      ru: '«Площадь Независимости» — одна из самых представительных станций старой части метро. Светлый камень, колонны и выстроенная перспектива придают залу торжественный вид. Рассмотрите рисунок пола и игру камня со светом. Сама площадь — прямо над станцией.',
+      uz: "Eski metroning eng salobatli bekatlaridan biri. Och rangli tosh, ustunlar va puxta qurilgan istiqbol zalga tantanali tus beradi. Pol naqshi va toshning yorug'lik bilan o'yiniga e'tibor bering. Maydonning o'zi bekat tepasida.",
+    },
+  },
+  {
+    n: 'yunus-rajabi', line: 'yun', lat: 41.312311, lon: 69.281042,
+    title: {en: 'Yunus Rajabiy', ru: 'Юнус Раджаби', uz: 'Yunus Rajabiy'},
+    text: {
+      en: 'Named after the famous Uzbek musician and collector of musical heritage. Big marble columns and a wide staircase, the architectural centrepiece of the hall. Transfer to Amir Temur Xiyoboni.',
+      ru: 'Станция посвящена известному узбекскому музыканту и собирателю музыкального наследия. Пространство подчёркивают крупные мраморные колонны и широкая лестница — главный архитектурный акцент зала. Пересадка на «Амир Темур хиёбони».',
+      uz: "Bekat mashhur o'zbek musiqachisi va musiqa merosini to'plovchisiga bag'ishlangan. Katta marmar ustunlar va keng zinapoya zalning asosiy me'moriy urg'usi. «Amir Temur xiyoboni»ga o'tish bor.",
+    },
+  },
+  {
+    n: 'abdulla-qodiriy', line: 'yun', lat: 41.319411, lon: 69.282458,
+    title: {en: 'Abdulla Qodiriy', ru: 'Абдулла Кадыри', uz: 'Abdulla Qodiriy'},
+    text: {
+      en: 'A symmetrical platform hall with colourful inlays on the columns; the mix of cool and warm tones makes it stand out, though it is calmer than the most lavish stations. Named after Abdulla Qodiriy, one of the founders of modern Uzbek literature.',
+      ru: 'Симметричный платформенный зал и цветные вставки в отделке колонн. Сочетание холодных и тёплых оттенков делает интерьер заметным, хотя он сдержаннее самых пышных станций. Названа в честь Абдуллы Кадыри — одного из ключевых авторов современной узбекской литературы.',
+      uz: "Simmetrik platforma zali va ustunlar bezagidagi rangli qo'shimchalar. Sovuq va iliq tuslar uyg'unligi interyerni ko'zga tashlanadigan qiladi, garchi u eng hashamatli bekatlardan vazminroq bo'lsa ham. Zamonaviy o'zbek adabiyotining asoschilaridan biri Abdulla Qodiriy nomi bilan atalgan.",
+    },
+  },
+  {
+    n: 'bodomzor', line: 'yun', lat: 41.3462, lon: 69.28595,
+    title: {en: 'Bodomzor', ru: 'Бодомзор', uz: 'Bodomzor'},
+    text: {
+      en: 'A light ceiling with blue geometric patterns, small ceramic details and modern lamps. The repeating shapes feel almost futuristic, and warm light softens the strict geometry. Opened in 2001; the network has grown a lot since.',
+      ru: 'Светлый потолок с синими геометрическими узорами, небольшие керамические детали и современные светильники. Повторяющиеся формы придают станции почти футуристический характер, а тёплый свет смягчает строгую геометрию. Открыта в 2001 году; с тех пор сеть сильно выросла.',
+      uz: "Ko'k geometrik naqshli och rangli shift, kichik sopol bezaklar va zamonaviy chiroqlar. Takrorlanuvchi shakllar bekatga deyarli futuristik ko'rinish beradi, iliq yorug'lik esa qat'iy geometriyani yumshatadi. 2001 yilda ochilgan; o'shandan beri tarmoq ancha kengaydi.",
+    },
+  },
+]
+
+function station(s: StationSrc, lang: Lang): GuideItem {
+  const photo = img('tashkent-metro', s.n)
+  return {
+    title: s.title[lang], text: s.text[lang], image: photo, images: [photo],
+    mapsUrl: yandex(s.lat, s.lon), lat: s.lat, lon: s.lon, area: LINE[s.line][lang], credit: null,
+  }
+}
+
 export function localGuides(lang: Lang): Guide[] {
   return [
+    {
+      slug: 'metro',
+      citySlug: 'tashkent',
+      title: {en: 'Tashkent Metro', ru: 'Метро Ташкента', uz: 'Toshkent metrosi'}[lang],
+      summary: {
+        en: 'Thirteen underground palaces: marble, ceramics, chandeliers and even outer space.',
+        ru: 'Тринадцать подземных дворцов: мрамор, керамика, люстры и даже космос.',
+        uz: "O'n uchta yer osti saroyi: marmar, sopol, qandillar va hatto koinot.",
+      }[lang],
+      cover: img('tashkent-metro', 'cover'),
+      intro: {
+        en: 'The Tashkent Metro is more than transport: it is an underground gallery of architecture and decorative art. Marble and granite, colourful ceramics, mosaics, stained glass and striking chandeliers. Every station has its own character: some look like an Eastern palace, others tell stories about space, literature or the history of the capital.\n\nWe picked 13 of the most beautiful stations. Tap a station on the map to see its photo, and check the scheme before you go: the network keeps growing. Taking photos in the metro has been allowed since 2018; just follow the staff’s instructions.',
+        ru: 'Ташкентское метро — не только удобный транспорт, но и подземная галерея архитектуры и декоративного искусства. Мрамор и гранит, цветная керамика, мозаики, витражи и выразительные светильники. У каждой станции свой характер: одни напоминают восточный дворец, другие рассказывают о космосе, литературе или истории столицы.\n\nМы выбрали 13 самых красивых станций. Нажмите на станцию на карте, чтобы увидеть фото, а перед поездкой сверьтесь со схемой: сеть постоянно растёт. Фотографировать в метро можно с 2018 года, просто следуйте указаниям сотрудников.',
+        uz: "Toshkent metrosi nafaqat qulay transport, balki me'morchilik va bezak san'atining yer osti galereyasi hamdir. Marmar va granit, rangli sopol, mozaika, vitraj va ko'zni qamashtiruvchi chiroqlar. Har bir bekatning o'z xarakteri bor: ba'zilari sharq saroyini eslatadi, boshqalari koinot, adabiyot yoki poytaxt tarixi haqida hikoya qiladi.\n\nBiz eng chiroyli 13 ta bekatni tanladik. Suratni ko'rish uchun xaritada bekatni bosing, safardan oldin esa sxemani tekshiring: tarmoq doimo kengaymoqda. Metroda 2018 yildan beri suratga olish mumkin, faqat xodimlarning ko'rsatmalariga amal qiling.",
+      }[lang],
+      scheme: {
+        image: '/guides/tashkent-metro/scheme.webp',
+        alt: {en: 'Tashkent Metro map', ru: 'Схема метро Ташкента', uz: 'Toshkent metrosi sxemasi'}[lang],
+        credit: {en: 'Map by Ilya Birman and Timur Repin', ru: 'Схема: Илья Бирман, Тимур Репин', uz: 'Sxema mualliflari: Ilya Birman, Timur Repin'}[lang],
+        creditUrl: 'https://ilyabirman.ru/tashkent-metro/map-1/',
+        downloadUrl: 'https://ilyabirman.ru/tashkent-metro/map-1/download/tashkent-metro-map-2024-1.pdf',
+        downloadLabel: {en: 'Download PDF', ru: 'Скачать PDF', uz: 'PDF yuklab olish'}[lang],
+      },
+      note: {
+        title: {en: 'See the real colours yourself', ru: 'Настоящие цвета — только вживую', uz: "Haqiqiy ranglarni o'zingiz ko'ring"}[lang],
+        text: {
+          en: 'All photos on this page went through a retro filter. The real shine of the marble, the glow of the chandeliers and the colours of the mosaics can only be seen underground. Your challenge: find all 13 stations and decide which one is the most beautiful.',
+          ru: 'Все фотографии на этой странице обработаны ретро-фильтром. Настоящий блеск мрамора, свет люстр и цвета мозаик можно увидеть только под землёй. Ваш челлендж: найдите все 13 станций и решите, какая из них самая красивая.',
+          uz: "Bu sahifadagi barcha suratlar retro filtr bilan ishlangan. Marmarning haqiqiy jilosi, qandillar nuri va mozaika ranglarini faqat yer ostida ko'rish mumkin. Sizning sinovingiz: barcha 13 ta bekatni toping va qaysi biri eng chiroyli ekanini hal qiling.",
+        }[lang],
+      },
+      order: 0,
+      gallery: [],
+      sourceUrl: 'https://www.afisha.uz/ru/gorod/2016/01/28/metro',
+      sourceLabel: 'Afisha.uz',
+      sourceText: {
+        en: 'More photos of Tashkent metro stations from Afisha.uz (in Russian).',
+        ru: 'Ещё больше фотографий станций ташкентского метро — в подборке Afisha.uz.',
+        uz: "Toshkent metro bekatlarining ko'proq suratlari — Afisha.uz to'plamida (rus tilida).",
+      }[lang],
+      items: STATIONS.map((s) => station(s, lang)),
+    },
     {
       slug: 'murals',
       citySlug: 'tashkent',

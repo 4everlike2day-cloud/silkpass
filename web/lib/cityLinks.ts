@@ -22,9 +22,10 @@ const WIKI: Record<Lang, Record<string, string>> = {
     khiva: 'https://uz.wikipedia.org/wiki/Xiva',
   },
 }
-const EVENTS: Record<string, {url: string; label: Record<Lang, string>}> = {
+const EVENTS: Record<string, {url: string; image?: string; label: Record<Lang, string>}> = {
   tashkent: {
     url: 'https://www.afisha.uz/ru/calendar',
+    image: '/links/afishauz-cover.png',
     label: {
       en: 'Afisha.uz · concerts, theatre, exhibitions (in Russian)',
       ru: 'Afisha.uz · концерты, театры, выставки',
@@ -38,7 +39,7 @@ export function wikiUrl(c: City, lang: Lang = 'en') {
   return WIKI[lang][c.slug] || c.wikiUrl || `https://en.wikipedia.org/wiki/${encodeURIComponent(c.slug)}`
 }
 export function events(c: City, lang: Lang = 'en') {
-  if (c.eventsUrl) return {url: c.eventsUrl, label: c.eventsLabel || 'Events calendar'}
   const e = EVENTS[c.slug]
-  return e ? {url: e.url, label: e.label[lang]} : null
+  if (c.eventsUrl) return {url: c.eventsUrl, label: c.eventsLabel || 'Events calendar', image: e && e.url === c.eventsUrl ? e.image : undefined}
+  return e ? {url: e.url, label: e.label[lang], image: e.image} : null
 }

@@ -54,6 +54,10 @@ export type Guide = {
   sourceUrl?: string | null
   sourceLabel?: string | null
   sourceText?: string | null
+  // Картинка-схема после вступления (например, схема метро) с подписью автора и ссылкой на скачивание.
+  scheme?: {image: string; alt: string; credit: string; creditUrl?: string; downloadUrl?: string; downloadLabel?: string} | null
+  // Заметка после карточек (выделенный блок).
+  note?: {title: string; text: string} | null
 }
 
 export type Role = 'stamp' | 'sales' | 'deal' | 'ad'

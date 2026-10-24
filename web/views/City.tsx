@@ -128,6 +128,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
               ))}
               {ev && (
                 <a className="more-card" href={ev.url} target="_blank" rel="noopener">
+                  {ev.image && <img src={ev.image} alt="" loading="lazy" />}
                   <div><p className="label">{d.events}</p><h3>{d.whatsOn(c.name)}</h3><p className="muted">{ev.label}</p><span className="go">{d.open} ↗</span></div>
                 </a>
               )}

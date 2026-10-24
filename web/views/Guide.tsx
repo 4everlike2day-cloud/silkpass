@@ -40,6 +40,20 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
         </section>
       )}
 
+      {g.scheme && (
+        <section>
+          <div className="wrap">
+            <figure className="guide-scheme">
+              <a href={g.scheme.image} target="_blank" rel="noopener"><img src={g.scheme.image} alt={g.scheme.alt} loading="lazy" /></a>
+              <figcaption>
+                {g.scheme.creditUrl ? <a href={g.scheme.creditUrl} target="_blank" rel="noopener">{g.scheme.credit} ↗</a> : g.scheme.credit}
+                {g.scheme.downloadUrl && <a className="btn ghost sm" href={g.scheme.downloadUrl} target="_blank" rel="noopener">{g.scheme.downloadLabel || 'PDF'} ↓</a>}
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      )}
+
       {g.items.length > 0 && (() => {
         const pts = g.items.flatMap((it, i) => (it.lat != null && it.lon != null ? [{n: i + 1, title: it.title, lat: it.lat, lon: it.lon, href: `#item-${i + 1}`}] : []))
         return (
@@ -73,6 +87,14 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
           </section>
         )
       })()}
+
+      {g.note && (
+        <section>
+          <div className="wrap">
+            <div className="guide-note"><h3>{g.note.title}</h3><p>{g.note.text}</p></div>
+          </div>
+        </section>
+      )}
 
       {g.gallery.length > 0 && (
         <section>

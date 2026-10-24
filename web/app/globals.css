@@ -244,6 +244,12 @@ nav.main a.cart-link{padding:8px 10px}
 .guide-card h3{margin:0}
 .guide-card .credit{font-size:.82rem;color:var(--muted);margin:0}
 .btn.sm{padding:8px 14px;font-size:.88rem;justify-self:start;margin-top:4px}
+.guide-scheme{margin:0;display:grid;gap:12px;justify-items:center}
+.guide-scheme img{width:100%;max-width:600px;height:auto;display:block;border-radius:var(--r);border:1px solid var(--line)}
+.guide-scheme figcaption{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:.9rem;color:var(--muted)}
+.guide-scheme figcaption>a:first-child{color:var(--muted)}
+.guide-note{padding:26px 28px;border-radius:var(--r);border:2px dashed var(--accent);max-width:72ch}
+.guide-note h3{margin:0 0 8px}.guide-note p{margin:0}
 .source-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:28px;border-radius:var(--r);background:var(--accent-soft,#d8f0ec);text-decoration:none;color:var(--ink)}
 .source-cta h3{margin:8px 0 0}
 
