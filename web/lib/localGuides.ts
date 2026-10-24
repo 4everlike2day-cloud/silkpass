@@ -253,6 +253,8 @@ function station(s: StationSrc, lang: Lang): GuideItem {
 }
 
 export function localGuides(lang: Lang): Guide[] {
+  const ATTO = `https://atto.uz/${lang}`
+  const METRO = `https://uzmetro.uz/${lang}`
   return [
     {
       slug: 'metro',
@@ -276,6 +278,35 @@ export function localGuides(lang: Lang): Guide[] {
         creditUrl: 'https://ilyabirman.ru/tashkent-metro/map-1/',
         downloadUrl: 'https://ilyabirman.ru/tashkent-metro/map-1/download/tashkent-metro-map-2024-1.pdf',
         downloadLabel: {en: 'Download PDF', ru: 'Скачать PDF', uz: 'PDF yuklab olish'}[lang],
+      },
+      tips: {
+        title: {en: 'Rider’s cheat sheet', ru: 'Шпаргалка пассажира', uz: "Yo'lovchi uchun eslatma"}[lang],
+        items: {
+          en: [
+            `Fare: tap a contactless bank card or an [ATTO](${ATTO}) card at the turnstile — 2,500 so'm per trip. Cash: a QR ticket from the ticket office, 3,000 so'm (as of 1 October 2026).`,
+            'Your foreign card works too: turnstiles accept Visa, Mastercard and UnionPay, plus local Uzcard and Humo (as of March 2026).',
+            `Hours: 5:00–24:00; the green Yunusobod line runs 6:00–23:00. Entrances close 15 minutes earlier (as of March 2026). Up-to-date info: [uzmetro.uz](${METRO}).`,
+            'For empty platforms and photos, avoid rush hours: 7:30–9:30 and 17:00–19:00.',
+            'Large luggage (over 200 cm in total) needs a separate ticket.',
+            'Station Wi-Fi works only with a local SIM card.',
+          ],
+          ru: [
+            `Оплата: приложите бесконтактную банковскую карту или карту [ATTO](${ATTO}) к турникету — 2 500 сумов за поездку. Наличными: QR-билет в кассе, 3 000 сумов (на 1 октября 2026).`,
+            'Иностранная карта тоже подойдёт: турникеты принимают Visa, Mastercard и UnionPay, а также местные Uzcard и Humo (на март 2026).',
+            `Часы работы: 5:00–24:00, зелёная Юнусабадская линия — 6:00–23:00. Вход закрывают за 15 минут до конца (на март 2026). Актуальное — на [uzmetro.uz](${METRO}).`,
+            'Для пустых платформ и фото избегайте часа пик: 7:30–9:30 и 17:00–19:00.',
+            'Крупный багаж (больше 200 см по сумме трёх сторон) оплачивается отдельно.',
+            'Wi-Fi на станциях работает только с местной SIM-картой.',
+          ],
+          uz: [
+            `To'lov: turniketga kontaktsiz bank kartasi yoki [ATTO](${ATTO}) kartasini tekkizing — bir yo'l 2 500 so'm. Naqd: kassada QR-chipta, 3 000 so'm (2026-yil 1-oktabr holatiga).`,
+            "Xorijiy karta ham ishlaydi: turniketlar Visa, Mastercard, UnionPay hamda mahalliy Uzcard va Humo kartalarini qabul qiladi (2026-yil mart holatiga).",
+            `Ish vaqti: 5:00–24:00, yashil Yunusobod liniyasi — 6:00–23:00. Kirish 15 daqiqa oldin yopiladi (2026-yil mart holatiga). Dolzarb ma'lumot: [uzmetro.uz](${METRO}).`,
+            "Bo'sh platformalar va suratlar uchun tig'iz soatlardan qoching: 7:30–9:30 va 17:00–19:00.",
+            "Katta yuk (uch tomoni yig'indisi 200 sm dan ortiq) alohida to'lanadi.",
+            "Bekatlardagi Wi-Fi faqat mahalliy SIM-karta bilan ishlaydi.",
+          ],
+        }[lang],
       },
       note: {
         title: {en: 'See the real colours yourself', ru: 'Настоящие цвета — только вживую', uz: "Haqiqiy ranglarni o'zingiz ko'ring"}[lang],

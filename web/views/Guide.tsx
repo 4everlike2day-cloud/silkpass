@@ -17,6 +17,14 @@ export async function guideMeta(lang: Lang, city: string, guide: string) {
   return g ? {title: g.title, description: g.summary || undefined} : {robots: {index: false}}
 }
 
+// Ссылки в тексте в виде [текст](https://...)
+function withLinks(text: string) {
+  return text.split(/(\[[^\]]+\]\(https?:[^)\s]+\))/g).map((part, i) => {
+    const m = part.match(/^\[([^\]]+)\]\((https?:[^)\s]+)\)$/)
+    return m ? <a key={i} href={m[2]} target="_blank" rel="noopener">{m[1]}</a> : part
+  })
+}
+
 const LB: Record<Lang, {close: string; prev: string; next: string}> = {
   en: {close: 'Close', prev: 'Previous photo', next: 'Next photo'},
   ru: {close: 'Закрыть', prev: 'Предыдущее фото', next: 'Следующее фото'},
@@ -94,6 +102,18 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
           </section>
         )
       })()}
+
+      {g.tips && (
+        <section>
+          <div className="wrap">
+            <div className="guide-tips">
+              <h2>{g.tips.title}</h2>
+              <ul>{g.tips.items.map((t, i) => <li key={i}>{withLinks(t)}</li>)}</ul>
+              {g.tips.sourceUrl && <p className="credit"><a href={g.tips.sourceUrl} target="_blank" rel="noopener">{g.tips.sourceLabel || g.tips.sourceUrl} ↗</a></p>}
+            </div>
+          </div>
+        </section>
+      )}
 
       {g.note && (
         <section>

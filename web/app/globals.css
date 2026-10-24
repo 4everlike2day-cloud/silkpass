@@ -248,6 +248,11 @@ nav.main a.cart-link{padding:8px 10px}
 .guide-scheme img{width:100%;max-width:600px;height:auto;display:block;border-radius:var(--r);border:1px solid var(--line)}
 .guide-scheme figcaption{display:flex;gap:14px;align-items:center;flex-wrap:wrap;justify-content:center;font-size:.9rem;color:var(--muted)}
 .guide-scheme figcaption>a:first-child{color:var(--muted)}
+.guide-tips{max-width:72ch}
+.guide-tips h2{margin:0 0 14px}
+.guide-tips ul{margin:0;padding-left:1.2em;display:grid;gap:10px}
+.guide-tips li::marker{color:var(--accent)}
+.guide-tips .credit{margin:14px 0 0;font-size:.85rem}.guide-tips .credit a{color:var(--muted)}
 .guide-note{padding:26px 28px;border-radius:var(--r);border:2px dashed var(--accent);max-width:72ch}
 .guide-note h3{margin:0 0 8px}.guide-note p{margin:0}
 .source-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:28px;border-radius:var(--r);background:var(--accent-soft,#d8f0ec);text-decoration:none;color:var(--ink)}

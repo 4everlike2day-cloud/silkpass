@@ -58,6 +58,8 @@ export type Guide = {
   scheme?: {image: string; alt: string; credit: string; creditUrl?: string; downloadUrl?: string; downloadLabel?: string} | null
   // Заметка после карточек (выделенный блок).
   note?: {title: string; text: string} | null
+  // Практичные советы: список пунктов + источник.
+  tips?: {title: string; items: string[]; sourceUrl?: string; sourceLabel?: string} | null
 }
 
 export type Role = 'stamp' | 'sales' | 'deal' | 'ad'
