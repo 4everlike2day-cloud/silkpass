@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {getCities, getGuides, pad} from '@/lib/data'
 import GuideMap from '@/components/GuideMap'
+import Lightbox from '@/components/Lightbox'
 import {href, t, type Lang} from '@/lib/i18n'
 
 // Подборки по городам: welcome2.uz/<город>/<подборка>. Создаются в Sanity, тип «Подборка».
@@ -14,6 +15,12 @@ export async function guideParams() {
 export async function guideMeta(lang: Lang, city: string, guide: string) {
   const g = (await getGuides(lang)).find((x) => x.citySlug === city && x.slug === guide)
   return g ? {title: g.title, description: g.summary || undefined} : {robots: {index: false}}
+}
+
+const LB: Record<Lang, {close: string; prev: string; next: string}> = {
+  en: {close: 'Close', prev: 'Previous photo', next: 'Next photo'},
+  ru: {close: 'Закрыть', prev: 'Предыдущее фото', next: 'Следующее фото'},
+  uz: {close: 'Yopish', prev: 'Oldingi surat', next: 'Keyingi surat'},
 }
 
 export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; citySlug: string; slug: string}) {
@@ -44,7 +51,7 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
         <section>
           <div className="wrap">
             <figure className="guide-scheme">
-              <a href={g.scheme.image} target="_blank" rel="noopener"><img src={g.scheme.image} alt={g.scheme.alt} loading="lazy" /></a>
+              <a href={g.scheme.image} target="_blank" rel="noopener" data-zoom="scheme"><img src={g.scheme.image} alt={g.scheme.alt} loading="lazy" /></a>
               <figcaption>
                 {g.scheme.creditUrl ? <a href={g.scheme.creditUrl} target="_blank" rel="noopener">{g.scheme.credit} ↗</a> : g.scheme.credit}
                 {g.scheme.downloadUrl && <a className="btn ghost sm" href={g.scheme.downloadUrl} target="_blank" rel="noopener">{g.scheme.downloadLabel || 'PDF'} ↓</a>}
@@ -68,7 +75,7 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
                       {photos.length > 0 && (
                         <div className={`gphotos${photos.length > 1 ? ' multi' : ''}`}>
                           {photos.map((ph, k) => (
-                            <a key={k} href={ph.url} target="_blank" rel="noopener"><img src={ph.url} alt={`${it.title}${k ? ` (${k + 1})` : ''}`} /></a>
+                            <a key={k} href={ph.url} target="_blank" rel="noopener" data-zoom="photos"><img src={ph.url} alt={`${it.title}${k ? ` (${k + 1})` : ''}`} /></a>
                           ))}
                         </div>
                       )}
@@ -114,6 +121,8 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
           </div>
         </section>
       )}
+
+      <Lightbox labels={LB[lang]} />
 
       <section>
         <div className="wrap" style={{display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center'}}>
