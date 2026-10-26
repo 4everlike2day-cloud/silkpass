@@ -3,7 +3,7 @@ import {useRef, useState} from 'react'
 import Link from 'next/link'
 import {href, t, type Lang} from '@/lib/i18n'
 
-// Форма «Маршрут пройден» на странице /reward. Отправляет данные и фото страницы 17 на /api/route-complete.
+// Форма «Маршрут пройден» на странице /reward. Отправляет данные, выбранный подарок и фото страницы Route complete на /api/route-complete.
 // Фото перед отправкой уменьшается в браузере до 1800 px по длинной стороне, чтобы загрузка была быстрой.
 
 type Result = 'new' | 'updated' | 'claimed' | 'mail' | 'unknown'
@@ -24,7 +24,7 @@ async function shrink(file: File): Promise<Blob> {
   }
 }
 
-export default function RouteForm({lang}: {lang: Lang}) {
+export default function RouteForm({lang, gifts = []}: {lang: Lang; gifts?: {id: string; title: string}[]}) {
   const f = t(lang).reward.form
   const [state, setState] = useState<'idle' | 'sending' | 'error'>('idle')
   const [result, setResult] = useState<Result | null>(null)
@@ -89,6 +89,16 @@ export default function RouteForm({lang}: {lang: Lang}) {
         {f.passport}
         <input id="rc-passport" name="passport" required minLength={3} maxLength={40} placeholder="W2-UZ-0001" autoComplete="off" />
       </label>
+
+      {gifts.length > 0 && (
+        <label className="fl" htmlFor="rc-gift">
+          {f.gift}
+          <select id="rc-gift" name="gift" required defaultValue="">
+            <option value="" disabled>{f.giftPick}</option>
+            {gifts.map((g) => <option key={g.id} value={g.title}>{g.title}</option>)}
+          </select>
+        </label>
+      )}
 
       <div className="fl">
         <span>{f.photo}</span>

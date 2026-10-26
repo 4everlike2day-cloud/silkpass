@@ -96,3 +96,5 @@ export type Product = {
   featured: boolean
 }
 export type Faq = {q: string; a: string}
+
+export type Gift = {id: string; title: string; text: string | null}

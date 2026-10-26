@@ -15,8 +15,9 @@ const SECRET = 'впишите-сюда-длинный-пароль'
 const SHEET = 'Реестр'
 
 // Столбцы листа «Реестр» (номера с 1): A №, I Route complete, J кто поставил, L контакт, M пост,
-// N печати по почте, O промокод выдан, Q примечание.
-const COL = {passport: 1, routeDate: 9, stampedBy: 10, contact: 12, post: 13, mail: 14, promo: 15, note: 17}
+// N печати по почте, O подарок выдан («Да»), Q примечание, S выбранный подарок.
+// Столбец R «Статус» заполняется формулой — скрипт в него не пишет.
+const COL = {passport: 1, routeDate: 9, stampedBy: 10, contact: 12, post: 13, mail: 14, promo: 15, note: 17, gift: 19}
 
 // Номера сравниваются только по буквам и цифрам: «W2-UZ-0012», «w2uz0012» и «W2 UZ 0012» считаются одним номером.
 const norm = (v) => String(v || '').toUpperCase().replace(/[^A-Z0-9]/g, '')
@@ -53,6 +54,7 @@ function doPost(e) {
       if (!get(COL.routeDate)) sh.getRange(row, COL.routeDate).setValue(today)
       if (data.contact) sh.getRange(row, COL.contact).setValue(data.contact)
       if (data.post) sh.getRange(row, COL.post).setValue(data.post)
+      if (data.gift) sh.getRange(row, COL.gift).setValue(data.gift)
       const old = get(COL.note)
       sh.getRange(row, COL.note).setValue(old ? old + '; ' + note : note)
       return reply('updated')
@@ -69,6 +71,7 @@ function doPost(e) {
     values[COL.post - 1] = data.post || ''
     values[COL.note - 1] = note
     sh.getRange(row, 1, 1, values.length).setValues([values])
+    if (data.gift) sh.getRange(row, COL.gift).setValue(data.gift)
     return reply('new')
   } finally {
     lock.releaseLock()

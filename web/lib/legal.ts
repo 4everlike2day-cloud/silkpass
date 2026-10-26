@@ -26,7 +26,7 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
       sections: [
         ['1. Общие положения', [
           'Этот документ является публичной офертой продавца (сведения о нём на странице «Продавец») любому лицу, которое оформляет заказ на сайте welcome2.uz или в мессенджерах проекта.',
-          'Оформляя заказ, вы подтверждаете, что прочитали и принимаете условия оферты, а также правила доставки, возврата, использования промокодов и обработки персональных данных, опубликованные на сайте.',
+          'Оформляя заказ, вы подтверждаете, что прочитали и принимаете условия оферты, а также правила доставки, возврата, выдачи подарков и обработки персональных данных, опубликованные на сайте.',
         ]],
         ['2. Предмет', [
           'Продавец передаёт покупателю сувенирную продукцию (сувенирные паспорта путешественника, наборы, наклейки и другие товары сувенир-шопа), а покупатель оплачивает и принимает её.',
@@ -59,7 +59,7 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
       sections: [
         ['1. General', [
           'This document is a public offer from the seller (see the Seller page) to anyone who places an order on welcome2.uz or through the project messengers.',
-          'By placing an order you confirm that you have read and accept this offer and the delivery, returns, promo code and privacy rules published on the site.',
+          'By placing an order you confirm that you have read and accept this offer and the delivery, returns, gift and privacy rules published on the site.',
         ]],
         ['2. Subject', [
           'The seller provides souvenir products (souvenir travel passports, sets, stickers and other souvenir shop items), and the buyer pays for and accepts them.',
@@ -92,7 +92,7 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
       sections: [
         ['1. Umumiy qoidalar', [
           "Ushbu hujjat sotuvchining (ma'lumotlar «Sotuvchi» sahifasida) welcome2.uz saytida yoki loyiha messenjerlarida buyurtma beradigan har qanday shaxsga ommaviy ofertasidir.",
-          "Buyurtma berish orqali siz oferta shartlarini, shuningdek saytda e'lon qilingan yetkazib berish, qaytarish, promokodlardan foydalanish va shaxsiy ma'lumotlarni qayta ishlash qoidalarini o'qib chiqqaningiz va qabul qilganingizni tasdiqlaysiz.",
+          "Buyurtma berish orqali siz oferta shartlarini, shuningdek saytda e'lon qilingan yetkazib berish, qaytarish, sovg'alar va shaxsiy ma'lumotlarni qayta ishlash qoidalarini o'qib chiqqaningiz va qabul qilganingizni tasdiqlaysiz.",
         ]],
         ['2. Predmet', [
           "Sotuvchi xaridorga esdalik mahsulotlarini (esdalik sayohat pasportlari, to'plamlar, stikerlar va suvenir do'konidagi boshqa mahsulotlar) beradi, xaridor esa ularni to'laydi va qabul qiladi.",
@@ -273,68 +273,74 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
 
   'promo-terms': {
     ru: {
-      title: 'Условия промокодов',
-      lede: 'Промокод за пройденный маршрут даёт скидку 20% в сувенир-шопе. Он рассчитан на покупки, пока вы ещё в Узбекистане.',
+      title: 'Условия подарков',
+      lede: 'За пройденный маршрут владелец паспорта выбирает один подарок из списка, доступного на странице «Подарок» в момент отправки заявки.',
       sections: [
         ['Как получить', [
-          'Промокод выдаётся владельцу паспорта после печати Route complete и проверки номера паспорта по нашему реестру. Подробности на странице «Подарок».',
-          '• Один промокод на один номер паспорта.',
-          '• Печати, поставленные по почте, для промокода не засчитываются.',
+          'Подарок выдаётся после печати Route complete и проверки номера паспорта по нашему реестру. Подробности на странице «Подарок».',
+          '• Один подарок на один номер паспорта.',
+          '• Печати, поставленные по почте, для подарка не засчитываются.',
+          '• Список подарков может меняться. Если выбранного подарка не окажется в наличии, мы предложим равноценную замену.',
+          '• Где и как забрать подарок, мы сообщим в ответ на заявку: часть подарков выдают наши партнёры на месте.',
+          '• Подарки не обмениваются на деньги.',
         ]],
-        ['Как использовать', [
-          '• Скидка 20% на товары сувенир-шопа, в том числе на паспорт в подарок другу.',
+        ['Промокод на паспорт', [
+          '• Скидка 20% на паспорт в нашем шопе — себе или в подарок другу.',
           '• Срок действия 14 дней со дня выдачи.',
           '• Один промокод действует на один заказ.',
           '• Не суммируется с другими скидками и акциями.',
           '• Не распространяется на стоимость доставки.',
-          '• Не обменивается на деньги.',
         ]],
         ['Отказ и отмена', [
-          'Мы можем отказать в выдаче или отменить промокод, если номер паспорта не найден в реестре, фото не подтверждает пройденный маршрут или есть признаки злоупотребления.',
+          'Мы можем отказать в выдаче подарка или отменить промокод, если номер паспорта не найден в реестре, фото не подтверждает пройденный маршрут или есть признаки злоупотребления.',
         ]],
       ],
     },
     en: {
-      title: 'Promo code terms',
-      lede: 'The route promo code gives you 20% off in our souvenir shop. It is meant for purchases while you are still in Uzbekistan.',
+      title: 'Gift terms',
+      lede: 'For a completed route the passport holder chooses one gift from the list shown on the Reward page at the time of the application.',
       sections: [
         ['How to get it', [
-          'The code is issued to the passport holder after the Route complete stamp and a check of the passport number against our register. Details are on the Reward page.',
-          '• One code per passport number.',
-          '• Stamps added by post do not count towards the code.',
+          'The gift is issued after the Route complete stamp and a check of the passport number against our register. Details are on the Reward page.',
+          '• One gift per passport number.',
+          '• Stamps added by post do not count towards the gift.',
+          '• The list of gifts may change. If the chosen gift is out of stock, we will offer an equivalent replacement.',
+          '• We tell you where and how to collect the gift in our reply: some gifts are handed out by our partners on the spot.',
+          '• Gifts cannot be exchanged for cash.',
         ]],
-        ['How to use it', [
-          '• 20% off souvenir shop items, including a passport for a friend.',
+        ['Passport promo code', [
+          '• 20% off a passport in our shop, for yourself or as a gift for a friend.',
           '• Valid for 14 days from the date of issue.',
           '• One code applies to one order.',
           '• Cannot be combined with other discounts or offers.',
           '• Does not apply to delivery costs.',
-          '• Cannot be exchanged for cash.',
         ]],
         ['Refusal and cancellation', [
-          'We may refuse or cancel a code if the passport number is not in the register, the photo does not confirm the completed route, or there are signs of abuse.',
+          'We may refuse a gift or cancel a code if the passport number is not in the register, the photo does not confirm the completed route, or there are signs of abuse.',
         ]],
       ],
     },
     uz: {
-      title: 'Promokod shartlari',
-      lede: "Yo'nalish uchun promokod suvenir do'konimizda 20% chegirma beradi. U O'zbekistonda bo'lgan paytingizdagi xaridlar uchun mo'ljallangan.",
+      title: "Sovg'a shartlari",
+      lede: "Yakunlangan yo'nalish uchun pasport egasi ariza yuborilgan paytda «Sovg'a» sahifasida ko'rsatilgan ro'yxatdan bitta sovg'ani tanlaydi.",
       sections: [
         ['Qanday olish mumkin', [
-          "Promokod Route complete muhri va pasport raqami reestrimiz bo'yicha tekshirilgandan keyin pasport egasiga beriladi. Batafsil «Sovg'a» sahifasida.",
-          '• Bitta pasport raqamiga bitta promokod.',
-          '• Pochta orqali bosilgan muhrlar promokod uchun hisobga olinmaydi.',
+          "Sovg'a Route complete muhri va pasport raqami reestrimiz bo'yicha tekshirilgandan keyin beriladi. Batafsil «Sovg'a» sahifasida.",
+          "• Bitta pasport raqamiga bitta sovg'a.",
+          "• Pochta orqali bosilgan muhrlar sovg'a uchun hisobga olinmaydi.",
+          "• Sovg'alar ro'yxati o'zgarishi mumkin. Tanlangan sovg'a qolmagan bo'lsa, teng qiymatli almashtirish taklif qilamiz.",
+          "• Sovg'ani qayerda va qanday olishni javobimizda yozamiz: ba'zi sovg'alarni hamkorlarimiz joyida beradi.",
+          "• Sovg'alar pulga almashtirilmaydi.",
         ]],
-        ['Qanday foydalanish', [
-          "• Suvenir do'kondagi mahsulotlarga 20% chegirma, jumladan do'stingizga sovg'a pasport uchun.",
+        ['Pasport uchun promokod', [
+          "• Do'konimizda pasportga 20% chegirma — o'zingizga yoki do'stingizga sovg'a sifatida.",
           '• Amal qilish muddati berilgan kundan boshlab 14 kun.',
           '• Bitta promokod bitta buyurtmaga amal qiladi.',
           "• Boshqa chegirma va aksiyalar bilan qo'shilmaydi.",
           '• Yetkazib berish narxiga tatbiq etilmaydi.',
-          "• Pulga almashtirilmaydi.",
         ]],
         ['Rad etish va bekor qilish', [
-          "Agar pasport raqami reestrda topilmasa, surat yo'nalish yakunlanganini tasdiqlamasa yoki suiiste'mol belgilari bo'lsa, promokod berishni rad etishimiz yoki uni bekor qilishimiz mumkin.",
+          "Agar pasport raqami reestrda topilmasa, surat yo'nalish yakunlanganini tasdiqlamasa yoki suiiste'mol belgilari bo'lsa, sovg'a berishni rad etishimiz yoki promokodni bekor qilishimiz mumkin.",
         ]],
       ],
     },
@@ -350,12 +356,12 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
         ]],
         ['Какие данные мы получаем', [
           '• Заказ: имя, контакт (телефон, Telegram или WhatsApp), город, отель или адрес, комментарий.',
-          '• Форма «Маршрут пройден»: номер сувенирного паспорта, фото страницы 17, контакт, ссылка на пост.',
+          '• Форма «Маршрут пройден»: номер сувенирного паспорта, выбранный подарок, фото страницы Route complete, контакт, ссылка на пост.',
           '• Заявка партнёра: название заведения, город, контакт, комментарий.',
           'Пожалуйста, не присылайте фото настоящего паспорта или других документов: нам нужен только сувенирный паспорт.',
         ]],
         ['Зачем', [
-          'Чтобы подтвердить и выполнить заказ, проверить пройденный маршрут, выдать промокод, ответить на заявку и вести реестр номеров сувенирных паспортов. Ссылку на пост и фото мы можем показать в наших соцсетях или на сайте только с вашего согласия.',
+          'Чтобы подтвердить и выполнить заказ, проверить пройденный маршрут, выдать подарок, ответить на заявку и вести реестр номеров сувенирных паспортов. Ссылку на пост и фото мы можем показать в наших соцсетях или на сайте только с вашего согласия.',
         ]],
         ['Где хранятся данные', [
           '• Сообщения о заказах и заявках приходят в наш рабочий чат Telegram.',
@@ -384,12 +390,12 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
         ]],
         ['What we collect', [
           '• Orders: name, contact (phone, Telegram or WhatsApp), city, hotel or address, comment.',
-          '• Route complete form: souvenir passport number, photo of page 17, contact, link to your post.',
+          '• Route complete form: souvenir passport number, chosen gift, photo of the Route complete page, contact, link to your post.',
           '• Partner applications: business name, city, contact, comment.',
           'Please do not send photos of your real passport or other ID: we only need the souvenir passport.',
         ]],
         ['Why', [
-          'To confirm and fulfil orders, check the completed route, issue promo codes, reply to applications and keep the register of souvenir passport numbers. We show your post or photo on our social media or site only with your consent.',
+          'To confirm and fulfil orders, check the completed route, issue gifts, reply to applications and keep the register of souvenir passport numbers. We show your post or photo on our social media or site only with your consent.',
         ]],
         ['Where the data is stored', [
           '• Order and application messages arrive in our work chat in Telegram.',
@@ -418,12 +424,12 @@ export const LEGAL: Record<LegalSlug, Record<Lang, Doc>> = {
         ]],
         ["Qanday ma'lumotlarni olamiz", [
           "• Buyurtma: ism, kontakt (telefon, Telegram yoki WhatsApp), shahar, mehmonxona yoki manzil, izoh.",
-          "• «Yo'nalish yakunlandi» formasi: esdalik pasport raqami, 17-sahifa surati, kontakt, postga havola.",
+          "• «Yo'nalish yakunlandi» formasi: esdalik pasport raqami, tanlangan sovg'a, Route complete sahifasi surati, kontakt, postga havola.",
           "• Hamkor arizasi: muassasa nomi, shahar, kontakt, izoh.",
           "Iltimos, haqiqiy pasport yoki boshqa hujjatlar suratini yubormang: bizga faqat esdalik pasporti kerak.",
         ]],
         ['Nima uchun', [
-          "Buyurtmani tasdiqlash va bajarish, yakunlangan yo'nalishni tekshirish, promokod berish, arizaga javob berish va esdalik pasport raqamlari reestrini yuritish uchun. Postingiz yoki suratingizni ijtimoiy tarmoqlarimizda yoki saytda faqat roziligingiz bilan ko'rsatamiz.",
+          "Buyurtmani tasdiqlash va bajarish, yakunlangan yo'nalishni tekshirish, sovg'a berish, arizaga javob berish va esdalik pasport raqamlari reestrini yuritish uchun. Postingiz yoki suratingizni ijtimoiy tarmoqlarimizda yoki saytda faqat roziligingiz bilan ko'rsatamiz.",
         ]],
         ["Ma'lumotlar qayerda saqlanadi", [
           "• Buyurtma va ariza xabarlari Telegramdagi ishchi chatimizga keladi.",

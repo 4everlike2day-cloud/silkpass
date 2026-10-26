@@ -1,5 +1,5 @@
 // Cloudflare Pages Function: POST /api/route-complete
-// Форма «Маршрут пройден» со страницы /reward: номер паспорта, фото страницы 17, контакт, ссылка на пост.
+// Форма «Маршрут пройден» со страницы /reward: номер паспорта, выбранный подарок, фото страницы Route complete, контакт, ссылка на пост.
 // 1. Записывает заявку в реестр паспортов (Google Sheets через веб-приложение Apps Script).
 // 2. Отправляет фото и данные в Telegram.
 // Переменные окружения в Cloudflare Pages (Settings → Environment variables):
@@ -22,7 +22,7 @@ const normPassport = (v: string) => v.trim().toUpperCase().replace(/[\s_]+/g, '-
 const STATUS_TEXT: Record<Status, string> = {
   new: '🆕 Новый номер, добавлен в реестр',
   updated: '✏️ Номер уже был в реестре, заявка дописана',
-  claimed: '⛔ Промокод по этому номеру уже выдан',
+  claimed: '⛔ Подарок по этому номеру уже выдан',
   mail: '⛔ Печати по почте, без подарка',
   unknown: '⚠️ Реестр не ответил, проверьте вручную',
 }
@@ -55,18 +55,20 @@ export const onRequestPost = async ({request, env}: {request: Request; env: Env}
   const passport = normPassport(field(form, 'passport', 40))
   const contact = field(form, 'contact', 120)
   const post = field(form, 'post', 300)
+  const gift = field(form, 'gift', 120)
   const lang = field(form, 'lang', 5) || 'en'
   const photo = form.get('photo')
   if (!passport || passport.length < 3 || !contact) return new Response('Missing fields', {status: 400})
   if (!(photo instanceof File) || !photo.type.startsWith('image/') || photo.size > MAX_PHOTO) return new Response('Bad photo', {status: 400})
   if (!env.TELEGRAM_BOT_TOKEN || !env.TELEGRAM_CHAT_ID) return new Response('Telegram is not configured', {status: 500})
 
-  const status = await registry(env, {passport, contact, post, lang})
+  const status = await registry(env, {passport, contact, post, lang, gift})
 
-  // Повторная заявка по номеру, где промокод уже выдан: в Telegram всё равно сообщаем, турист получает отказ.
+  // Повторная заявка по номеру, где подарок уже выдан: в Telegram всё равно сообщаем, турист получает отказ.
   const caption = [
     '🏁 <b>Маршрут пройден</b>',
     `<b>Паспорт:</b> ${esc(passport)}`,
+    `<b>Подарок:</b> ${gift ? esc(gift) : 'не выбран'}`,
     `<b>Контакт:</b> ${esc(contact)}`,
     post ? `<b>Пост:</b> ${esc(post)}` : '<b>Пост:</b> нет',
     `<b>Язык сайта:</b> ${esc(lang.toUpperCase())}`,

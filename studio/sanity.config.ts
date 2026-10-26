@@ -30,6 +30,7 @@ export default defineConfig({
             S.documentTypeListItem('product').title('Шоп: товары'),
             S.divider(),
             S.documentTypeListItem('faq').title('FAQ'),
+            S.documentTypeListItem('gift').title('Подарки за маршрут'),
           ]),
     }),
     visionTool(),

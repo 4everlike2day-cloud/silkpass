@@ -8,5 +8,6 @@ import {category} from './category'
 import {product} from './product'
 import {faq} from './faq'
 import {guide} from './guide'
+import {gift} from './gift'
 
-export const schemaTypes = [localeString, localeText, siteSettings, city, partner, deal, adSlot, category, product, faq, guide]
+export const schemaTypes = [localeString, localeText, siteSettings, city, partner, deal, adSlot, category, product, faq, guide, gift]
