@@ -108,10 +108,13 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
                   <h2>{gt.title}</h2>
                   <p className="muted">{gt.intro}</p>
                 </div>
-                <a className="gtips-guide" href={gt.guide.url} target="_blank" rel="noopener">
-                  <span className="ava" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></span>
-                  <span className="who"><b>@{gt.guide.handle}</b><small>{gt.guide.role}</small><em>{gt.guide.cta} ↗</em></span>
-                </a>
+                <div className="gtips-guide">
+                  <a className="gtips-card" href={gt.guide.url} target="_blank" rel="noopener">
+                    <span className="ava" aria-hidden="true">{gt.guide.name.charAt(0)}</span>
+                    <span className="who"><b>{gt.guide.name} · @{gt.guide.handle}</b><small>{gt.guide.role}</small><em>{gt.guide.cta} ↗</em></span>
+                  </a>
+                  <span className="gtips-links">{gt.guide.links.map((l) => <a key={l.label} href={l.url} target="_blank" rel="noopener">{l.label}</a>)}</span>
+                </div>
               </div>
               <ol className="gtips-list">
                 {gt.tips.map((x, i) => (

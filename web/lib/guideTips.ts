@@ -7,18 +7,23 @@ export type GuideTips = {
   label: string
   title: string
   intro: string
-  guide: {handle: string; url: string; platform: string; role: string; cta: string}
+  guide: {name: string; handle: string; url: string; role: string; cta: string; links: {label: string; url: string}[]}
   tips: GuideTip[]
 }
 
 // ЧЕРНОВИК: блок пока скрыт на сайте. Чтобы показать — поставьте true.
-const ENABLED = false
+const ENABLED = true
 
 const maps = (q: string) => `https://yandex.uz/maps/?text=${encodeURIComponent(q)}`
 
-const DATA: Record<string, {guide: {handle: string; url: string; platform: string; role: L}; tips: {title: L; text: L; q: string}[]}> = {
+const DATA: Record<string, {guide: {name: L; handle: string; url: string; role: L; links: {label: string; url: string}[]}; tips: {title: L; text: L; q: string}[]}> = {
   samarkand: {
-    guide: {handle: 'yourguide_uz', url: 'https://instagram.com/yourguide_uz', platform: 'Instagram',
+    guide: {name: {en: 'Damir', ru: 'Дамир', uz: 'Damir'}, handle: 'yourguide_uz', url: 'https://yourguideuz.vercel.app/index.html',
+      links: [
+        {label: 'Telegram', url: 'https://t.me/sds_1904'},
+        {label: 'WhatsApp', url: 'https://wa.me/998907433317'},
+        {label: 'Instagram', url: 'https://instagram.com/yourguide_uz'},
+      ],
       role: {en: 'Local guide in Samarkand', ru: 'Гид по Самарканду', uz: "Samarqand bo'yicha gid"}},
     tips: [
       {
@@ -52,10 +57,10 @@ const DATA: Record<string, {guide: {handle: string; url: string; platform: strin
   },
 }
 
-const TEXT: Record<Lang, {label: string; title: string; intro: string; cta: (p: string) => string}> = {
-  en: {label: 'Guide’s tips', title: 'Off the postcard', intro: 'Three places our partner guide recommends beyond the classic sights.', cta: (p) => `Message on ${p}`},
-  ru: {label: 'Советы гида', title: 'Не с открытки', intro: 'Три места, которые советует наш партнёр-гид помимо классических достопримечательностей.', cta: (p) => `Написать в ${p}`},
-  uz: {label: 'Gid maslahati', title: 'Otkritkadan tashqari', intro: "Hamkor gidimiz klassik joylardan tashqari tavsiya qiladigan uchta joy.", cta: (p) => `${p}da yozish`},
+const TEXT: Record<Lang, {label: string; title: string; intro: string; cta: string}> = {
+  en: {label: 'Guide’s tips', title: 'Off the postcard', intro: 'Three places our partner guide recommends beyond the classic sights.', cta: 'Guide’s website'},
+  ru: {label: 'Советы гида', title: 'Не с открытки', intro: 'Три места, которые советует наш партнёр-гид помимо классических достопримечательностей.', cta: 'Сайт гида'},
+  uz: {label: 'Gid maslahati', title: 'Otkritkadan tashqari', intro: "Hamkor gidimiz klassik joylardan tashqari tavsiya qiladigan uchta joy.", cta: 'Gid sayti'},
 }
 
 export function guideTips(slug: string, lang: Lang): GuideTips | null {
@@ -64,7 +69,7 @@ export function guideTips(slug: string, lang: Lang): GuideTips | null {
   const t = TEXT[lang]
   return {
     label: t.label, title: t.title, intro: t.intro,
-    guide: {handle: d.guide.handle, url: d.guide.url, platform: d.guide.platform, role: d.guide.role[lang], cta: t.cta(d.guide.platform)},
+    guide: {name: d.guide.name[lang], handle: d.guide.handle, url: d.guide.url, role: d.guide.role[lang], cta: t.cta, links: d.guide.links},
     tips: d.tips.map((x) => ({title: x.title[lang], text: x.text[lang], mapsUrl: maps(x.q)})),
   }
 }
