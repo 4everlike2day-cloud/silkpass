@@ -123,6 +123,17 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
         </section>
       )}
 
+      {g.cta && (
+        <section>
+          <div className="wrap">
+            <Link className="source-cta" href={href(lang, g.cta.path)}>
+              <div><p className="label">{g.cta.label}</p><h3>{g.cta.title}</h3></div>
+              <span className="btn">{g.cta.button} →</span>
+            </Link>
+          </div>
+        </section>
+      )}
+
       {g.gallery.length > 0 && (
         <section>
           <div className="wrap gallery">

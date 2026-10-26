@@ -2,6 +2,7 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import Stamp from '@/components/Stamp'
 import {getAds, getCities, getCity, getDeals, getGuides, getPartners, pad} from '@/lib/data'
+import {guideTips} from '@/lib/guideTips'
 import {events, wikiUrl} from '@/lib/cityLinks'
 import {href, t, type Lang} from '@/lib/i18n'
 
@@ -24,6 +25,8 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
   const ad = ads.find((a) => a.citySlug === c.slug)
   const guides = allGuides.filter((g) => g.citySlug === c.slug)
   const ev = events(c, lang)
+  const gt = guideTips(c.slug, lang)
+  const openMap = t(lang).guide.openMap
 
   return (
     <>
@@ -91,6 +94,35 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
                 </li>
               ))}
             </ol>
+          </div>
+        </section>
+      )}
+
+      {gt && (
+        <section>
+          <div className="wrap">
+            <div className="gtips">
+              <div className="gtips-head">
+                <div>
+                  <span className="gtips-badge">★ {gt.label}</span>
+                  <h2>{gt.title}</h2>
+                  <p className="muted">{gt.intro}</p>
+                </div>
+                <a className="gtips-guide" href={gt.guide.url} target="_blank" rel="noopener">
+                  <span className="ava" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" /></svg></span>
+                  <span className="who"><b>@{gt.guide.handle}</b><small>{gt.guide.role}</small><em>{gt.guide.cta} ↗</em></span>
+                </a>
+              </div>
+              <ol className="gtips-list">
+                {gt.tips.map((x, i) => (
+                  <li key={i}>
+                    <span className="n">{pad(i + 1)}</span>
+                    <div><h3>{x.title}</h3><p className="muted">{x.text}</p>
+                      <a className="btn ghost sm" href={x.mapsUrl} target="_blank" rel="noopener">{openMap} ↗</a></div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
       )}

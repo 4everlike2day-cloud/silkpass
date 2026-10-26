@@ -308,3 +308,20 @@ a[data-zoom]{cursor:zoom-in}
 .lb-prev{left:12px}.lb-next{right:12px}
 @keyframes lbIn{from{opacity:0}to{opacity:1}}
 @media (max-width:640px){.lightbox{padding:60px 10px}.lb-nav{top:auto;bottom:14px;transform:none}.lb-prev{left:calc(50% - 56px)}.lb-next{right:calc(50% - 56px)}}
+
+/* Советы гида на странице города */
+.gtips{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);padding:28px;display:grid;gap:24px}
+.gtips-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start}
+.gtips-head h2{margin:12px 0 8px}.gtips-head p{margin:0;max-width:52ch}
+.gtips-badge{display:inline-block;font:600 .72rem/1 var(--mono,ui-monospace,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--accent-ink);background:var(--accent);border-radius:99px;padding:7px 12px}
+.gtips-guide{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 18px 8px 8px;background:var(--bg)}
+.gtips-guide:hover{border-color:var(--accent)}
+.gtips-guide .ava{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;background:linear-gradient(135deg,#f58529,#dd2a7b 50%,#8134af);flex:none}
+.gtips-guide .ava svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.8}
+.gtips-guide .who{display:grid;line-height:1.25}.gtips-guide b{font-size:1.02rem}.gtips-guide small{color:var(--muted)}
+.gtips-guide em{font-style:normal;font-weight:600;color:var(--accent);font-size:.88rem;margin-top:2px}
+.gtips-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.gtips-list li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-content:start;padding:18px;border-radius:calc(var(--r) - 4px);background:var(--bg)}
+.gtips-list .n{font:800 1.4rem/1 var(--display,inherit);color:var(--accent)}
+.gtips-list h3{margin:0 0 6px}.gtips-list p{margin:0 0 12px}
+@media (max-width:900px){.gtips-head{grid-template-columns:1fr}.gtips-list{grid-template-columns:1fr}.gtips{padding:20px}}

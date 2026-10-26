@@ -22,7 +22,7 @@ export default async function Partners({lang}: {lang: Lang}) {
         </div>
       </section>
       <section>
-        <div className="wrap" style={{maxWidth: 720}}>
+        <div className="wrap" id="apply" style={{maxWidth: 720, scrollMarginTop: 90}}>
           <h2 style={{marginBottom: 24}}>{p.apply}</h2>
           <LeadForm
             kind="partner"

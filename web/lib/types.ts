@@ -60,6 +60,8 @@ export type Guide = {
   note?: {title: string; text: string} | null
   // Практичные советы: список пунктов + источник.
   tips?: {title: string; items: string[]; sourceUrl?: string; sourceLabel?: string} | null
+  // Призыв внутри сайта (например, стать партнёром): ведёт на страницу сайта, путь без языка.
+  cta?: {label: string; title: string; button: string; path: string} | null
 }
 
 export type Role = 'stamp' | 'sales' | 'deal' | 'ad'

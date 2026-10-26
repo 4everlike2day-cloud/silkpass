@@ -252,6 +252,76 @@ function station(s: StationSrc, lang: Lang): GuideItem {
   }
 }
 
+
+// «Где поесть» в каждом городе: /<город>/eat. Сюда ведут QR со страниц печатей партнёров в паспорте.
+// Пока партнёров нет — заглушка и ссылка на форму для заведений.
+const EAT: {city: string; order: number; name: L; plov: L}[] = [
+  {city: 'tashkent', order: 2, name: {en: 'Tashkent', ru: 'Ташкенте', uz: 'Toshkentda'},
+    plov: {
+      en: "Tashkent's signature is to'y oshi, the wedding plov: two kinds of carrots, Laser rice, gentle frying and rich festive toppings.",
+      ru: 'Визитная карточка Ташкента — тўй оши, праздничный плов: два вида моркови, рис «Лазер», мягкая обжарка и богатые праздничные топпинги.',
+      uz: "Toshkentning o'ziga xos taomi — to'y oshi: ikki xil sabzi, «Lazer» guruchi, yumshoq qovurish va bayramona bezaklar.",
+    }},
+  {city: 'samarkand', order: 2, name: {en: 'Samarkand', ru: 'Самарканде', uz: 'Samarqandda'},
+    plov: {
+      en: 'Samarkand plov is cooked in layers and never stirred: light and mild, with big pieces of meat, yellow carrots, chickpeas and raisins.',
+      ru: 'Самаркандский плов готовят слоями и не перемешивают: светлый и мягкий, с крупными кусками мяса, жёлтой морковью, нутом и изюмом.',
+      uz: "Samarqand oshi qatlamlab pishiriladi va aralashtirilmaydi: och rang, yengil ta'm, yirik go'sht, sariq sabzi, no'xat va mayiz.",
+    }},
+  {city: 'bukhara', order: 2, name: {en: 'Bukhara', ru: 'Бухаре', uz: 'Buxoroda'},
+    plov: {
+      en: 'Try oshi sofi, the “pure plov” or plov of the wise: layers cooked separately, no frying at all, a copper kazan and saffron.',
+      ru: 'Попробуйте оши-софи — «чистый плов», или «плов мудрецов»: слои готовят отдельно, совсем без жарки, в медном казане, с шафраном.',
+      uz: "Oshi sofini tatib ko'ring — «toza osh», donishmandlar oshi: qatlamlar alohida, qovurmasdan, mis qozonda, za'faron bilan.",
+    }},
+  {city: 'khiva', order: 2, name: {en: 'Khiva', ru: 'Хиве', uz: 'Xivada'},
+    plov: {
+      en: 'Khorezm chalov has few spices and a clean taste: carrots cut the local way, meat slowly stewed in water, local rice. Also try shivit oshi, green dill noodles.',
+      ru: 'Хорезмский чалов — минимум специй и чистый вкус: особая нарезка моркови, мясо долго томится в воде, местный рис. Попробуйте и шивит оши — зелёную лапшу с укропом.',
+      uz: "Xorazm chalovi — kam ziravor va toza ta'm: sabzi o'ziga xos to'g'raladi, go'sht suvda uzoq dimlanadi, mahalliy guruch. Shivit oshini ham tatib ko'ring.",
+    }},
+]
+
+function eatGuide(e: (typeof EAT)[number], lang: Lang): Guide {
+  return {
+    slug: 'eat',
+    citySlug: e.city,
+    title: {en: `Where to eat in ${e.name.en}`, ru: `Где поесть в ${e.name.ru}`, uz: `${e.name.uz} qayerda ovqatlanish mumkin`}[lang],
+    summary: {
+      en: 'Local plov and partner cafés with their own passport stamp.',
+      ru: 'Местный плов и кафе-партнёры со своей печатью для паспорта.',
+      uz: "Mahalliy osh va pasport uchun o'z muhriga ega hamkor kafelar.",
+    }[lang],
+    cover: null,
+    intro: `${e.plov[lang]}\n\n${{
+      en: 'Here we will list partner cafés, teahouses and workshops. Each one has its own round or triangle stamp for the partner pages of your passport.',
+      ru: 'Здесь появятся кафе, чайханы и мастерские наших партнёров. У каждого — своя круглая или треугольная печать для страниц партнёров в паспорте.',
+      uz: "Bu yerda hamkor kafelar, choyxonalar va ustaxonalar ro'yxati paydo bo'ladi. Har birining pasportdagi hamkorlar sahifasi uchun o'z dumaloq yoki uchburchak muhri bor.",
+    }[lang]}`,
+    order: e.order,
+    gallery: [],
+    items: [],
+    note: {
+      title: {en: 'Partners coming soon', ru: 'Партнёры скоро появятся', uz: "Hamkorlar tez orada paydo bo'ladi"}[lang],
+      text: {
+        en: 'We are choosing the first places right now. Keep the partner page of your passport free: the stamps are on their way.',
+        ru: 'Мы как раз выбираем первые места. Оставьте страницу партнёров в паспорте свободной: печати уже в пути.',
+        uz: "Hozir birinchi joylarni tanlayapmiz. Pasportdagi hamkorlar sahifasini bo'sh qoldiring: muhrlar yo'lda.",
+      }[lang],
+    },
+    cta: {
+      label: {en: 'For cafés and restaurants', ru: 'Для кафе и ресторанов', uz: 'Kafe va restoranlar uchun'}[lang],
+      title: {
+        en: 'Want your place on this page and your stamp in the passport?',
+        ru: 'Хотите, чтобы ваше заведение было здесь, а его печать — в паспорте?',
+        uz: "Joyingiz shu sahifada, muhringiz esa pasportda bo'lishini xohlaysizmi?",
+      }[lang],
+      button: {en: 'Become a partner', ru: 'Стать партнёром', uz: "Hamkor bo'lish"}[lang],
+      path: '/partners#apply',
+    },
+  }
+}
+
 export function localGuides(lang: Lang): Guide[] {
   const ATTO = `https://atto.uz/${lang}`
   const METRO = `https://uzmetro.uz/${lang}`
@@ -353,5 +423,6 @@ export function localGuides(lang: Lang): Guide[] {
       }[lang],
       items: MURALS.map((m) => mural(m, lang)),
     },
+    ...EAT.map((e) => eatGuide(e, lang)),
   ]
 }
