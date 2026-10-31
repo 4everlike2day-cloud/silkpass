@@ -34,18 +34,36 @@ async function tg(env: Env, method: string, body: Record<string, unknown>) {
 }
 
 // Список мест кэшируется на минуту, чтобы бот не дёргал таблицу на каждое нажатие.
+// Если кэш недоступен, бот просто читает таблицу напрямую.
+const CACHE_KEY = 'https://welcome2.uz/__cache/places-bot'
 async function load(env: Env, fresh = false): Promise<Data> {
-  const cache = (caches as unknown as {default: Cache}).default
-  const key = new Request('https://cache.w2uz/places-bot')
-  if (!fresh) {
-    const hit = await cache.match(key)
-    if (hit) return hit.json()
+  let cache: Cache | null = null
+  try {
+    cache = (caches as unknown as {default: Cache}).default
+    if (!fresh) {
+      const hit = await cache.match(CACHE_KEY)
+      if (hit) return hit.json()
+    }
+  } catch {
+    cache = null
   }
   const url = `${env.PLACES_SCRIPT_URL}?action=places&all=1&secret=${encodeURIComponent(env.PLACES_SECRET || '')}`
   const res = await fetch(url, {redirect: 'follow'})
-  const data = (await res.json()) as Data
-  if (!Array.isArray(data.places)) throw new Error('bad data')
-  await cache.put(key, new Response(JSON.stringify(data), {headers: {'Cache-Control': 'max-age=60', 'Content-Type': 'application/json'}}))
+  const raw = await res.text()
+  let data: Data
+  try {
+    data = JSON.parse(raw) as Data
+  } catch {
+    throw new Error(`таблица ответила не JSON (HTTP ${res.status}): ${raw.slice(0, 120)}`)
+  }
+  if (!Array.isArray(data.places)) throw new Error('в ответе таблицы нет списка мест')
+  if (cache) {
+    try {
+      await cache.put(CACHE_KEY, new Response(JSON.stringify(data), {headers: {'Cache-Control': 'max-age=60', 'Content-Type': 'application/json'}}))
+    } catch {
+      // кэш необязателен
+    }
+  }
   return data
 }
 
@@ -72,6 +90,10 @@ async function menu(env: Env, chat: number, data: Data) {
   const buttons = used.map((c) => ({text: `${c} (${data.places.filter((p) => p.category === c).length})`, callback_data: `c:${data.categories.indexOf(c)}:0`}))
   const rows: unknown[][] = []
   for (let i = 0; i < buttons.length; i += 2) rows.push(buttons.slice(i, i + 2))
+  if (!rows.length) {
+    await tg(env, 'sendMessage', {chat_id: chat, text: 'Список мест пока пуст. Загляните позже!'})
+    return
+  }
   await tg(env, 'sendMessage', {
     chat_id: chat,
     parse_mode: 'HTML',
@@ -151,8 +173,11 @@ export const onRequestPost = async ({request, env}: {request: Request; env: Env}
         else await menu(env, chat, data)
       }
     }
-  } catch {
+  } catch (e) {
     // Telegram повторяет вебхук при ошибке; отвечаем 200, чтобы не получить лавину повторов.
+    // Причину пишем в чат, чтобы сразу было видно, что сломалось.
+    const chat = u.message?.chat.id ?? u.callback_query?.message?.chat.id
+    if (chat) await tg(env, 'sendMessage', {chat_id: chat, text: `⚠️ Бот не смог ответить: ${e instanceof Error ? e.message : String(e)}`}).catch(() => {})
   }
   return new Response('ok')
 }
