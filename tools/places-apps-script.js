@@ -35,7 +35,7 @@ function columns(sh) {
   const find = (start) => head.findIndex((h) => h.indexOf(start) === 0) + 1
   return {
     id: find('ID'), city: find('Город'), name: find('Название'), description: find('Описание'), category: find('Категория'),
-    link: find('Ссылка'), location: find('Локация'), likes: find('Лайки'), dislikes: find('Дизлайки'),
+    link: find('Ссылка'), location: find('Локация'), photo: find('Фото'), likes: find('Лайки'), dislikes: find('Дизлайки'),
     status: find('Статус'),
   }
 }
@@ -53,7 +53,7 @@ function places(includeDrafts) {
     if (!includeDrafts && status !== 'Опубликовано') return
     list.push({
       id: String(r[c.id - 1]), city: c.city ? String(r[c.city - 1]) || 'Ташкент' : 'Ташкент', name: String(r[c.name - 1]), description: String(r[c.description - 1]),
-      category: String(r[c.category - 1]), link: String(r[c.link - 1]), location: String(r[c.location - 1]),
+      category: String(r[c.category - 1]), link: String(r[c.link - 1]), location: String(r[c.location - 1]), photo: c.photo ? String(r[c.photo - 1]) : '',
       likes: Number(r[c.likes - 1]) || 0, dislikes: Number(r[c.dislikes - 1]) || 0, status,
     })
   })

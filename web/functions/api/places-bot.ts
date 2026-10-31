@@ -1,6 +1,6 @@
 // Cloudflare Pages Function: POST /api/places-bot
 // Вебхук Telegram-бота @w2uz_bot «Узбекистан: что посмотреть».
-// Путь пользователя: /start → язык → город → категория или 🏆 Топ → места с кнопками 👍 / 👎.
+// Путь пользователя: /start → язык → город → категория или 🏆 Топ → места (с фото, если есть) и кнопками 👍 / 👎.
 // Любой текст, который не команда, — поиск места по названию и описанию во всех городах.
 // Голоса пишутся в таблицу через веб-приложение Apps Script (tools/places-apps-script.js):
 // один голос на аккаунт Telegram, повторное нажатие той же кнопки снимает голос.
@@ -14,7 +14,7 @@
 //   PLACES_WEBHOOK_SECRET  любой пароль из латиницы и цифр; тот же передаётся в setWebhook как secret_token
 
 type Env = {PLACES_BOT_TOKEN?: string; PLACES_SCRIPT_URL?: string; PLACES_SECRET?: string; PLACES_WEBHOOK_SECRET?: string}
-type Place = {id: string; city?: string; name: string; description: string; category: string; link: string; location: string; likes: number; dislikes: number}
+type Place = {id: string; city?: string; name: string; description: string; category: string; link: string; location: string; photo?: string; likes: number; dislikes: number}
 type Data = {categories: string[]; places: Place[]}
 type TgUser = {id: number; first_name?: string; language_code?: string}
 type Update = {
@@ -192,8 +192,17 @@ function placeText(p: Place, l: Lang, withCity = false) {
   return [`<b>${esc(p.name)}</b>`, where, esc(p.description), rating, links].filter(Boolean).join('\n')
 }
 
+// С фото — сообщение-фото с подписью, без фото или если Telegram не смог скачать картинку — обычный текст.
+// Подпись к фото ограничена 1024 символами, длинное описание укорачиваем.
 async function sendPlace(env: Env, chat: number, p: Place, l: Lang, withCity = false) {
-  await tg(env, 'sendMessage', {chat_id: chat, parse_mode: 'HTML', text: placeText(p, l, withCity), link_preview_options: {is_disabled: true}, reply_markup: voteKeyboard(p, l)})
+  const text = placeText(p, l, withCity)
+  const photo = (p.photo || '').trim()
+  if (isUrl(photo)) {
+    const caption = text.length <= 1024 ? text : placeText({...p, description: p.description.slice(0, Math.max(0, p.description.length - (text.length - 1000))) + '…'}, l, withCity)
+    const r = (await tg(env, 'sendPhoto', {chat_id: chat, photo, caption, parse_mode: 'HTML', reply_markup: voteKeyboard(p, l)})) as {ok?: boolean}
+    if (r.ok) return
+  }
+  await tg(env, 'sendMessage', {chat_id: chat, parse_mode: 'HTML', text, link_preview_options: {is_disabled: true}, reply_markup: voteKeyboard(p, l)})
 }
 
 async function chooseLang(env: Env, chat: number, user?: TgUser) {
