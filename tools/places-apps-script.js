@@ -1,9 +1,9 @@
 /**
- * Веб-приложение таблицы «Ташкент: что посмотреть».
+ * Веб-приложение таблицы «Узбекистан: что посмотреть» (места по всем городам).
  * Отдаёт список мест боту @w2uz_bot и сайту, принимает голоса и предложения мест.
  *
  * Как установить (один раз):
- * 1. Откройте таблицу «Ташкент: что посмотреть» → Расширения → Apps Script.
+ * 1. Откройте таблицу «Узбекистан: что посмотреть» → Расширения → Apps Script.
  * 2. Удалите всё в файле Code.gs и вставьте этот код. Сохраните.
  * 3. Слева «Настройки проекта» (шестерёнка) → «Свойства скрипта» → «Добавить свойство»:
  *    название SECRET, значение — любой длинный пароль. Тот же пароль впишете в Cloudflare как PLACES_SECRET.
@@ -17,7 +17,7 @@
  *   GET  ?action=places&secret=…&all=1  все, кроме скрытых (для бота, пока места в черновиках)
  *   POST {secret, action:'vote', place, uid, v, toggle}   v = 1 (лайк), -1 (дизлайк), 0 (снять голос);
  *        toggle: true — повторный голос тем же знаком снимает голос
- *   POST {secret, action:'suggest', name, description, category, link, location, contact}
+ *   POST {secret, action:'suggest', city, name, description, category, link, location, contact}
  */
 
 const PLACES = 'Места'
@@ -34,7 +34,7 @@ function columns(sh) {
   const head = sh.getRange(1, 1, 1, sh.getLastColumn()).getValues()[0].map(String)
   const find = (start) => head.findIndex((h) => h.indexOf(start) === 0) + 1
   return {
-    id: find('ID'), name: find('Название'), description: find('Описание'), category: find('Категория'),
+    id: find('ID'), city: find('Город'), name: find('Название'), description: find('Описание'), category: find('Категория'),
     link: find('Ссылка'), location: find('Локация'), likes: find('Лайки'), dislikes: find('Дизлайки'),
     status: find('Статус'),
   }
@@ -52,7 +52,7 @@ function places(includeDrafts) {
     if (status === 'Скрыто') return
     if (!includeDrafts && status !== 'Опубликовано') return
     list.push({
-      id: String(r[c.id - 1]), name: String(r[c.name - 1]), description: String(r[c.description - 1]),
+      id: String(r[c.id - 1]), city: c.city ? String(r[c.city - 1]) || 'Ташкент' : 'Ташкент', name: String(r[c.name - 1]), description: String(r[c.description - 1]),
       category: String(r[c.category - 1]), link: String(r[c.link - 1]), location: String(r[c.location - 1]),
       likes: Number(r[c.likes - 1]) || 0, dislikes: Number(r[c.dislikes - 1]) || 0, status,
     })
@@ -120,7 +120,7 @@ function suggest(data) {
   const name = clip(data.name, 120)
   if (!name) return {error: 'no name'}
   const sh = SpreadsheetApp.getActive().getSheetByName(SUGGEST)
-  sh.appendRow([new Date(), name, clip(data.description, 1000), clip(data.category, 80), clip(data.link, 300),
+  sh.appendRow([new Date(), clip(data.city, 40), name, clip(data.description, 1000), clip(data.category, 80), clip(data.link, 300),
     clip(data.location, 300), clip(data.contact, 120), 'Новое', clip(data.note, 300)])
   return {ok: true}
 }
