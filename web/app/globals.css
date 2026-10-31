@@ -334,3 +334,33 @@ a[data-zoom]{cursor:zoom-in}
 .gift-list li{display:grid;gap:2px;padding-bottom:10px;border-bottom:1px solid var(--line)}
 .gift-list li:last-child{border-bottom:0;padding-bottom:0}
 .gift-list span{font-size:.92rem}
+
+/* «Что посмотреть»: /<город>/places */
+.pl-cta{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;text-decoration:none;color:inherit;padding:26px 28px;border-radius:var(--r);background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 30%,transparent)}
+.pl-cta:hover{border-color:var(--accent)}
+.pl-cta h2{font-size:clamp(1.4rem,3vw,2rem)}
+.pl-bot{margin-top:24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;padding:18px 20px;border-radius:var(--r);background:var(--surface);border:1px solid var(--line)}
+.pl-bot h3{margin-bottom:4px}
+.pl-bot p{max-width:56ch}
+.pl{display:grid;gap:22px}
+.pl-tools{display:grid;gap:14px}
+.pl-chips{display:flex;flex-wrap:wrap;gap:8px}
+.pl-chips button,.pl-sort button{font:500 .9rem/1 var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:9px 14px;cursor:pointer}
+.pl-chips button:hover,.pl-sort button:hover{border-color:var(--accent)}
+.pl-chips button.on,.pl-sort button.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.pl-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.pl-row input{flex:1 1 260px;min-width:0;background:var(--surface)}
+.pl-sort{display:flex;gap:6px}
+.pl-grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.pl-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pl-photo{display:block;width:100%;aspect-ratio:16/10;object-fit:cover;background:var(--accent-soft)}
+.pl-ph{display:grid;place-items:center;font-size:2.6rem}
+.pl-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.pl-body h3{font-size:1.22rem}
+.pl-desc{font-size:.95rem}
+.pl-rating{font-size:.92rem;margin-top:auto;padding-top:4px}
+.pl-rating b{color:var(--accent)}
+.pl-actions{display:flex;flex-wrap:wrap;gap:8px}
+.pl-actions .btn.sm{margin-top:0}
+.pl-suggest{align-items:start}
+@media (max-width:760px){.pl-suggest{grid-template-columns:1fr}.pl-grid{grid-template-columns:1fr}}

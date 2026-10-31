@@ -2,6 +2,7 @@
 // Вебхук Telegram-бота @w2uz_bot «Узбекистан: что посмотреть».
 // Путь пользователя: /start → язык → город → категория или 🏆 Топ → места (с фото, если есть) и кнопками 👍 / 👎.
 // Любой текст, который не команда, — поиск места по названию и описанию во всех городах.
+// Ссылка t.me/w2uz_bot?start=p_T001 (кнопка «Оценить в Telegram» на сайте) сразу открывает место T001.
 // Голоса пишутся в таблицу через веб-приложение Apps Script (tools/places-apps-script.js):
 // один голос на аккаунт Telegram, повторное нажатие той же кнопки снимает голос.
 // Языки: English, Русский, O'zbek. Язык хранится в данных кнопок, база пользователей не нужна.
@@ -347,7 +348,14 @@ export const onRequestPost = async ({request, env}: {request: Request; env: Env}
       const chat = u.message.chat.id
       const text = (u.message.text || '').trim()
       const cmd = text.startsWith('/') ? text.split(/[\s@]/)[0].toLowerCase() : ''
-      if (cmd === '/start' || cmd === '/lang') {
+      const payload = cmd === '/start' ? text.split(/\s+/)[1] || '' : ''
+      if (payload.startsWith('p_')) {
+        // Переход с сайта по кнопке «Оценить в Telegram»: сразу показываем это место с кнопками 👍 / 👎.
+        await setCommands(env)
+        const p = (await load(env)).places.find((x) => x.id === payload.slice(2))
+        if (p) await sendPlace(env, chat, p, l, true)
+        else await chooseLang(env, chat, u.message.from)
+      } else if (cmd === '/start' || cmd === '/lang') {
         if (cmd === '/start') await setCommands(env)
         await chooseLang(env, chat, u.message.from)
       } else if (cmd === '/help') {
