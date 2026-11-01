@@ -330,7 +330,17 @@ async function setCommands(env: Env) {
   ])
 }
 
-export const onRequestPost = async ({request, env}: {request: Request; env: Env}) => {
+// Учёт пользователей: человек под шифром (как в голосах) → лист «Пользователи». Идёт в фоне и не задерживает ответ.
+async function seen(env: Env, user: TgUser, lang: Lang, source: string) {
+  await fetch(env.PLACES_SCRIPT_URL!, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({secret: env.PLACES_SECRET, action: 'seen', uid: await uidOf(env, user), lang, source}),
+    redirect: 'follow',
+  }).catch(() => {})
+}
+
+export const onRequestPost = async ({request, env, waitUntil}: {request: Request; env: Env; waitUntil: (p: Promise<unknown>) => void}) => {
   if (!env.PLACES_BOT_TOKEN || !env.PLACES_SCRIPT_URL || !env.PLACES_SECRET) return new Response('Not configured', {status: 500})
   if (env.PLACES_WEBHOOK_SECRET && request.headers.get('X-Telegram-Bot-Api-Secret-Token') !== env.PLACES_WEBHOOK_SECRET) {
     return new Response('Forbidden', {status: 403})
@@ -408,6 +418,11 @@ export const onRequestPost = async ({request, env}: {request: Request; env: Env}
     // Причину пишем в чат, чтобы сразу было видно, что сломалось.
     const chat = u.message?.chat.id ?? u.callback_query?.message?.chat.id
     if (chat) await tg(env, 'sendMessage', {chat_id: chat, text: `${T.error[l]} ${e instanceof Error ? e.message : String(e)}`}).catch(() => {})
+  }
+  const who = u.message?.chat.type === 'private' ? u.message.from : u.callback_query?.from
+  if (who) {
+    const fromSite = /^\/start\s+p_/.test((u.message?.text || '').trim())
+    waitUntil(seen(env, who, l, fromSite ? 'сайт' : 'Telegram'))
   }
   return new Response('ok')
 }

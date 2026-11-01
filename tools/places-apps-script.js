@@ -18,12 +18,14 @@
  *   POST {secret, action:'vote', place, uid, v, toggle}   v = 1 (лайк), -1 (дизлайк), 0 (снять голос);
  *        toggle: true — повторный голос тем же знаком снимает голос
  *   POST {secret, action:'suggest', city, name, description, category, link, location, contact}
+ *   POST {secret, action:'seen', uid, lang, source}   учёт пользователей бота (лист «Пользователи», создаётся сам)
  */
 
 const PLACES = 'Места'
 const VOTES = 'Голоса'
 const SUGGEST = 'Предложения'
 const CATS = 'Категории'
+const USERS = 'Пользователи'
 
 const json = (obj) => ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON)
 const secret = () => PropertiesService.getScriptProperties().getProperty('SECRET') || ''
@@ -125,6 +127,56 @@ function suggest(data) {
   return {ok: true}
 }
 
+// Пользователи бота: одна строка на человека (под шифром, без имени и номера), справа — сводка.
+function usersSheet(ss) {
+  let sh = ss.getSheetByName(USERS)
+  if (sh) return sh
+  sh = ss.insertSheet(USERS)
+  sh.getRange(1, 1, 1, 6).setValues([['Пользователь (шифр)', 'Язык', 'Первый визит', 'Последний визит', 'Действий', 'Пришёл']]).setFontWeight('bold')
+  sh.setFrozenRows(1)
+  sh.getRange('C:D').setNumberFormat('dd.mm.yyyy hh:mm')
+  const sum = [
+    ['Всего пользователей', '=COUNTA(A2:A)'],
+    ['Активны за 7 дней', '=COUNTIF(D2:D,">="&(TODAY()-7))'],
+    ['Новых за 7 дней', '=COUNTIF(C2:C,">="&(TODAY()-7))'],
+    ['Новых сегодня', '=COUNTIF(C2:C,">="&TODAY())'],
+    ['Вернулись в другой день', '=SUMPRODUCT((A2:A<>"")*(INT(D2:D)>INT(C2:C)))'],
+    ['Пришли с сайта', '=COUNTIF(F2:F,"сайт")'],
+  ]
+  sh.getRange(1, 8, 1, 2).setValues([['Сводка', '']]).setFontWeight('bold')
+  sum.forEach((r, i) => { sh.getRange(i + 2, 8).setValue(r[0]); sh.getRange(i + 2, 9).setFormula(r[1]) })
+  sh.setColumnWidth(1, 260); sh.setColumnWidth(8, 190)
+  return sh
+}
+
+function seen(data) {
+  const uid = clip(data.uid, 80)
+  if (!uid) return {error: 'no uid'}
+  const ss = SpreadsheetApp.getActive()
+  const lock = LockService.getScriptLock()
+  lock.waitLock(20000)
+  try {
+    const sh = usersSheet(ss)
+    const n = Math.max(sh.getLastRow() - 1, 0)
+    const ids = n ? sh.getRange(2, 1, n, 1).getValues().map((r) => String(r[0])) : []
+    const row = ids.indexOf(uid)
+    const now = new Date()
+    if (row < 0) {
+      // строка сразу после последнего пользователя (сводка справа не мешает)
+      const at = ids.filter(Boolean).length + 2
+      sh.getRange(at, 1, 1, 6).setValues([[uid, clip(data.lang, 5), now, now, 1, clip(data.source, 20) || 'Telegram']])
+      return {ok: true, new: true}
+    }
+    const r = row + 2
+    const count = Number(sh.getRange(r, 5).getValue()) || 0
+    sh.getRange(r, 2).setValue(clip(data.lang, 5))
+    sh.getRange(r, 4, 1, 2).setValues([[now, count + 1]])
+    return {ok: true, new: false}
+  } finally {
+    lock.releaseLock()
+  }
+}
+
 function doPost(e) {
   let data
   try {
@@ -135,5 +187,6 @@ function doPost(e) {
   if (!data.secret || data.secret !== secret()) return json({error: 'forbidden'})
   if (data.action === 'vote') return json(vote(data))
   if (data.action === 'suggest') return json(suggest(data))
+  if (data.action === 'seen') return json(seen(data))
   return json({error: 'unknown action'})
 }
