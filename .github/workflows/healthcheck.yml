@@ -1,0 +1,31 @@
+# Ежедневная проверка сайта welcome2.uz с отчётом в Telegram.
+# Время: 08:00 по Ташкенту (03:00 UTC). GitHub иногда запускает расписание с опозданием на 5–30 минут.
+# Нужно в GitHub → Settings → Secrets and variables → Actions:
+#   Secrets:   TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID (те же, что в Cloudflare)
+#   Variables (по желанию): SANITY_WEBHOOK_TOKEN_UNTIL=ГГГГ-ММ-ДД, DOMAIN_WELCOME2_UNTIL, DOMAIN_SILKPASS_UNTIL
+
+name: Healthcheck
+
+on:
+  schedule:
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check site
+        run: python tools/healthcheck.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          SANITY_WEBHOOK_TOKEN_UNTIL: ${{ vars.SANITY_WEBHOOK_TOKEN_UNTIL }}
+          DOMAIN_WELCOME2_UNTIL: ${{ vars.DOMAIN_WELCOME2_UNTIL }}
+          DOMAIN_SILKPASS_UNTIL: ${{ vars.DOMAIN_SILKPASS_UNTIL }}
