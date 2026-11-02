@@ -6,6 +6,7 @@ import {guideTips} from '@/lib/guideTips'
 import {events, wikiUrl} from '@/lib/cityLinks'
 import {href, t, type Lang} from '@/lib/i18n'
 import {getPlaces, placesEnabled} from '@/lib/places'
+import {sanityImg} from '@/lib/img'
 
 // Адреса городов (/tashkent, /samarkand…) зашиты в QR-кодах паспорта. Не переименовывайте их после печати.
 export const cityParams = async () => (await getCities()).map((c) => ({city: c.slug}))
@@ -48,7 +49,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
           </div>
           <Stamp {...c} size={200} total={total} />
         </div>
-        {c.image && <div className="wrap"><img className="hero-img" src={`${c.image.url}?w=1600&h=900&fit=crop&auto=format`} alt={c.name} /></div>}
+        {c.image && <div className="wrap"><img className="hero-img" src={sanityImg(c.image.url, 1600, 900)} alt={c.name} /></div>}
       </section>
 
       <section style={{paddingTop: 0, borderTop: 0}}>
@@ -90,7 +91,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
       {showPlaces && (
         <section style={{paddingTop: 0, borderTop: 0}}>
           <div className="wrap">
-            <Link className="pl-cta" href={href(lang, `/${c.slug}/places`)}>
+            <Link prefetch={false} className="pl-cta" href={href(lang, `/${c.slug}/places`)}>
               <div>
                 <p className="label">{PT.label}</p>
                 <h2 style={{marginTop: 10}}>{PT.title(placesCount)}</h2>
@@ -166,7 +167,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
                 {cityDeals.map((d, i) => <li key={i}><b>{d.partnerName}</b> · {d.text}</li>)}
               </ul>
             ) : (
-              <p className="muted">{d.dealsSoon} <Link href={href(lang, '/partners')}>{d.offerDeal}</Link></p>
+              <p className="muted">{d.dealsSoon} <Link prefetch={false} href={href(lang, '/partners')}>{d.offerDeal}</Link></p>
             )}
           </div>
         </div>
@@ -179,8 +180,8 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
             <div className="sec-head"><div><p className="label">{d.more(c.name)}</p><h2 style={{marginTop: 12}}>{d.beyond}</h2></div></div>
             <div className="more-grid">
               {guides.map((g) => (
-                <Link key={g.slug} className="more-card" href={href(lang, `/${c.slug}/${g.slug}`)}>
-                  {g.cover && <img src={`${g.cover.url}?w=640&h=400&fit=crop&auto=format`} alt="" loading="lazy" />}
+                <Link prefetch={false} key={g.slug} className="more-card" href={href(lang, `/${c.slug}/${g.slug}`)}>
+                  {g.cover && <img src={sanityImg(g.cover.url, 640, 400)} alt="" loading="lazy" />}
                   <div><h3>{g.title}</h3>{g.summary && <p className="muted">{g.summary}</p>}<span className="go">{d.open} →</span></div>
                 </Link>
               ))}
@@ -200,7 +201,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
           <div className="wrap">
             <a className="ad" href={ad.url || '#'} target={ad.url ? '_blank' : undefined} rel="noopener sponsored" style={{textDecoration: 'none'}}>
               <div><p className="label">{d.sponsored}</p><h3 style={{marginTop: 8}}>{ad.title}</h3>{ad.text && <p className="muted" style={{marginTop: 6}}>{ad.text}</p>}</div>
-              {ad.image && <img src={`${ad.image.url}?h=160&auto=format`} alt="" style={{height: 80, width: 'auto', borderRadius: 10}} />}
+              {ad.image && <img src={sanityImg(ad.image.url, 0, 160)} alt="" style={{height: 80, width: 'auto', borderRadius: 10}} />}
             </a>
           </div>
         </section>
@@ -217,7 +218,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
                   {c.nextTravel && <p className="travel">{c.nextTravel}</p>}
                   <div className="progress">{cities.map((x) => <span key={x.slug} className={x.order <= c.order ? 'done' : ''} />)}</div>
                 </div>
-                <Link className="btn" href={href(lang, `/${next.slug}`)}>{d.goTo(next.name)}</Link>
+                <Link prefetch={false} className="btn" href={href(lang, `/${next.slug}`)}>{d.goTo(next.name)}</Link>
               </>
             ) : (
               <>
@@ -227,7 +228,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
                   <p className="travel">{d.finalText}</p>
                   <div className="progress">{cities.map((x) => <span key={x.slug} className="done" />)}</div>
                 </div>
-                <Link className="btn" href={href(lang, '/reward')}>{d.claim}</Link>
+                <Link prefetch={false} className="btn" href={href(lang, '/reward')}>{d.claim}</Link>
               </>
             )}
           </div>

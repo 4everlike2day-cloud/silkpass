@@ -122,7 +122,7 @@ export default function RouteForm({lang, gifts = []}: {lang: Lang; gifts?: {id: 
 
       <label className="check">
         <input type="checkbox" name="consent" required />
-        <span>{f.consent} <Link href={href(lang, '/privacy')}>{t(lang).legal.names.privacy}</Link></span>
+        <span>{f.consent} <Link prefetch={false} href={href(lang, '/privacy')}>{t(lang).legal.names.privacy}</Link></span>
       </label>
 
       <input className="hp" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />

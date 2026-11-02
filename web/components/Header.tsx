@@ -34,13 +34,13 @@ export default function Header() {
   return (
     <header className="site">
       <div className="wrap">
-        <Link className="logo" href={href(lang, '/')}><img src="/brand/w2uz-mark.png" alt="" width={44} height={44} />Welcome 2 UZ</Link>
+        <Link prefetch={false} className="logo" href={href(lang, '/')}><img src="/brand/w2uz-mark.png" alt="" width={44} height={44} />Welcome 2 UZ</Link>
         <button className="menu-btn" aria-expanded={open} aria-controls="nav" onClick={() => setOpen(!open)}>{d.menu}</button>
         <nav className={`main${open ? ' open' : ''}`} id="nav">
           {links.map((l) => (
-            <Link key={l.href} href={href(lang, l.href)} aria-current={isOn(l.href) ? 'page' : undefined}>{l.label}</Link>
+            <Link prefetch={false} key={l.href} href={href(lang, l.href)} aria-current={isOn(l.href) ? 'page' : undefined}>{l.label}</Link>
           ))}
-          <Link href={href(lang, '/cart')} className="cart-link" aria-label={d.cart} title={d.cart} aria-current={isOn('/cart') ? 'page' : undefined}>
+          <Link prefetch={false} href={href(lang, '/cart')} className="cart-link" aria-label={d.cart} title={d.cart} aria-current={isOn('/cart') ? 'page' : undefined}>
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14l-1.2 11.1a2 2 0 0 1-2 1.9H8.2a2 2 0 0 1-2-1.9z" /><path d="M9 10V6.5a3 3 0 0 1 6 0V10" /></svg>
             <span className="cart-text">{d.cart}</span>
             {count > 0 && <span className="count">{count}</span>}
@@ -48,6 +48,7 @@ export default function Header() {
           <div className="lang" role="group" aria-label="Language">
             {LANGS.map((l) => (
               <Link
+                prefetch={false}
                 key={l}
                 href={href(l, path)}
                 hrefLang={l}

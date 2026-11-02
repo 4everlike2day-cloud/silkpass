@@ -48,7 +48,7 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
         <div className="wrap">
           <div className="footer-main">
             <div>
-              <Link href={href(lang, '/')} aria-label="Welcome 2 UZ" className="footer-logo-link">
+              <Link prefetch={false} href={href(lang, '/')} aria-label="Welcome 2 UZ" className="footer-logo-link">
                 <img className="footer-logo" src="/brand/w2uz-logo.png" alt="Welcome 2 UZ · W2-UZ" width={64} height={73} />
               </Link>
               <div className="social">
@@ -61,15 +61,15 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
             </div>
             <div>
               <p className="label" style={{marginBottom: 10}}>{d.footer.route}</p>
-              {(cities[lang] || cities.en).map((c) => <Link key={c.slug} href={href(lang, `/${c.slug}`)}>{c.name}</Link>)}
+              {(cities[lang] || cities.en).map((c) => <Link prefetch={false} key={c.slug} href={href(lang, `/${c.slug}`)}>{c.name}</Link>)}
             </div>
             <div>
               <p className="label" style={{marginBottom: 10}}>{d.footer.info}</p>
-              <Link href={href(lang, '/how-it-works')}>{d.nav.how}</Link>
-              <Link href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
-              <Link href={href(lang, '/where-to-buy')}>{d.nav.buy}</Link>
-              <Link href={href(lang, '/shop')}>{d.nav.shop}</Link>
-              <Link href={href(lang, '/partners')}>{d.nav.partners}</Link>
+              <Link prefetch={false} href={href(lang, '/how-it-works')}>{d.nav.how}</Link>
+              <Link prefetch={false} href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
+              <Link prefetch={false} href={href(lang, '/where-to-buy')}>{d.nav.buy}</Link>
+              <Link prefetch={false} href={href(lang, '/shop')}>{d.nav.shop}</Link>
+              <Link prefetch={false} href={href(lang, '/partners')}>{d.nav.partners}</Link>
             </div>
             <div className="footer-versions">
               <p className="label" style={{marginBottom: 10}}>{d.footer.versions}</p>
@@ -81,7 +81,7 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
           <div className="footer-bottom">
             <p className="copyright">© {new Date().getFullYear()} SilkPass <span className="version">v{SITE_VERSION}</span></p>
             <nav className="legal-links" aria-label={d.legal.label}>
-              {LEGAL_SLUGS.map((x) => <Link key={x} href={href(lang, `/${x}`)}>{d.legal.names[x]}</Link>)}
+              {LEGAL_SLUGS.map((x) => <Link prefetch={false} key={x} href={href(lang, `/${x}`)}>{d.legal.names[x]}</Link>)}
             </nav>
           </div>
         </div>

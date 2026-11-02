@@ -3,6 +3,7 @@ import Stamp from '@/components/Stamp'
 import ProductCard from '@/components/ProductCard'
 import {getCities, getPartners, getProducts, getSettings, pad} from '@/lib/data'
 import {href, t, type Lang} from '@/lib/i18n'
+import {sanityImg} from '@/lib/img'
 
 export default async function Home({lang}: {lang: Lang}) {
   const d = t(lang)
@@ -20,8 +21,8 @@ export default async function Home({lang}: {lang: Lang}) {
             <h1 style={{marginTop: 18}}>{settings.heroTitle}</h1>
             <p className="lede">{settings.heroLede}</p>
             <div className="row">
-              <Link className="btn" href={href(lang, '/where-to-buy')}>{h.getPassport}</Link>
-              <Link className="btn ghost" href={href(lang, '/how-it-works')}>{h.how}</Link>
+              <Link prefetch={false} className="btn" href={href(lang, '/where-to-buy')}>{h.getPassport}</Link>
+              <Link prefetch={false} className="btn ghost" href={href(lang, '/how-it-works')}>{h.how}</Link>
             </div>
           </div>
           <div className="passport" aria-hidden="true">
@@ -45,7 +46,7 @@ export default async function Home({lang}: {lang: Lang}) {
           </div>
           <div className="grid4">
             {cities.map((c) => (
-              <Link key={c.slug} className="card city-card" href={href(lang, `/${c.slug}`)}>
+              <Link prefetch={false} key={c.slug} className="card city-card" href={href(lang, `/${c.slug}`)}>
                 <div className="top"><span className="step-n">{pad(c.order)} / {pad(total)}</span><Stamp {...c} size={64} total={total} /></div>
                 <h3>{c.nameUz}</h3>
                 <p className="muted">{c.name}</p>
@@ -60,7 +61,7 @@ export default async function Home({lang}: {lang: Lang}) {
         <div className="wrap">
           <div className="sec-head">
             <div><p className="label">{h.howLabel}</p><h2 style={{marginTop: 12}}>{h.howTitle}</h2></div>
-            <Link className="btn ghost" href={href(lang, '/how-it-works')}>{h.fullRules}</Link>
+            <Link prefetch={false} className="btn ghost" href={href(lang, '/how-it-works')}>{h.fullRules}</Link>
           </div>
           <div className="grid3">
             <div className="card"><span className="step-n">{h.step(1)}</span><h3>{h.s1t}</h3><p className="muted">{h.s1d}</p></div>
@@ -75,7 +76,7 @@ export default async function Home({lang}: {lang: Lang}) {
           <div className="wrap">
             <div className="sec-head">
               <div><p className="label">{h.shopLabel}</p><h2 style={{marginTop: 12}}>{h.shopTitle}</h2></div>
-              <Link className="btn ghost" href={href(lang, '/shop')}>{h.allProducts}</Link>
+              <Link prefetch={false} className="btn ghost" href={href(lang, '/shop')}>{h.allProducts}</Link>
             </div>
             <div className="grid4">{featured.map((p) => <ProductCard key={p.slug} p={p} lang={lang} />)}</div>
           </div>
@@ -86,10 +87,10 @@ export default async function Home({lang}: {lang: Lang}) {
         <div className="wrap">
           <div className="sec-head">
             <div><p className="label">{h.partnersLabel}</p><h2 style={{marginTop: 12}}>{h.partnersTitle}</h2></div>
-            <Link className="btn ghost" href={href(lang, '/partners')}>{h.becomePartner}</Link>
+            <Link prefetch={false} className="btn ghost" href={href(lang, '/partners')}>{h.becomePartner}</Link>
           </div>
           {logos.length > 0 ? (
-            <div className="logos">{logos.map((p) => <img key={p.id} src={`${p.logo!.url}?h=96&auto=format`} alt={p.name} />)}</div>
+            <div className="logos">{logos.map((p) => <img key={p.id} src={sanityImg(p.logo!.url, 0, 96)} alt={p.name} />)}</div>
           ) : (
             <p className="muted">{h.partnersSoon}</p>
           )}

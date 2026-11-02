@@ -16,7 +16,7 @@ export default function CartView({cities, lang = 'en'}: {cities: string[]; lang?
       <div className="card">
         <h3>{c.received}</h3>
         <p className="muted">{c.receivedText}</p>
-        <Link className="btn ghost" href={href(lang, '/shop')} style={{alignSelf: 'start'}}>{c.back}</Link>
+        <Link prefetch={false} className="btn ghost" href={href(lang, '/shop')} style={{alignSelf: 'start'}}>{c.back}</Link>
       </div>
     )
 
@@ -24,7 +24,7 @@ export default function CartView({cities, lang = 'en'}: {cities: string[]; lang?
     return (
       <div className="card">
         <p className="muted">{c.empty}</p>
-        <Link className="btn" href={href(lang, '/shop')} style={{alignSelf: 'start'}}>{c.go}</Link>
+        <Link prefetch={false} className="btn" href={href(lang, '/shop')} style={{alignSelf: 'start'}}>{c.go}</Link>
       </div>
     )
 
@@ -46,7 +46,7 @@ export default function CartView({cities, lang = 'en'}: {cities: string[]; lang?
       <div>
         {items.map((i) => (
           <div className="cart-row" key={i.slug}>
-            <div><Link href={href(lang, `/shop/item/${i.slug}`)}><b>{i.title}</b></Link><p className="muted">{formatPrice(i.price)}</p></div>
+            <div><Link prefetch={false} href={href(lang, `/shop/item/${i.slug}`)}><b>{i.title}</b></Link><p className="muted">{formatPrice(i.price)}</p></div>
             <div className="qty">
               <button type="button" aria-label={t(lang).shop.fewer} onClick={() => setQty(i.slug, i.qty - 1)}>−</button>
               <span>{i.qty}</span>
@@ -68,9 +68,9 @@ export default function CartView({cities, lang = 'en'}: {cities: string[]; lang?
         <input className="hp" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" />
         <p className="muted" style={{fontSize: '.9rem'}}>{c.payNote}</p>
         <p className="muted" style={{fontSize: '.85rem'}}>
-          {t(lang).legal.agree} <Link href={href(lang, '/offer')}>{t(lang).legal.agreeLink}</Link>
+          {t(lang).legal.agree} <Link prefetch={false} href={href(lang, '/offer')}>{t(lang).legal.agreeLink}</Link>
           {'. '}
-          <Link href={href(lang, '/delivery')}>{t(lang).legal.names.delivery}</Link> · <Link href={href(lang, '/returns')}>{t(lang).legal.names.returns}</Link>
+          <Link prefetch={false} href={href(lang, '/delivery')}>{t(lang).legal.names.delivery}</Link> · <Link prefetch={false} href={href(lang, '/returns')}>{t(lang).legal.names.returns}</Link>
         </p>
         <div className="row" style={{alignItems: 'center'}}>
           <button className="btn accent" type="submit" disabled={state === 'sending'}>{state === 'sending' ? t(lang).sending : c.place(formatPrice(total))}</button>

@@ -5,12 +5,13 @@ import AddToCart from '@/components/AddToCart'
 import {getCategories, getProducts} from '@/lib/data'
 import {formatPriceL, href, t, type Lang} from '@/lib/i18n'
 import type {Category} from '@/lib/types'
+import {sanityImg} from '@/lib/img'
 
 function CategoryNav({cats, current, lang}: {cats: Category[]; current?: string; lang: Lang}) {
   return (
     <nav className="cats" aria-label="Categories">
-      <Link href={href(lang, '/shop')} aria-current={!current ? 'page' : undefined}>{t(lang).shop.all}</Link>
-      {cats.map((c) => <Link key={c.slug} href={href(lang, `/shop/${c.slug}`)} aria-current={current === c.slug ? 'page' : undefined}>{c.title}</Link>)}
+      <Link prefetch={false} href={href(lang, '/shop')} aria-current={!current ? 'page' : undefined}>{t(lang).shop.all}</Link>
+      {cats.map((c) => <Link prefetch={false} key={c.slug} href={href(lang, `/shop/${c.slug}`)} aria-current={current === c.slug ? 'page' : undefined}>{c.title}</Link>)}
     </nav>
   )
 }
@@ -84,11 +85,11 @@ export async function ProductPage({lang, slug}: {lang: Lang; slug: string}) {
     <section>
       <div className="wrap">
         <p className="label" style={{marginBottom: 24}}>
-          <Link href={href(lang, '/shop')}>{s.label}</Link>{cat && <> / <Link href={href(lang, `/shop/${cat.slug}`)}>{cat.title}</Link></>}
+          <Link prefetch={false} href={href(lang, '/shop')}>{s.label}</Link>{cat && <> / <Link prefetch={false} href={href(lang, `/shop/${cat.slug}`)}>{cat.title}</Link></>}
         </p>
         <div className="pdp">
           <div className="gallery">
-            {p.images.length ? p.images.map((im, i) => <img key={i} src={`${im.url}?w=1000&h=1000&fit=crop&auto=format`} alt={i === 0 ? p.title : ''} />) : <img src="/placeholder.jpg" alt={`${p.title}: ${s.photoSoon}`} />}
+            {p.images.length ? p.images.map((im, i) => <img key={i} src={sanityImg(im.url, 1000, 1000)} alt={i === 0 ? p.title : ''} />) : <img src="/placeholder.jpg" alt={`${p.title}: ${s.photoSoon}`} />}
           </div>
           <div style={{display: 'grid', gap: 18}}>
             <h1 style={{fontSize: 'clamp(2rem,4vw,3rem)'}}>{p.title}</h1>

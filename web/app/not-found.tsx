@@ -12,7 +12,7 @@ export default function NotFound() {
         <p className="label">404</p>
         <h1 style={{marginTop: 18}}>{d.title}</h1>
         <p className="muted" style={{marginTop: 18}}>{d.text}</p>
-        <div className="row" style={{marginTop: 24}}><Link className="btn" href={href(lang, '/')}>{d.go}</Link></div>
+        <div className="row" style={{marginTop: 24}}><Link prefetch={false} className="btn" href={href(lang, '/')}>{d.go}</Link></div>
       </div>
     </section>
   )

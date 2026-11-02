@@ -5,6 +5,7 @@ import {href, type Lang} from '@/lib/i18n'
 import {BOT, botLink, getPlaces, PLACE_CITIES, placesEnabled, sheetCity} from '@/lib/places'
 import PlacesList from '@/components/PlacesList'
 import PlaceSuggest from '@/components/PlaceSuggest'
+import {localImg} from '@/lib/img'
 
 // «Что посмотреть»: welcome2.uz/<город>/places. Места — из Google-таблицы, рейтинг — из голосов в Telegram-боте.
 export const placesParams = async () => PLACE_CITIES.filter((c) => c.enabled).map((c) => ({city: c.slug}))
@@ -60,12 +61,14 @@ export default async function PlacesPage({lang, slug}: {lang: Lang; slug: string
   const tx = TX[lang]
   const name = lang === 'uz' ? c.nameUz : c.name
   const places = await getPlaces(slug)
+  // свои копии фото (быстрее и не пропадут, если сайт-источник удалит картинку); ключ — исходная ссылка
+  const photos = Object.fromEntries(places.filter((p) => p.photo).map((p) => [p.photo, localImg(p.photo, 720, 450)]))
 
   return (
     <>
       <section>
         <div className="wrap">
-          <p className="label"><Link href={href(lang, `/${c.slug}`)}>{c.nameUz}</Link> · {tx.label}</p>
+          <p className="label"><Link prefetch={false} href={href(lang, `/${c.slug}`)}>{c.nameUz}</Link> · {tx.label}</p>
           <h1 style={{marginTop: 16, maxWidth: '16ch'}}>{tx.title(name)}</h1>
           <p className="muted" style={{marginTop: 14, fontSize: '1.15rem', maxWidth: '58ch'}}>{tx.lead(name)}</p>
           {tx.note && <p className="muted" style={{marginTop: 10, fontSize: '.92rem'}}><i>{tx.note}</i></p>}
@@ -81,7 +84,7 @@ export default async function PlacesPage({lang, slug}: {lang: Lang; slug: string
 
       <section style={{paddingTop: 8, borderTop: 0}}>
         <div className="wrap">
-          <PlacesList lang={lang} slug={slug} initial={places} tx={tx.list} />
+          <PlacesList lang={lang} slug={slug} initial={places} photos={photos} tx={tx.list} />
         </div>
       </section>
 
@@ -91,7 +94,7 @@ export default async function PlacesPage({lang, slug}: {lang: Lang; slug: string
             <p className="label">{tx.suggestLabel}</p>
             <h2 style={{marginTop: 12}}>{tx.suggestTitle}</h2>
             <p className="muted" style={{marginTop: 12, maxWidth: '44ch'}}>{tx.suggestText}</p>
-            <p style={{marginTop: 20}}><Link href={href(lang, `/${c.slug}`)}>{tx.back(c.nameUz)}</Link></p>
+            <p style={{marginTop: 20}}><Link prefetch={false} href={href(lang, `/${c.slug}`)}>{tx.back(c.nameUz)}</Link></p>
           </div>
           <div className="card"><PlaceSuggest lang={lang} city={sheetCity(slug)} tx={tx.form} /></div>
         </div>

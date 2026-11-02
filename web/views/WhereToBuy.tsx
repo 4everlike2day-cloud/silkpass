@@ -18,7 +18,7 @@ export default async function WhereToBuy({lang}: {lang: Lang}) {
           <p className="muted" style={{marginTop: 18, maxWidth: '52ch', fontSize: '1.08rem'}}>{b.lede}</p>
           <div className="row" style={{marginTop: 24, alignItems: 'center'}}>
             <span className="label">{b.price}</span><span className="price">{formatPriceL(lang, s.passportPrice)}</span>
-            <Link className="btn accent" href={href(lang, '/shop/passports')}>{b.order}</Link>
+            <Link prefetch={false} className="btn accent" href={href(lang, '/shop/passports')}>{b.order}</Link>
           </div>
         </div>
       </section>

@@ -4,6 +4,7 @@ import {getCities, getGuides, pad} from '@/lib/data'
 import GuideMap from '@/components/GuideMap'
 import Lightbox from '@/components/Lightbox'
 import {href, t, type Lang} from '@/lib/i18n'
+import {sanityImg} from '@/lib/img'
 
 // Подборки по городам: welcome2.uz/<город>/<подборка>. Создаются в Sanity, тип «Подборка».
 export async function guideParams() {
@@ -42,11 +43,11 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
     <>
       <section>
         <div className="wrap">
-          <p className="label"><Link href={href(lang, `/${c.slug}`)}>{c.nameUz}</Link> · {d.moreIn(c.name)}</p>
+          <p className="label"><Link prefetch={false} href={href(lang, `/${c.slug}`)}>{c.nameUz}</Link> · {d.moreIn(c.name)}</p>
           <h1 style={{marginTop: 16, maxWidth: '18ch'}}>{g.title}</h1>
           {g.summary && <p className="muted" style={{marginTop: 14, fontSize: '1.15rem', maxWidth: '56ch'}}>{g.summary}</p>}
         </div>
-        {g.cover && <div className="wrap"><img className="hero-img" src={`${g.cover.url}?w=1600&h=900&fit=crop&auto=format`} alt={g.title} /></div>}
+        {g.cover && <div className="wrap"><img className="hero-img" src={sanityImg(g.cover.url, 1600, 900)} alt={g.title} /></div>}
       </section>
 
       {g.intro && (
@@ -126,7 +127,7 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
       {g.cta && (
         <section>
           <div className="wrap">
-            <Link className="source-cta" href={href(lang, g.cta.path)}>
+            <Link prefetch={false} className="source-cta" href={href(lang, g.cta.path)}>
               <div><p className="label">{g.cta.label}</p><h3>{g.cta.title}</h3></div>
               <span className="btn">{g.cta.button} →</span>
             </Link>
@@ -137,7 +138,7 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
       {g.gallery.length > 0 && (
         <section>
           <div className="wrap gallery">
-            {g.gallery.map((im, i) => <img key={i} src={`${im.url}?w=900&h=900&fit=crop&auto=format`} alt="" loading="lazy" />)}
+            {g.gallery.map((im, i) => <img key={i} src={sanityImg(im.url, 900, 900)} alt="" loading="lazy" />)}
           </div>
         </section>
       )}
@@ -157,8 +158,8 @@ export default async function GuidePage({lang, citySlug, slug}: {lang: Lang; cit
 
       <section>
         <div className="wrap" style={{display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center'}}>
-          <Link className="btn" href={href(lang, `/${c.slug}`)}>{lang === 'en' ? `← ${d.back(c.name)}` : d.back(c.name)}</Link>
-          {more.map((m) => <Link key={m.slug} className="btn ghost" href={href(lang, `/${c.slug}/${m.slug}`)}>{m.title}</Link>)}
+          <Link prefetch={false} className="btn" href={href(lang, `/${c.slug}`)}>{lang === 'en' ? `← ${d.back(c.name)}` : d.back(c.name)}</Link>
+          {more.map((m) => <Link prefetch={false} key={m.slug} className="btn ghost" href={href(lang, `/${c.slug}/${m.slug}`)}>{m.title}</Link>)}
         </div>
       </section>
     </>

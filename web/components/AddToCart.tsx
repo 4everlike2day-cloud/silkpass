@@ -20,7 +20,7 @@ export default function AddToCart({slug, title, price, inStock, lang = 'en'}: {s
         <button type="button" aria-label={s.more} onClick={() => setQty(qty + 1)}>+</button>
       </div>
       <button className="btn accent" type="button" onClick={() => { add({slug, title, price}, qty); setAdded(true) }}>{s.add}</button>
-      {(added || inCart > 0) && <Link href={href(lang, '/cart')}>{s.inCart(inCart)}</Link>}
+      {(added || inCart > 0) && <Link prefetch={false} href={href(lang, '/cart')}>{s.inCart(inCart)}</Link>}
     </div>
   )
 }

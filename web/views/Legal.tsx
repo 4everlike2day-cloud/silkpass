@@ -53,7 +53,7 @@ export default async function Legal({lang, slug}: {lang: Lang; slug: LegalSlug})
           <nav className="legal-nav card" aria-label={l.label}>
             <p className="label">{l.label}</p>
             {LEGAL_SLUGS.map((x) => (
-              <Link key={x} href={href(lang, `/${x}`)} aria-current={x === slug ? 'page' : undefined}>{l.names[x]}</Link>
+              <Link prefetch={false} key={x} href={href(lang, `/${x}`)} aria-current={x === slug ? 'page' : undefined}>{l.names[x]}</Link>
             ))}
           </nav>
         </div>

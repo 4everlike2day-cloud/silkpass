@@ -10,7 +10,8 @@ type Texts = {
 
 // Список мест с фильтром по категориям, поиском и сортировкой.
 // Стартовые данные приходят из сборки, свежие (новые места и рейтинг) — из /api/places после открытия страницы.
-export default function PlacesList({lang, slug, initial, tx}: {lang: Lang; slug: string; initial: Place[]; tx: Texts}) {
+// photos: исходная ссылка на фото → наша копия с сайта (сделана при сборке). Новые фото до следующей сборки идут по исходной ссылке.
+export default function PlacesList({lang, slug, initial, photos = {}, tx}: {lang: Lang; slug: string; initial: Place[]; photos?: Record<string, string>; tx: Texts}) {
   const [places, setPlaces] = useState(initial)
   const [state, setState] = useState<'idle' | 'loading' | 'error'>(initial.length ? 'idle' : 'loading')
   const [cat, setCat] = useState('')
@@ -80,7 +81,7 @@ export default function PlacesList({lang, slug, initial, tx}: {lang: Lang; slug:
           const v = votesOf(p)
           return (
             <li key={p.id} className="pl-card" id={`place-${p.id}`}>
-              <Photo src={p.photo} alt={p.name} icon={catIcon(p.category)} />
+              <Photo src={photos[p.photo] || p.photo} alt={p.name} icon={catIcon(p.category)} />
               <div className="pl-body">
                 <p className="label">{catIcon(p.category)} {catName(p.category, lang)}</p>
                 <h3>{p.name}</h3>

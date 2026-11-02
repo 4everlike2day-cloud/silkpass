@@ -83,7 +83,7 @@ export default async function Reward({lang}: {lang: Lang}) {
               <p className="muted">{r.promoText}</p>
               <p style={{marginTop: 6, display: 'flex', gap: 12, flexWrap: 'wrap'}}>
                 <a className="btn ghost" href={contact.href} target={contact.href.startsWith('http') ? '_blank' : undefined} rel="noopener">{contact.label}</a>
-                <Link className="btn ghost" href={href(lang, '/where-to-buy')}>{r.points}</Link>
+                <Link prefetch={false} className="btn ghost" href={href(lang, '/where-to-buy')}>{r.points}</Link>
               </p>
             </div>
           </div>
