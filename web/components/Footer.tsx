@@ -66,6 +66,7 @@ export default function Footer({cities, settings}: {cities: Record<Lang, City[]>
             <div>
               <p className="label" style={{marginBottom: 10}}>{d.footer.info}</p>
               <Link prefetch={false} href={href(lang, '/how-it-works')}>{d.nav.how}</Link>
+              <Link prefetch={false} href={href(lang, '/info')}>{({en: 'Travel essentials', ru: 'Полезное в дороге', uz: 'Yo‘l uchun foydali'} as const)[lang]}</Link>
               <Link prefetch={false} href={href(lang, '/faq')}>{d.nav.faqFull}</Link>
               <Link prefetch={false} href={href(lang, '/where-to-buy')}>{d.nav.buy}</Link>
               <Link prefetch={false} href={href(lang, '/shop')}>{d.nav.shop}</Link>
