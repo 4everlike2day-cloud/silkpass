@@ -155,21 +155,20 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
       )}
 
       <section>
-        <div className="wrap grid2">
+        <div className={cityDeals.length > 0 ? 'wrap grid2' : 'wrap'}>
           <div className="card">
             <p className="label">{d.eat}</p><h3>{d.flavours}</h3>
             <ul style={{margin: 0, paddingLeft: 18, display: 'grid', gap: 6}}>{c.food.map((f, i) => <li key={i}>{f}</li>)}</ul>
           </div>
-          <div className="card">
-            <p className="label">{d.deals}</p><h3>{d.dealsTitle}</h3>
-            {cityDeals.length > 0 ? (
+          {/* Скидки партнёров: блок показывается, только когда скидки появятся в Sanity */}
+          {cityDeals.length > 0 && (
+            <div className="card">
+              <p className="label">{d.deals}</p><h3>{d.dealsTitle}</h3>
               <ul style={{margin: 0, paddingLeft: 18, display: 'grid', gap: 6}}>
                 {cityDeals.map((d, i) => <li key={i}><b>{d.partnerName}</b> · {d.text}</li>)}
               </ul>
-            ) : (
-              <p className="muted">{d.dealsSoon} <Link prefetch={false} href={href(lang, '/partners')}>{d.offerDeal}</Link></p>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -207,33 +206,22 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
         </section>
       )}
 
-      <section>
-        <div className="wrap">
-          <div className="next">
-            {next ? (
-              <>
-                <div>
-                  <p className="label">{d.next}</p>
-                  <h2>{next.nameUz} →</h2>
-                  {c.nextTravel && <p className="travel">{c.nextTravel}</p>}
-                  <div className="progress">{cities.map((x) => <span key={x.slug} className={x.order <= c.order ? 'done' : ''} />)}</div>
-                </div>
-                <Link prefetch={false} className="btn" href={href(lang, `/${next.slug}`)}>{d.goTo(next.name)}</Link>
-              </>
-            ) : (
-              <>
-                <div>
-                  <p className="label">{d.final}</p>
-                  <h2>{d.complete}</h2>
-                  <p className="travel">{d.finalText}</p>
-                  <div className="progress">{cities.map((x) => <span key={x.slug} className="done" />)}</div>
-                </div>
-                <Link prefetch={false} className="btn" href={href(lang, '/reward')}>{d.claim}</Link>
-              </>
-            )}
+      {/* Финальный блок «Маршрут пройден» на последнем городе пока скрыт: показываем только переход к следующему городу */}
+      {next && (
+        <section>
+          <div className="wrap">
+            <div className="next">
+              <div>
+                <p className="label">{d.next}</p>
+                <h2>{next.nameUz} →</h2>
+                {c.nextTravel && <p className="travel">{c.nextTravel}</p>}
+                <div className="progress">{cities.map((x) => <span key={x.slug} className={x.order <= c.order ? 'done' : ''} />)}</div>
+              </div>
+              <Link prefetch={false} className="btn" href={href(lang, `/${next.slug}`)}>{d.goTo(next.name)}</Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
     </>
   )
 }
