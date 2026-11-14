@@ -24,7 +24,7 @@ const TX = {
     list: {all: 'All', search: 'Search by name or description', popular: 'Popular first', az: 'A–Z', empty: 'Nothing found. Try another word or category.', loading: 'Loading places…', unavailable: 'Could not load the list. Please refresh the page.', map: 'Map', more: 'More', rate: 'Rate in Telegram', noVotes: 'No ratings yet', votes: {one: '{n} vote', few: '{n} votes', many: '{n} votes'}},
     suggestLabel: 'Know a great place?', suggestTitle: 'Suggest a place', suggestText: "We check every suggestion and add the best ones to the list. Name is enough, the rest helps.",
     form: {name: 'Place name', category: 'Category', categoryAny: 'Not sure', description: 'Why go there', link: 'Link (website, Instagram)', location: 'Map link', contact: 'Your contact (optional)', send: 'Send', ok: 'Thank you! We will check the place and add it to the list.', hint: 'We use your contact only to ask about this place.'},
-    note: 'Descriptions are in Russian for now, translations are coming.',
+    note: 'We add new places gradually. Descriptions are in Russian for now, translations are coming.',
   },
   ru: {
     label: 'Что посмотреть', title: (c: string) => `Что посмотреть в ${ruIn(c)}`,
@@ -34,7 +34,7 @@ const TX = {
     list: {all: 'Все', search: 'Поиск по названию или описанию', popular: 'Сначала популярные', az: 'А–Я', empty: 'Ничего не нашлось. Попробуйте другое слово или категорию.', loading: 'Загружаем места…', unavailable: 'Не удалось загрузить список. Обновите страницу.', map: 'На карте', more: 'Подробнее', rate: 'Оценить в Telegram', noVotes: 'Оценок пока нет', votes: {one: '{n} голос', few: '{n} голоса', many: '{n} голосов'}},
     suggestLabel: 'Знаете хорошее место?', suggestTitle: 'Предложить место', suggestText: 'Мы проверяем каждое предложение и добавляем лучшие в список. Хватит названия, остальное поможет.',
     form: {name: 'Название места', category: 'Категория', categoryAny: 'Не знаю', description: 'Чем интересно', link: 'Ссылка (сайт, Instagram)', location: 'Ссылка на карту', contact: 'Ваш контакт (необязательно)', send: 'Отправить', ok: 'Спасибо! Мы проверим место и добавим его в список.', hint: 'Контакт нужен, только чтобы уточнить детали о месте.'},
-    note: '',
+    note: 'Новые места добавляются постепенно.',
   },
   uz: {
     label: "Nimani ko'rish kerak", title: (c: string) => `${c}da nimani ko'rish kerak`,
@@ -44,7 +44,7 @@ const TX = {
     list: {all: 'Hammasi', search: "Nomi yoki tavsifi bo'yicha qidirish", popular: 'Avval mashhurlari', az: 'A–Z', empty: "Hech narsa topilmadi. Boshqa so'z yoki toifani tanlang.", loading: 'Joylar yuklanmoqda…', unavailable: "Ro'yxatni yuklab bo'lmadi. Sahifani yangilang.", map: 'Xaritada', more: 'Batafsil', rate: 'Telegramda baholash', noVotes: "Hozircha baholar yo'q", votes: {one: '{n} ta ovoz', few: '{n} ta ovoz', many: '{n} ta ovoz'}},
     suggestLabel: 'Yaxshi joyni bilasizmi?', suggestTitle: 'Joy taklif qilish', suggestText: "Har bir taklifni tekshirib, eng yaxshilarini ro'yxatga qo'shamiz. Nomi yetarli, qolgani yordam beradi.",
     form: {name: 'Joy nomi', category: 'Toifa', categoryAny: 'Bilmayman', description: 'Nimasi qiziq', link: 'Havola (sayt, Instagram)', location: 'Xarita havolasi', contact: 'Kontaktingiz (ixtiyoriy)', send: 'Yuborish', ok: "Rahmat! Joyni tekshirib, ro'yxatga qo'shamiz.", hint: 'Kontakt faqat joy haqida aniqlashtirish uchun kerak.'},
-    note: 'Tavsiflar hozircha rus tilida, tarjimalar tez orada.',
+    note: "Yangi joylar asta-sekin qo'shib boriladi. Tavsiflar hozircha rus tilida, tarjimalar tez orada.",
   },
 }
 

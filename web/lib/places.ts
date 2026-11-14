@@ -13,9 +13,9 @@ export type Place = {
 // Города: адрес страницы → название в таблице. Страница /<город>/places собирается только для включённых городов.
 export const PLACE_CITIES: {slug: string; sheet: string; enabled: boolean}[] = [
   {slug: 'tashkent', sheet: 'Ташкент', enabled: true},
-  {slug: 'samarkand', sheet: 'Самарканд', enabled: false},
-  {slug: 'bukhara', sheet: 'Бухара', enabled: false},
-  {slug: 'khiva', sheet: 'Хива', enabled: false},
+  {slug: 'samarkand', sheet: 'Самарканд', enabled: true},
+  {slug: 'bukhara', sheet: 'Бухара', enabled: true},
+  {slug: 'khiva', sheet: 'Хива', enabled: true},
 ]
 export const placesEnabled = (slug: string) => PLACE_CITIES.some((c) => c.slug === slug && c.enabled)
 export const sheetCity = (slug: string) => PLACE_CITIES.find((c) => c.slug === slug)?.sheet || ''
