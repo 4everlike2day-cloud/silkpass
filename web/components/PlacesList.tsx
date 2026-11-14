@@ -1,6 +1,6 @@
 'use client'
 import {useEffect, useMemo, useState} from 'react'
-import {botLink, catIcon, parseLinks, catName, catOrder, MIN_VOTES, rankOf, ratingOf, votesOf, type Place} from '@/lib/places'
+import {botLink, catIcon, directPhoto, parseLinks, catName, catOrder, MIN_VOTES, rankOf, ratingOf, votesOf, type Place} from '@/lib/places'
 import type {Lang} from '@/lib/i18n'
 
 type Texts = {
@@ -81,7 +81,7 @@ export default function PlacesList({lang, slug, initial, photos = {}, tx}: {lang
           const v = votesOf(p)
           return (
             <li key={p.id} className="pl-card" id={`place-${p.id}`}>
-              <Photo src={photos[p.photo] || p.photo} alt={p.name} icon={catIcon(p.category)} />
+              <Photo src={photos[p.photo] || directPhoto(p.photo)} alt={p.name} icon={catIcon(p.category)} />
               <div className="pl-body">
                 <p className="label">{catIcon(p.category)} {catName(p.category, lang)}</p>
                 <h3>{p.name}</h3>

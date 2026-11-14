@@ -2,7 +2,7 @@ import Link from 'next/link'
 import {notFound} from 'next/navigation'
 import {getCity} from '@/lib/data'
 import {href, type Lang} from '@/lib/i18n'
-import {BOT, botLink, getPlaces, PLACE_CITIES, placesEnabled, sheetCity} from '@/lib/places'
+import {BOT, botLink, getPlaces, PLACE_CITIES, placesEnabled, sheetCity, directPhoto} from '@/lib/places'
 import PlacesList from '@/components/PlacesList'
 import PlaceSuggest from '@/components/PlaceSuggest'
 import {localImg} from '@/lib/img'
@@ -62,7 +62,7 @@ export default async function PlacesPage({lang, slug}: {lang: Lang; slug: string
   const name = lang === 'uz' ? c.nameUz : c.name
   const places = await getPlaces(slug)
   // свои копии фото (быстрее и не пропадут, если сайт-источник удалит картинку); ключ — исходная ссылка
-  const photos = Object.fromEntries(places.filter((p) => p.photo).map((p) => [p.photo, localImg(p.photo, 720, 450)]))
+  const photos = Object.fromEntries(places.filter((p) => p.photo).map((p) => [p.photo, localImg(directPhoto(p.photo), 720, 450)]))
 
   return (
     <>

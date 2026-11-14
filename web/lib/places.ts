@@ -65,6 +65,14 @@ export function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
   return out
 }
 
+// Фото из Google Drive: ссылка «Поделиться» (drive.google.com/file/d/…/view) открывает страницу просмотра, а не картинку.
+// Превращаем её в прямую ссылку на изображение. Файл должен быть открыт «Всем, у кого есть ссылка».
+export function directPhoto(raw?: string): string {
+  const u = String(raw || '').trim()
+  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/)
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}=w1600` : u
+}
+
 export const MIN_VOTES = 3 // звёзды показываем, когда у места не меньше 3 голосов (как в боте)
 export const votesOf = (p: Place) => p.likes + p.dislikes
 export const ratingOf = (p: Place) => (votesOf(p) ? 1 + (4 * p.likes) / votesOf(p) : 0)

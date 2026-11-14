@@ -123,6 +123,13 @@ function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
   }
   return out
 }
+// Фото из Google Drive: ссылка «Поделиться» (drive.google.com/file/d/…/view) открывает страницу просмотра, а не картинку.
+// Превращаем её в прямую ссылку на изображение. Файл должен быть открыт «Всем, у кого есть ссылка».
+function directPhoto(raw?: string): string {
+  const u = String(raw || '').trim()
+  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/)
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}=w1600` : u
+}
 const LINK_ICON: Record<LinkKind, string> = {ig: '📸', tg: '✈️', web: '🔗'}
 const asLang = (v?: string): Lang => (v === 'ru' || v === 'uz' || v === 'en' ? v : 'en')
 // Язык по умолчанию — из настроек Telegram пользователя.
@@ -220,7 +227,7 @@ function placeText(p: Place, l: Lang, withCity = false) {
 // Подпись к фото ограничена 1024 символами, длинное описание укорачиваем.
 async function sendPlace(env: Env, chat: number, p: Place, l: Lang, withCity = false) {
   const text = placeText(p, l, withCity)
-  const photo = (p.photo || '').trim()
+  const photo = directPhoto(p.photo)
   if (isUrl(photo)) {
     const caption = text.length <= 1024 ? text : placeText({...p, description: p.description.slice(0, Math.max(0, p.description.length - (text.length - 1000))) + '…'}, l, withCity)
     const r = (await tg(env, 'sendPhoto', {chat_id: chat, photo, caption, parse_mode: 'HTML', reply_markup: voteKeyboard(p, l)})) as {ok?: boolean}
