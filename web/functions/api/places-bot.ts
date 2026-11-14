@@ -59,6 +59,8 @@ const CAT: Record<string, {i: string; en: string; uz: string}> = {
   'Шопинг и сувениры': {i: '🛍', en: 'Shopping & souvenirs', uz: 'Xarid va suvenirlar'},
   'С детьми': {i: '🧸', en: 'With kids', uz: 'Bolalar bilan'},
   'За городом': {i: '🏔', en: 'Out of town', uz: 'Shahar tashqarisi'},
+  'Art - пространство': {i: '🎨', en: 'Art spaces', uz: "San'at maydonlari"},
+  'Гиды': {i: '🧭', en: 'Guides', uz: 'Gidlar'},
 }
 const icon = (c: string) => CAT[c]?.i || '📍'
 const catName = (c: string, l: Lang) => (l === 'ru' ? c : CAT[c]?.[l] || c)

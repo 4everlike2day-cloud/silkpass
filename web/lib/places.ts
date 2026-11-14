@@ -38,6 +38,8 @@ export const CATEGORIES: {ru: string; i: string; en: string; uz: string}[] = [
   {ru: 'Шопинг и сувениры', i: '🛍', en: 'Shopping & souvenirs', uz: 'Xarid va suvenirlar'},
   {ru: 'С детьми', i: '🧸', en: 'With kids', uz: 'Bolalar bilan'},
   {ru: 'За городом', i: '🏔', en: 'Out of town', uz: 'Shahar tashqarisi'},
+  {ru: 'Art - пространство', i: '🎨', en: 'Art spaces', uz: "San'at maydonlari"},
+  {ru: 'Гиды', i: '🧭', en: 'Guides', uz: 'Gidlar'},
 ]
 export const catIcon = (c: string) => CATEGORIES.find((x) => x.ru === c)?.i || '📍'
 export const catName = (c: string, l: Lang) => (l === 'ru' ? c : CATEGORIES.find((x) => x.ru === c)?.[l] || c)
