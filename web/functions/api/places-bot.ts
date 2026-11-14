@@ -106,6 +106,24 @@ const COMMANDS: Record<Lang, {command: string; description: string}[]> = {
 
 const esc = (v: unknown) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 const isUrl = (v: string) => /^https?:\/\/\S+$/i.test(v.trim())
+
+// Столбец «Ссылка»: одна или несколько ссылок через пробел или с новой строки.
+// instagram.com → кнопка Instagram, t.me или @имя → Telegram (удобно для гидов без адреса), остальное → сайт.
+type LinkKind = 'ig' | 'tg' | 'web'
+function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
+  const out: {kind: LinkKind; url: string}[] = []
+  for (let t of String(raw || '').split(/[\s,;]+/)) {
+    t = t.trim().replace(/[.)]+$/, '')
+    if (!t) continue
+    if (/^@[A-Za-z0-9_]{4,}$/.test(t)) t = `https://t.me/${t.slice(1)}`
+    else if (/^(www\.)?(instagram\.com|t\.me|telegram\.me)\//i.test(t)) t = `https://${t}`
+    if (!/^https?:\/\/\S+$/i.test(t)) continue
+    const kind: LinkKind = /^https?:\/\/(www\.)?instagram\.com\//i.test(t) ? 'ig' : /^https?:\/\/(t|telegram)\.me\//i.test(t) ? 'tg' : 'web'
+    if (!out.some((x) => x.url === t)) out.push({kind, url: t})
+  }
+  return out
+}
+const LINK_ICON: Record<LinkKind, string> = {ig: '📸', tg: '✈️', web: '🔗'}
 const asLang = (v?: string): Lang => (v === 'ru' || v === 'uz' || v === 'en' ? v : 'en')
 // Язык по умолчанию — из настроек Telegram пользователя.
 const guess = (u?: TgUser): Lang => {
@@ -188,7 +206,10 @@ function pack(buttons: {text: string; callback_data: string}[], max = 24) {
 }
 
 function placeText(p: Place, l: Lang, withCity = false) {
-  const links = [isUrl(p.link) ? `🔗 <a href="${esc(p.link)}">${T.link[l]}</a>` : '', isUrl(p.location) ? `📍 <a href="${esc(p.location)}">${T.map[l]}</a>` : '']
+  const links = [
+    ...parseLinks(p.link).map((x) => `${LINK_ICON[x.kind]} <a href="${esc(x.url)}">${x.kind === 'ig' ? 'Instagram' : x.kind === 'tg' ? 'Telegram' : T.link[l]}</a>`),
+    isUrl(p.location) ? `📍 <a href="${esc(p.location)}">${T.map[l]}</a>` : '',
+  ]
     .filter(Boolean).join('  ')
   const where = withCity ? `${CITIES[cityOf(p)].i} ${cityName(cityOf(p), l)} · ${icon(p.category)} ${catName(p.category, l)}` : ''
   const rating = votesOf(p) >= TOP_MIN_VOTES ? stars(p, l) : ''

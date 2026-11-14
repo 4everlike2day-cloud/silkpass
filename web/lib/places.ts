@@ -48,6 +48,23 @@ export const catOrder = (c: string) => {
   return i < 0 ? 999 : i
 }
 
+// Столбец «Ссылка»: одна или несколько ссылок через пробел или с новой строки.
+// instagram.com → кнопка Instagram, t.me или @имя → Telegram (удобно для гидов без адреса), остальное → сайт.
+export type LinkKind = 'ig' | 'tg' | 'web'
+export function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
+  const out: {kind: LinkKind; url: string}[] = []
+  for (let t of String(raw || '').split(/[\s,;]+/)) {
+    t = t.trim().replace(/[.)]+$/, '')
+    if (!t) continue
+    if (/^@[A-Za-z0-9_]{4,}$/.test(t)) t = `https://t.me/${t.slice(1)}`
+    else if (/^(www\.)?(instagram\.com|t\.me|telegram\.me)\//i.test(t)) t = `https://${t}`
+    if (!/^https?:\/\/\S+$/i.test(t)) continue
+    const kind: LinkKind = /^https?:\/\/(www\.)?instagram\.com\//i.test(t) ? 'ig' : /^https?:\/\/(t|telegram)\.me\//i.test(t) ? 'tg' : 'web'
+    if (!out.some((x) => x.url === t)) out.push({kind, url: t})
+  }
+  return out
+}
+
 export const MIN_VOTES = 3 // звёзды показываем, когда у места не меньше 3 голосов (как в боте)
 export const votesOf = (p: Place) => p.likes + p.dislikes
 export const ratingOf = (p: Place) => (votesOf(p) ? 1 + (4 * p.likes) / votesOf(p) : 0)
