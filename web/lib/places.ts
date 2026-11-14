@@ -49,17 +49,21 @@ export const catOrder = (c: string) => {
 }
 
 // Столбец «Ссылка»: одна или несколько ссылок через пробел или с новой строки.
-// instagram.com → кнопка Instagram, t.me или @имя → Telegram (удобно для гидов без адреса), остальное → сайт.
-export type LinkKind = 'ig' | 'tg' | 'web'
+// instagram.com → Instagram, t.me или @имя → Telegram, номер телефона или wa.me → WhatsApp, остальное → сайт.
+export type LinkKind = 'ig' | 'tg' | 'wa' | 'web'
 export function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
   const out: {kind: LinkKind; url: string}[] = []
-  for (let t of String(raw || '').split(/[\s,;]+/)) {
-    t = t.trim().replace(/[.)]+$/, '')
+  // Номер телефона (+998 90 123-45-67) — это WhatsApp: склеиваем цифры до разбивки по пробелам.
+  const text = String(raw || '').replace(/(^|[\s,;])\+?\d[\d\s()-]{7,}\d(?=\s|$|[,;])/g, (m, sp) => ` https://wa.me/${m.replace(/\D/g, '')}`)
+  for (let t of text.split(/\s+/)) {
+    // запятая или точка в конце — разделитель, а не часть ссылки; скобку срезаем, только если она лишняя
+    t = t.trim().replace(/[,;.]+$/, '')
+    while (t.endsWith(')') && (t.match(/\)/g) || []).length > (t.match(/\(/g) || []).length) t = t.slice(0, -1)
     if (!t) continue
     if (/^@[A-Za-z0-9_]{4,}$/.test(t)) t = `https://t.me/${t.slice(1)}`
-    else if (/^(www\.)?(instagram\.com|t\.me|telegram\.me)\//i.test(t)) t = `https://${t}`
+    else if (/^(www\.)?(instagram\.com|t\.me|telegram\.me|wa\.me)\//i.test(t)) t = `https://${t}`
     if (!/^https?:\/\/\S+$/i.test(t)) continue
-    const kind: LinkKind = /^https?:\/\/(www\.)?instagram\.com\//i.test(t) ? 'ig' : /^https?:\/\/(t|telegram)\.me\//i.test(t) ? 'tg' : 'web'
+    const kind: LinkKind = /^https?:\/\/(www\.)?instagram\.com\//i.test(t) ? 'ig' : /^https?:\/\/(t|telegram)\.me\//i.test(t) ? 'tg' : /^https?:\/\/(wa\.me|api\.whatsapp\.com|(www\.)?whatsapp\.com)\//i.test(t) ? 'wa' : 'web'
     if (!out.some((x) => x.url === t)) out.push({kind, url: t})
   }
   return out

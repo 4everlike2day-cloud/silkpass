@@ -96,7 +96,7 @@ export default function PlacesList({lang, slug, initial, photos = {}, tx}: {lang
                 <div className="pl-actions">
                   {p.location && <a className="btn ghost sm" href={p.location} target="_blank" rel="noopener">{tx.map} ↗</a>}
                   {parseLinks(p.link).map((x) => (
-                    <a key={x.url} className="btn ghost sm" href={x.url} target="_blank" rel="noopener">{x.kind === 'ig' ? 'Instagram' : x.kind === 'tg' ? 'Telegram' : tx.more} ↗</a>
+                    <a key={x.url} className="btn ghost sm" href={x.url} target="_blank" rel="noopener">{x.kind === 'ig' ? 'Instagram' : x.kind === 'tg' ? 'Telegram' : x.kind === 'wa' ? 'WhatsApp' : tx.more} ↗</a>
                   ))}
                   <a className="btn sm" href={botLink(p.id)} target="_blank" rel="noopener">👍 {tx.rate}</a>
                 </div>
