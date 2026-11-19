@@ -5,7 +5,7 @@ import {getAds, getCities, getCity, getDeals, getGuides, getPartners, pad} from 
 import {guideTips} from '@/lib/guideTips'
 import {events, wikiUrl} from '@/lib/cityLinks'
 import {href, t, type Lang} from '@/lib/i18n'
-import {getPlaces, placesEnabled} from '@/lib/places'
+import {placesEnabled} from '@/lib/places'
 import {sanityImg} from '@/lib/img'
 
 // Адреса городов (/tashkent, /samarkand…) зашиты в QR-кодах паспорта. Не переименовывайте их после печати.
@@ -30,11 +30,10 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
   const gt = guideTips(c.slug, lang)
   const openMap = t(lang).guide.openMap
   const showPlaces = placesEnabled(c.slug)
-  const placesCount = showPlaces ? (await getPlaces(c.slug)).length : 0
   const PT = {
-    en: {label: 'What to see', title: (n: number) => (n ? `${n} places worth your time` : 'Places worth your time'), text: "By category, with a rating from travellers' votes.", btn: 'Open the list'},
-    ru: {label: 'Что посмотреть', title: (n: number) => (n ? `${n} мест, которые стоит увидеть` : 'Места, которые стоит увидеть'), text: 'По категориям, с рейтингом по голосам путешественников.', btn: 'Открыть список'},
-    uz: {label: "Nimani ko'rish kerak", title: (n: number) => (n ? `Ko'rishga arziydigan ${n} ta joy` : "Ko'rishga arziydigan joylar"), text: "Toifalar bo'yicha, sayohatchilar ovozlari asosidagi reyting bilan.", btn: "Ro'yxatni ochish"},
+    en: {label: 'What to see', title: 'Places worth your time', text: "By category, with a rating from travellers' votes.", btn: 'Open the list'},
+    ru: {label: 'Что посмотреть', title: 'Места, которые стоит увидеть', text: 'По категориям, с рейтингом по голосам путешественников.', btn: 'Открыть список'},
+    uz: {label: "Nimani ko'rish kerak", title: "Ko'rishga arziydigan joylar", text: "Toifalar bo'yicha, sayohatchilar ovozlari asosidagi reyting bilan.", btn: "Ro'yxatni ochish"},
   }[lang]
 
   return (
@@ -94,7 +93,7 @@ export default async function CityPage({lang, slug}: {lang: Lang; slug: string})
             <Link prefetch={false} className="pl-cta" href={href(lang, `/${c.slug}/places`)}>
               <div>
                 <p className="label">{PT.label}</p>
-                <h2 style={{marginTop: 10}}>{PT.title(placesCount)}</h2>
+                <h2 style={{marginTop: 10}}>{PT.title}</h2>
                 <p className="muted" style={{marginTop: 8}}>{PT.text}</p>
               </div>
               <span className="btn">{PT.btn} →</span>
