@@ -77,6 +77,10 @@ export function directPhoto(raw?: string): string {
   return m ? `https://lh3.googleusercontent.com/d/${m[1]}=w1600` : u
 }
 
+// Фото людей (гиды): обрезаем ближе к верху кадра, чтобы в карточке было лицо, а не ноги.
+export const PORTRAIT_TOP = 0.25
+export const isPortrait = (category?: string) => category === 'Гиды'
+
 export const MIN_VOTES = 3 // звёзды показываем, когда у места не меньше 3 голосов (как в боте)
 export const votesOf = (p: Place) => p.likes + p.dislikes
 export const ratingOf = (p: Place) => (votesOf(p) ? 1 + (4 * p.likes) / votesOf(p) : 0)

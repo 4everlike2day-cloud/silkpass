@@ -11,16 +11,17 @@ import {join} from 'node:path'
 const CACHE = join(process.cwd(), '.img-cache')
 const BUILD = process.env.NODE_ENV === 'production' || process.env.LOCAL_IMAGES === '1'
 
-/** Своя копия картинки: ширина w, высота h (если задана — обрезка по центру), формат webp. */
-export function localImg(src: string | undefined | null, w: number, h?: number): string {
+/** Своя копия картинки: ширина w, высота h (если задана — обрезка), формат webp.
+ *  top — для портретов: какая часть по высоте остаётся видна (0 — верх, 0.5 — центр), чтобы не срезать лица. */
+export function localImg(src: string | undefined | null, w: number, h?: number, top?: number): string {
   // w = 0: ширина по пропорциям (для логотипов, где задана только высота)
   if (!src) return ''
   if (!BUILD || !/^https?:\/\//.test(src)) return src
-  const key = createHash('sha1').update(`${src}|${w}|${h || ''}`).digest('hex').slice(0, 16)
+  const key = createHash('sha1').update(`${src}|${w}|${h || ''}${top !== undefined ? `|t${top}` : ''}`).digest('hex').slice(0, 16)
   try {
     mkdirSync(CACHE, {recursive: true})
     const f = join(CACHE, `${key}.json`)
-    if (!existsSync(f)) writeFileSync(f, JSON.stringify({src, w, h: h || 0}))
+    if (!existsSync(f)) writeFileSync(f, JSON.stringify({src, w, h: h || 0, ...(top !== undefined ? {top} : {})}))
   } catch {
     return src
   }

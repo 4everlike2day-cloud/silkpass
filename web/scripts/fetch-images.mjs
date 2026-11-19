@@ -19,7 +19,7 @@ const failed = []
 
 async function one(file) {
   const key = file.replace('.json', '')
-  const {src, w, h} = JSON.parse(await readFile(join(CACHE, file), 'utf8'))
+  const {src, w, h, top} = JSON.parse(await readFile(join(CACHE, file), 'utf8'))
   try {
     const res = await fetch(src, {
       headers: {'User-Agent': 'Mozilla/5.0 (welcome2.uz site build)', Accept: 'image/jpeg,image/png,image/*;q=0.8'},
@@ -29,6 +29,17 @@ async function one(file) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`)
     const buf = Buffer.from(await res.arrayBuffer())
     const img = sharp(buf, {failOn: 'none'}).rotate()
+    if (h && w && typeof top === 'number') {
+      // портрет: подгоняем по ширине и берём полосу высотой h, начиная с доли top от лишней высоты (лица обычно в верхней части)
+      const flat = await img.resize(w, null, {withoutEnlargement: false}).toBuffer({resolveWithObject: true})
+      const H = flat.info.height
+      const out = H > h
+        ? sharp(flat.data).extract({left: 0, top: Math.round((H - h) * top), width: w, height: h})
+        : sharp(flat.data).resize(w, h, {fit: 'cover'})
+      await writeFile(join(OUT, `${key}.webp`), await out.webp({quality: 78, effort: 5}).toBuffer())
+      ok++
+      return
+    }
     const resized = h && w
       ? img.resize(w, h, {fit: 'cover', position: 'attention', withoutEnlargement: true})
       : img.resize(w || null, h || null, {fit: 'inside', withoutEnlargement: true})
