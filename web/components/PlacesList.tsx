@@ -1,6 +1,6 @@
 'use client'
 import {useEffect, useMemo, useState} from 'react'
-import {botLink, catIcon, directPhoto, isPortrait, parseLinks, PORTRAIT_TOP, catName, catOrder, MIN_VOTES, rankOf, ratingOf, votesOf, type Place} from '@/lib/places'
+import {botLink, catIcon, directPhoto, isPortrait, parseLinks, faceY, catName, catOrder, MIN_VOTES, rankOf, ratingOf, votesOf, type Place} from '@/lib/places'
 import type {Lang} from '@/lib/i18n'
 
 type Texts = {
@@ -81,7 +81,7 @@ export default function PlacesList({lang, slug, initial, photos = {}, tx}: {lang
           const v = votesOf(p)
           return (
             <li key={p.id} className="pl-card" id={`place-${p.id}`}>
-              <Photo src={photos[p.photo] || directPhoto(p.photo)} alt={p.name} icon={catIcon(p.category)} portrait={isPortrait(p.category)} />
+              <Photo src={photos[p.photo] || directPhoto(p.photo)} alt={p.name} icon={catIcon(p.category)} face={isPortrait(p.category) ? faceY(p.photo) : undefined} />
               <div className="pl-body">
                 <p className="label">{catIcon(p.category)} {catName(p.category, lang)}</p>
                 <h3>{p.name}</h3>
@@ -110,8 +110,19 @@ export default function PlacesList({lang, slug, initial, photos = {}, tx}: {lang
 }
 
 // Фото по чужой ссылке может не загрузиться (сайт удалил картинку или запрещает показ) — тогда значок категории.
-function Photo({src, alt, icon, portrait}: {src: string; alt: string; icon: string; portrait?: boolean}) {
+// face — где на фото лицо (доля высоты): для портретов сдвигаем кадр так, чтобы лицо было по центру карточки 16:10.
+// Наши копии с сайта уже вырезаны при сборке; это нужно для новых фото, которые пока идут по исходной ссылке.
+function Photo({src, alt, icon, face}: {src: string; alt: string; icon: string; face?: number}) {
   const [broken, setBroken] = useState(false)
+  const [pos, setPos] = useState(face !== undefined ? `50% ${Math.round(face * 100)}%` : undefined)
   if (!src || broken) return <div className="pl-photo pl-ph" aria-hidden="true">{icon}</div>
-  return <img className="pl-photo" style={portrait ? {objectPosition: `50% ${PORTRAIT_TOP * 100}%`} : undefined} src={src} alt={alt} loading="lazy" referrerPolicy="no-referrer" onError={() => setBroken(true)} />
+  const onLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    if (face === undefined) return
+    const {naturalWidth: w, naturalHeight: h} = e.currentTarget
+    const H = h / w, box = 10 / 16
+    if (!w || H <= box) return
+    const off = Math.min(Math.max(face * H - box / 2, 0), H - box)
+    setPos(`50% ${((off / (H - box)) * 100).toFixed(1)}%`)
+  }
+  return <img className="pl-photo" style={pos ? {objectPosition: pos} : undefined} src={src} alt={alt} loading="lazy" referrerPolicy="no-referrer" onLoad={onLoad} onError={() => setBroken(true)} />
 }

@@ -71,14 +71,30 @@ export function parseLinks(raw?: string): {kind: LinkKind; url: string}[] {
 
 // Фото из Google Drive: ссылка «Поделиться» (drive.google.com/file/d/…/view) открывает страницу просмотра, а не картинку.
 // Превращаем её в прямую ссылку на изображение. Файл должен быть открыт «Всем, у кого есть ссылка».
+const driveId = (u: string) => u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/)?.[1]
 export function directPhoto(raw?: string): string {
   const u = String(raw || '').trim()
-  const m = u.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/)
-  return m ? `https://lh3.googleusercontent.com/d/${m[1]}=w1600` : u
+  const id = driveId(u)
+  return id ? `https://lh3.googleusercontent.com/d/${id}=w1600` : u
 }
 
-// Фото людей (гиды): обрезаем ближе к верху кадра, чтобы в карточке было лицо, а не ноги.
-export const PORTRAIT_TOP = 0.25
+// Фото людей (гиды): карточка 16:10 вырезается так, чтобы лицо было по центру.
+// FACE_Y — где на фото лицо: доля высоты кадра (0 — верх, 1 — низ). Ключ — ID файла в Google Drive или сама ссылка.
+// Для фото, которых нет в списке, берём DEFAULT_FACE_Y (лицо в верхней трети).
+const FACE_Y: Record<string, number> = {
+  '1ZzawKVBVFtwhsvZTrcIKRoioRgZktCiT': 0.37, // Мая
+  '1vtt6NfVPZGH41RJ77V6tylZhHJoEBU9d': 0.25, // Ильяс
+  '1UQaObMwAcEvlZgbjvg_rw2xoMiNjtthF': 0.55, // Элеонора
+  '1p6Qa-r6HtzlMHDjumAdcIFy50S6vX1mv': 0.4, // Алина
+  '1it5UO0ZGQiS9c3xFXAv53-G1mfzUuTC_': 0.37, // Лола
+  '1vtTYLDmSgymK2jU93wcUg8ZxeKnK8IO0': 0.42, // Достон
+  '1GAjaWJQ3Kt5VXUatoqVk6rywl0MVhTcm': 0.47, // Севинч
+}
+const DEFAULT_FACE_Y = 0.33
+export function faceY(raw?: string): number {
+  const u = String(raw || '').trim()
+  return FACE_Y[driveId(u) || u] ?? DEFAULT_FACE_Y
+}
 export const isPortrait = (category?: string) => category === 'Гиды'
 
 export const MIN_VOTES = 3 // звёзды показываем, когда у места не меньше 3 голосов (как в боте)
