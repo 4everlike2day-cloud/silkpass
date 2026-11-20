@@ -70,10 +70,12 @@ const catName = (c: string, l: Lang) => (l === 'ru' ? c : CAT[c]?.[l] || c)
 const T = {
   hello: (name: string) => `👋 ${name ? `Hi, ${name}!` : 'Hi!'}\n\nI'm the Welcome 2 UZ guide to Uzbekistan.\nChoose your language · Выберите язык · Tilni tanlang`,
   intro: {
-    en: (site: string) => `<b>Uzbekistan: what to see</b>\n\nHow it works:\n1️⃣ Pick a city and a category, or open 🏆 Top. I'll send places with a short description, a link and a map.\n2️⃣ Been there? Rate it 👍 or 👎. One vote per person; tap the same button again to take it back.\n3️⃣ Looking for something? Just type its name.\n\nYour votes build the rating on <a href="${site}">welcome2.uz</a>.\nCommands: /places cities · /lang language · /help this guide`,
-    ru: (site: string) => `<b>Узбекистан: что посмотреть</b>\n\nКак это работает:\n1️⃣ Выберите город и категорию или откройте 🏆 Топ. Я пришлю места с описанием, ссылкой и картой.\n2️⃣ Были там? Оцените: 👍 или 👎. Один голос на человека; повторное нажатие той же кнопки отменяет голос.\n3️⃣ Ищете конкретное место? Просто напишите его название.\n\nИз ваших голосов складывается рейтинг на <a href="${site}">welcome2.uz</a>.\nКоманды: /places города · /lang язык · /help подсказка`,
-    uz: (site: string) => `<b>O'zbekiston: nimani ko'rish kerak</b>\n\nQanday ishlaydi:\n1️⃣ Shahar va toifani tanlang yoki 🏆 Top'ni oching. Men joylarni qisqa tavsif, havola va xarita bilan yuboraman.\n2️⃣ U yerda bo'lganmisiz? Baholang: 👍 yoki 👎. Har kishiga bitta ovoz; o'sha tugmani qayta bossangiz, ovoz bekor qilinadi.\n3️⃣ Biror joyni qidiryapsizmi? Nomini yozing.\n\nOvozlaringizdan <a href="${site}">welcome2.uz</a> saytidagi reyting shakllanadi.\nBuyruqlar: /places shaharlar · /lang til · /help yordam`,
+    en: (site: string) => `<b>Uzbekistan: what to see</b>\n\nHow it works:\n1️⃣ Pick a city and a category, or open 🏆 Top. I'll send places with a short description, a link and a map.\n2️⃣ Been there? Rate it 👍 or 👎. One vote per person; tap the same button again to take it back.\n3️⃣ Looking for something? Just type its name.\n\nYour votes build the rating on <a href="${site}">welcome2.uz</a>.\nThe buttons under the text box: 🏙 Cities · 🔎 Search · 🌍 Website · 🌐 Language · ❓ Help`,
+    ru: (site: string) => `<b>Узбекистан: что посмотреть</b>\n\nКак это работает:\n1️⃣ Выберите город и категорию или откройте 🏆 Топ. Я пришлю места с описанием, ссылкой и картой.\n2️⃣ Были там? Оцените: 👍 или 👎. Один голос на человека; повторное нажатие той же кнопки отменяет голос.\n3️⃣ Ищете конкретное место? Просто напишите его название.\n\nИз ваших голосов складывается рейтинг на <a href="${site}">welcome2.uz</a>.\nКнопки под полем ввода: 🏙 Города · 🔎 Поиск · 🌍 Сайт · 🌐 Язык · ❓ Помощь`,
+    uz: (site: string) => `<b>O'zbekiston: nimani ko'rish kerak</b>\n\nQanday ishlaydi:\n1️⃣ Shahar va toifani tanlang yoki 🏆 Top'ni oching. Men joylarni qisqa tavsif, havola va xarita bilan yuboraman.\n2️⃣ U yerda bo'lganmisiz? Baholang: 👍 yoki 👎. Har kishiga bitta ovoz; o'sha tugmani qayta bossangiz, ovoz bekor qilinadi.\n3️⃣ Biror joyni qidiryapsizmi? Nomini yozing.\n\nOvozlaringizdan <a href="${site}">welcome2.uz</a> saytidagi reyting shakllanadi.\nMatn maydoni ostidagi tugmalar: 🏙 Shaharlar · 🔎 Qidirish · 🌍 Sayt · 🌐 Til · ❓ Yordam`,
   },
+  searchHint: {en: '🔎 Type the name of a place, for example: Registan', ru: '🔎 Напишите название места, например: Регистан', uz: "🔎 Joy nomini yozing, masalan: Registon"},
+  placeholder: {en: 'Place name…', ru: 'Название места…', uz: 'Joy nomi…'},
   cities: {en: '<b>Choose a city:</b>', ru: '<b>Выберите город:</b>', uz: '<b>Shaharni tanlang:</b>'},
   soonBtn: {en: 'soon', ru: 'скоро', uz: 'tez orada'},
   soon: {en: 'This city is coming soon!', ru: 'Этот город скоро появится!', uz: "Bu shahar tez orada qo'shiladi!"},
@@ -104,6 +106,27 @@ const COMMANDS: Record<Lang, {command: string; description: string}[]> = {
   en: [{command: 'places', description: 'Cities and places'}, {command: 'lang', description: 'Change language'}, {command: 'help', description: 'How it works'}, {command: 'site', description: 'All places and ratings'}],
   ru: [{command: 'places', description: 'Города и места'}, {command: 'lang', description: 'Сменить язык'}, {command: 'help', description: 'Как это работает'}, {command: 'site', description: 'Все места и рейтинг'}],
   uz: [{command: 'places', description: 'Shaharlar va joylar'}, {command: 'lang', description: "Tilni o'zgartirish"}, {command: 'help', description: 'Qanday ishlaydi'}, {command: 'site', description: 'Barcha joylar va reyting'}],
+}
+
+// Постоянные кнопки под полем ввода, чтобы не набирать команды. Нажатие приходит как обычный текст:
+// по надписи узнаём и действие, и язык (бот не хранит выбранный язык, а у кнопок он свой).
+type KbAction = 'cities' | 'search' | 'site' | 'lang' | 'help'
+const KB: Record<KbAction, Record<Lang, string>> = {
+  cities: {en: '🏙 Cities', ru: '🏙 Города', uz: '🏙 Shaharlar'},
+  search: {en: '🔎 Search', ru: '🔎 Поиск', uz: '🔎 Qidirish'},
+  site: {en: '🌍 Website', ru: '🌍 Сайт', uz: '🌍 Sayt'},
+  lang: {en: '🌐 Language', ru: '🌐 Язык', uz: '🌐 Til'},
+  help: {en: '❓ Help', ru: '❓ Помощь', uz: '❓ Yordam'},
+}
+const replyKb = (l: Lang) => ({
+  keyboard: [[{text: KB.cities[l]}], [{text: KB.search[l]}, {text: KB.site[l]}], [{text: KB.lang[l]}, {text: KB.help[l]}]],
+  resize_keyboard: true,
+  is_persistent: true,
+  input_field_placeholder: T.placeholder[l],
+})
+function kbAction(text: string): [KbAction, Lang] | null {
+  for (const a of Object.keys(KB) as KbAction[]) for (const l of LANGS) if (KB[a][l] === text) return [a, l]
+  return null
 }
 
 const esc = (v: unknown) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
@@ -256,7 +279,7 @@ async function chooseLang(env: Env, chat: number, user?: TgUser) {
 }
 
 async function intro(env: Env, chat: number, l: Lang) {
-  await tg(env, 'sendMessage', {chat_id: chat, parse_mode: 'HTML', text: T.intro[l](SITE[l]), link_preview_options: {is_disabled: true}})
+  await tg(env, 'sendMessage', {chat_id: chat, parse_mode: 'HTML', text: T.intro[l](SITE[l]), link_preview_options: {is_disabled: true}, reply_markup: replyKb(l)})
 }
 
 // Города: с местами — обычная кнопка с числом мест, без мест — «скоро».
@@ -396,7 +419,19 @@ export const onRequestPost = async ({request, env, waitUntil}: {request: Request
       const text = (u.message.text || '').trim()
       const cmd = text.startsWith('/') ? text.split(/[\s@]/)[0].toLowerCase() : ''
       const payload = cmd === '/start' ? text.split(/\s+/)[1] || '' : ''
-      if (payload.startsWith('p_')) {
+      const btn = cmd ? null : kbAction(text)
+      if (btn) l = btn[1]
+      if (btn?.[0] === 'cities') {
+        await cities(env, chat, await load(env), l)
+      } else if (btn?.[0] === 'search') {
+        await tg(env, 'sendMessage', {chat_id: chat, text: T.searchHint[l], reply_markup: replyKb(l)})
+      } else if (btn?.[0] === 'site') {
+        await tg(env, 'sendMessage', {chat_id: chat, text: `${T.site[l]} ${SITE[l]}`, reply_markup: replyKb(l)})
+      } else if (btn?.[0] === 'lang') {
+        await chooseLang(env, chat, u.message.from)
+      } else if (btn?.[0] === 'help') {
+        await intro(env, chat, l)
+      } else if (payload.startsWith('p_')) {
         // Переход с сайта по кнопке «Оценить в Telegram»: сразу показываем это место с кнопками 👍 / 👎.
         await setCommands(env)
         const p = (await load(env)).places.find((x) => x.id === payload.slice(2))
