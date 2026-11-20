@@ -32,14 +32,16 @@ const LANGS: Lang[] = ['en', 'ru', 'uz']
 const SITE: Record<Lang, string> = {en: 'https://welcome2.uz', ru: 'https://welcome2.uz/ru', uz: 'https://welcome2.uz/uz'}
 
 // Города: порядок кнопок, значок, перевод. Название в таблице — русское.
+// Места из городов, которых нет в этом списке, бот не показывает (пустой город = Ташкент).
 const CITIES: {ru: string; i: string; en: string; uz: string}[] = [
   {ru: 'Ташкент', i: '🗼', en: 'Tashkent', uz: 'Toshkent'},
   {ru: 'Самарканд', i: '🕌', en: 'Samarkand', uz: 'Samarqand'},
   {ru: 'Бухара', i: '🏰', en: 'Bukhara', uz: 'Buxoro'},
   {ru: 'Хива', i: '🧱', en: 'Khiva', uz: 'Xiva'},
+  {ru: 'Термез', i: '🏺', en: 'Termez', uz: 'Termiz'},
 ]
 const cityName = (i: number, l: Lang) => CITIES[i][l]
-const cityOf = (p: Place) => Math.max(0, CITIES.findIndex((c) => c.ru === (p.city || 'Ташкент')))
+const cityOf = (p: Place) => CITIES.findIndex((c) => c.ru === (String(p.city || '').trim() || 'Ташкент'))
 
 // Категории: значок и перевод. Новая категория без записи получит 📍 и русское название — добавьте её сюда.
 const CAT: Record<string, {i: string; en: string; uz: string}> = {
@@ -184,6 +186,7 @@ async function load(env: Env): Promise<Data> {
     throw new Error(`таблица ответила не JSON (HTTP ${res.status}): ${raw.slice(0, 120)}`)
   }
   if (!Array.isArray(data.places)) throw new Error('в ответе таблицы нет списка мест')
+  data.places = data.places.filter((p) => cityOf(p) >= 0)
   if (cache) {
     try {
       await cache.put(CACHE_KEY, new Response(JSON.stringify(data), {headers: {'Cache-Control': 'max-age=60', 'Content-Type': 'application/json'}}))
