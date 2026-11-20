@@ -29,11 +29,11 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
     blocks: [
       {title: 'Билеты между городами', items: [
         {h: 'Поезда', p: 'Скоростные «Афросиаб» и обычные поезда между Ташкентом, Самаркандом, Бухарой и Хивой. Билеты — на официальном сайте Узбекских железных дорог. Популярные «Афросиабы» раскупают быстро, покупайте заранее; имя и номер паспорта вводите точно как в документе.', links: [LINKS.rail]},
-        {h: 'Междугородние автобусы', p: 'Онлайн-продажа билетов автовокзала «Ташкент».', links: [LINKS.bus]},
+        {h: 'Междугородние автобусы', p: 'Ежедневные рейсы между городами Узбекистана, а также международные направления. Билеты онлайн продаёт автовокзал «Ташкент», есть мобильное приложение.', links: [LINKS.bus]},
         {h: 'Самолёты', p: 'Внутренние рейсы Ташкент — Самарканд, Бухара, Ургенч (ближайший аэропорт к Хиве). Билеты — на сайтах авиакомпаний.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'По городу', items: [
-        {h: 'Такси', p: 'Удобнее всего через приложение Yandex Go: цена видна заранее. Для входа нужен номер, на который придёт SMS. Иностранная карта может не пройти — держите наличные.'},
+        {h: 'Такси', p: 'Удобнее всего через приложения: самое распространённое — Yandex Go, а также WB Taxi (пока в Ташкенте, Самарканде и Бухаре), Uklon и MyTaxi. Цена видна заранее. Для входа нужен номер, на который придёт SMS. Иностранная карта может не пройти — держите наличные.'},
         {h: 'Метро Ташкента', p: 'Касс почти не осталось. На одну поездку — QR-билет в терминале на станции, на несколько — транспортная карта ATTO. Фотографировать в метро можно.'},
       ]},
       {title: 'Где жить', items: [
@@ -67,11 +67,11 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
     blocks: [
       {title: 'Between cities', items: [
         {h: 'Trains', p: 'High-speed Afrosiyob and regular trains link Tashkent, Samarkand, Bukhara and Khiva. Buy on the official Uzbekistan Railways site. Popular Afrosiyob trains sell out fast, so book early, and enter your name and passport number exactly as in the document.', links: [LINKS.rail]},
-        {h: 'Intercity buses', p: 'Online tickets from Tashkent bus station.', links: [LINKS.bus]},
+        {h: 'Intercity buses', p: 'Daily buses between Uzbek cities, plus international routes. Tashkent bus station sells tickets online and has a mobile app.', links: [LINKS.bus]},
         {h: 'Flights', p: 'Domestic flights from Tashkent to Samarkand, Bukhara and Urgench (the airport for Khiva). Book on the airlines’ sites.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'In the city', items: [
-        {h: 'Taxi', p: 'Yandex Go is the easiest: you see the price before the ride. Sign-up needs a number that can receive SMS. Foreign cards may fail, so keep some cash.'},
+        {h: 'Taxi', p: 'Use a ride-hailing app: Yandex Go is the most common, and there are also WB Taxi (Tashkent, Samarkand and Bukhara for now), Uklon and MyTaxi. You see the price before the ride. Sign-up needs a number that can receive SMS. Foreign cards may fail, so keep some cash.'},
         {h: 'Tashkent metro', p: 'Most ticket offices are gone. For one ride, buy a QR ticket at the station machine; for several, get an ATTO transport card. Taking photos in the metro is allowed.'},
       ]},
       {title: 'Where to stay', items: [
@@ -105,11 +105,11 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
     blocks: [
       {title: 'Shaharlar orasida', items: [
         {h: 'Poyezdlar', p: 'Toshkent, Samarqand, Buxoro va Xiva orasida tezyurar «Afrosiyob» va oddiy poyezdlar. Chiptalar — O‘zbekiston temir yo‘llarining rasmiy saytida. «Afrosiyob» chiptalari tez tugaydi, oldindan oling; ism va pasport raqamini hujjatdagidek kiriting.', links: [LINKS.rail]},
-        {h: 'Shaharlararo avtobuslar', p: '«Toshkent» avtovokzali chiptalari onlayn.', links: [LINKS.bus]},
+        {h: 'Shaharlararo avtobuslar', p: 'O‘zbekiston shaharlari orasida har kungi reyslar, shuningdek xalqaro yo‘nalishlar. Chiptalarni «Toshkent» avtovokzali onlayn sotadi, mobil ilovasi ham bor.', links: [LINKS.bus]},
         {h: 'Samolyotlar', p: 'Toshkentdan Samarqand, Buxoro va Urganchga (Xivaga eng yaqin aeroport) ichki reyslar. Chiptalar — aviakompaniyalar saytlarida.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'Shahar ichida', items: [
-        {h: 'Taksi', p: 'Eng qulayi — Yandex Go ilovasi: narx oldindan ko‘rinadi. Kirish uchun SMS keladigan raqam kerak. Xorijiy karta o‘tmasligi mumkin — naqd pul olib yuring.'},
+        {h: 'Taksi', p: 'Eng qulayi — ilovalar orqali: eng ko‘p tarqalgani Yandex Go, shuningdek WB Taxi (hozircha Toshkent, Samarqand va Buxoroda), Uklon va MyTaxi. Narx oldindan ko‘rinadi. Kirish uchun SMS keladigan raqam kerak. Xorijiy karta o‘tmasligi mumkin — naqd pul olib yuring.'},
         {h: 'Toshkent metrosi', p: 'Kassalar deyarli qolmagan. Bir martalik yo‘l uchun — bekatdagi terminaldan QR-chipta, bir necha marta uchun — ATTO transport kartasi. Metroda suratga olish mumkin.'},
       ]},
       {title: 'Qayerda yashash', items: [
