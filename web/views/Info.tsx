@@ -11,7 +11,11 @@ const LINKS = {
   bus: {label: 'avtoticket.uz', url: 'https://avtoticket.uz'},
   hy: {label: 'uzairways.com', url: 'https://www.uzairways.com'},
   centrum: {label: 'centrum-air.com', url: 'https://centrum-air.com'},
-  booking: {label: 'booking.com', url: 'https://www.booking.com/country/uz.html'},
+  qanot: {label: 'qanotsharq.com', url: 'https://www.qanotsharq.com'},
+  flykhiva: {label: 'flykhiva.uz', url: 'https://www.flykhiva.uz'},
+  silk: {label: 'silk-avia.com', url: 'https://silk-avia.com'},
+  hurma: {label: 'hurma.uz', url: 'https://hurma.uz'},
+  h1001: {label: '1001hotels.uz', url: 'https://1001hotels.uz'},
   emehmon: {label: 'emehmon.uz', url: 'https://emehmon.uz'},
   bot: {label: '@w2uz_bot', url: 'https://t.me/w2uz_bot'},
 }
@@ -26,14 +30,14 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
       {title: 'Билеты между городами', items: [
         {h: 'Поезда', p: 'Скоростные «Афросиаб» и обычные поезда между Ташкентом, Самаркандом, Бухарой и Хивой. Билеты — на официальном сайте Узбекских железных дорог. Популярные «Афросиабы» раскупают быстро, покупайте заранее; имя и номер паспорта вводите точно как в документе.', links: [LINKS.rail]},
         {h: 'Междугородние автобусы', p: 'Онлайн-продажа билетов автовокзала «Ташкент».', links: [LINKS.bus]},
-        {h: 'Самолёты', p: 'Внутренние рейсы Ташкент — Самарканд, Бухара, Ургенч (ближайший аэропорт к Хиве). Билеты — на сайтах авиакомпаний.', links: [LINKS.hy, LINKS.centrum]},
+        {h: 'Самолёты', p: 'Внутренние рейсы Ташкент — Самарканд, Бухара, Ургенч (ближайший аэропорт к Хиве). Билеты — на сайтах авиакомпаний.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'По городу', items: [
         {h: 'Такси', p: 'Удобнее всего через приложение Yandex Go: цена видна заранее. Для входа нужен номер, на который придёт SMS. Иностранная карта может не пройти — держите наличные.'},
         {h: 'Метро Ташкента', p: 'Касс почти не осталось. На одну поездку — QR-билет в терминале на станции, на несколько — транспортная карта ATTO. Фотографировать в метро можно.'},
       ]},
       {title: 'Где жить', items: [
-        {h: 'Отели и гостевые дома', p: 'Бронировать удобно через Booking.com. Отель сам регистрирует вас как туриста — сохраните подтверждение до конца поездки.', links: [LINKS.booking]},
+        {h: 'Отели и гостевые дома', p: 'Бронировать удобно через местные сервисы Hurma и 1001hotels: на них отели и гостевые дома во всех четырёх городах. Отель сам регистрирует вас как туриста — сохраните подтверждение до конца поездки.', links: [LINKS.hurma, LINKS.h1001]},
         {h: 'Регистрация', p: 'Иностранцев регистрируют по месту проживания в первые 3 дня, при переезде в другой город — снова. Отели и хостелы делают это сами через систему E-mehmon; если живёте у друзей — регистрирует хозяин.', links: [LINKS.emehmon]},
       ]},
       {title: 'Деньги', items: [
@@ -64,14 +68,14 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
       {title: 'Between cities', items: [
         {h: 'Trains', p: 'High-speed Afrosiyob and regular trains link Tashkent, Samarkand, Bukhara and Khiva. Buy on the official Uzbekistan Railways site. Popular Afrosiyob trains sell out fast, so book early, and enter your name and passport number exactly as in the document.', links: [LINKS.rail]},
         {h: 'Intercity buses', p: 'Online tickets from Tashkent bus station.', links: [LINKS.bus]},
-        {h: 'Flights', p: 'Domestic flights from Tashkent to Samarkand, Bukhara and Urgench (the airport for Khiva). Book on the airlines’ sites.', links: [LINKS.hy, LINKS.centrum]},
+        {h: 'Flights', p: 'Domestic flights from Tashkent to Samarkand, Bukhara and Urgench (the airport for Khiva). Book on the airlines’ sites.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'In the city', items: [
         {h: 'Taxi', p: 'Yandex Go is the easiest: you see the price before the ride. Sign-up needs a number that can receive SMS. Foreign cards may fail, so keep some cash.'},
         {h: 'Tashkent metro', p: 'Most ticket offices are gone. For one ride, buy a QR ticket at the station machine; for several, get an ATTO transport card. Taking photos in the metro is allowed.'},
       ]},
       {title: 'Where to stay', items: [
-        {h: 'Hotels and guesthouses', p: 'Booking.com works well. Your hotel registers you as a tourist; keep the confirmation until you leave.', links: [LINKS.booking]},
+        {h: 'Hotels and guesthouses', p: 'Local booking sites Hurma and 1001hotels list hotels and guesthouses in all four cities. Your hotel registers you as a tourist; keep the confirmation until you leave.', links: [LINKS.hurma, LINKS.h1001]},
         {h: 'Registration', p: 'Foreigners are registered at their place of stay within 3 days, and again in each new city. Hotels and hostels do it for you through E-mehmon; if you stay with friends, your host does it.', links: [LINKS.emehmon]},
       ]},
       {title: 'Money', items: [
@@ -102,14 +106,14 @@ const TX: Record<Lang, {label: string; title: string; lead: string; updated: str
       {title: 'Shaharlar orasida', items: [
         {h: 'Poyezdlar', p: 'Toshkent, Samarqand, Buxoro va Xiva orasida tezyurar «Afrosiyob» va oddiy poyezdlar. Chiptalar — O‘zbekiston temir yo‘llarining rasmiy saytida. «Afrosiyob» chiptalari tez tugaydi, oldindan oling; ism va pasport raqamini hujjatdagidek kiriting.', links: [LINKS.rail]},
         {h: 'Shaharlararo avtobuslar', p: '«Toshkent» avtovokzali chiptalari onlayn.', links: [LINKS.bus]},
-        {h: 'Samolyotlar', p: 'Toshkentdan Samarqand, Buxoro va Urganchga (Xivaga eng yaqin aeroport) ichki reyslar. Chiptalar — aviakompaniyalar saytlarida.', links: [LINKS.hy, LINKS.centrum]},
+        {h: 'Samolyotlar', p: 'Toshkentdan Samarqand, Buxoro va Urganchga (Xivaga eng yaqin aeroport) ichki reyslar. Chiptalar — aviakompaniyalar saytlarida.', links: [LINKS.hy, LINKS.centrum, LINKS.qanot, LINKS.flykhiva, LINKS.silk]},
       ]},
       {title: 'Shahar ichida', items: [
         {h: 'Taksi', p: 'Eng qulayi — Yandex Go ilovasi: narx oldindan ko‘rinadi. Kirish uchun SMS keladigan raqam kerak. Xorijiy karta o‘tmasligi mumkin — naqd pul olib yuring.'},
         {h: 'Toshkent metrosi', p: 'Kassalar deyarli qolmagan. Bir martalik yo‘l uchun — bekatdagi terminaldan QR-chipta, bir necha marta uchun — ATTO transport kartasi. Metroda suratga olish mumkin.'},
       ]},
       {title: 'Qayerda yashash', items: [
-        {h: 'Mehmonxona va mehmon uylari', p: 'Booking.com orqali bron qilish qulay. Mehmonxona sizni turist sifatida o‘zi ro‘yxatdan o‘tkazadi — tasdiqnomani safar oxirigacha saqlang.', links: [LINKS.booking]},
+        {h: 'Mehmonxona va mehmon uylari', p: 'Mahalliy Hurma va 1001hotels saytlari orqali bron qilish qulay: ularda to‘rt shaharning mehmonxona va mehmon uylari bor. Mehmonxona sizni turist sifatida o‘zi ro‘yxatdan o‘tkazadi — tasdiqnomani safar oxirigacha saqlang.', links: [LINKS.hurma, LINKS.h1001]},
         {h: 'Ro‘yxatdan o‘tish', p: 'Chet elliklar yashash joyida 3 kun ichida, boshqa shaharga ko‘chganda yana ro‘yxatdan o‘tkaziladi. Mehmonxona va xostellar buni E-mehmon tizimi orqali o‘zi qiladi; tanishlarnikida yashasangiz — uy egasi.', links: [LINKS.emehmon]},
       ]},
       {title: 'Pul', items: [
