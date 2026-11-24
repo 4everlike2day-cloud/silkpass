@@ -39,6 +39,9 @@ const CITIES: {ru: string; i: string; en: string; uz: string}[] = [
   {ru: 'Бухара', i: '🏰', en: 'Bukhara', uz: 'Buxoro'},
   {ru: 'Хива', i: '🧱', en: 'Khiva', uz: 'Xiva'},
   {ru: 'Термез', i: '🏺', en: 'Termez', uz: 'Termiz'},
+  {ru: 'Фергана', i: '🏞', en: 'Fergana', uz: "Farg'ona"},
+  {ru: 'Коканд', i: '👑', en: 'Kokand', uz: "Qo'qon"},
+  {ru: 'Маргилан', i: '🧵', en: 'Margilan', uz: "Marg'ilon"},
 ]
 const cityName = (i: number, l: Lang) => CITIES[i][l]
 const cityOf = (p: Place) => CITIES.findIndex((c) => c.ru === (String(p.city || '').trim() || 'Ташкент'))
