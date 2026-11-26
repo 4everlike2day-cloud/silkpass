@@ -38,6 +38,7 @@ const CITIES: {ru: string; i: string; en: string; uz: string}[] = [
   {ru: 'Самарканд', i: '🕌', en: 'Samarkand', uz: 'Samarqand'},
   {ru: 'Бухара', i: '🏰', en: 'Bukhara', uz: 'Buxoro'},
   {ru: 'Хива', i: '🧱', en: 'Khiva', uz: 'Xiva'},
+  {ru: 'Каракалпакстан', i: '⛵', en: 'Karakalpakstan', uz: "Qoraqalpog'iston"},
   {ru: 'Термез', i: '🏺', en: 'Termez', uz: 'Termiz'},
   {ru: 'Фергана', i: '🏞', en: 'Fergana', uz: "Farg'ona"},
   {ru: 'Коканд', i: '👑', en: 'Kokand', uz: "Qo'qon"},
