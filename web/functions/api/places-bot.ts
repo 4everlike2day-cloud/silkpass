@@ -202,7 +202,8 @@ async function load(env: Env): Promise<Data> {
   } catch {
     cache = null
   }
-  const url = `${env.PLACES_SCRIPT_URL}?action=places&all=1&secret=${encodeURIComponent(env.PLACES_SECRET || '')}`
+  // Только «Опубликовано» (без &all=1): черновики в боте не показываем (с 26.11.2026)
+  const url = `${env.PLACES_SCRIPT_URL}?action=places`
   const res = await fetch(url, {redirect: 'follow'})
   const raw = await res.text()
   let data: Data

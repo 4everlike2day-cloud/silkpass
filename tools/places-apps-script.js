@@ -19,6 +19,11 @@
  *        toggle: true — повторный голос тем же знаком снимает голос
  *   POST {secret, action:'suggest', city, name, description, category, link, location, contact}
  *   POST {secret, action:'seen', uid, lang, source}   учёт пользователей бота (лист «Пользователи», создаётся сам)
+ *
+ * Бот берёт ?action=places — только «Опубликовано» (с 26.11.2026); &all=1 больше никто не использует.
+ *
+ * Автодата: когда в листе «Места» у строки появляются ID и Название, а «Добавлено» пустое,
+ * onEdit сам ставит сегодняшнюю дату. Работает сразу после сохранения скрипта — развёртывание не нужно.
  */
 
 const PLACES = 'Места'
@@ -38,7 +43,7 @@ function columns(sh) {
   return {
     id: find('ID'), city: find('Город'), name: find('Название'), description: find('Описание'), category: find('Категория'),
     link: find('Ссылка'), location: find('Локация'), photo: find('Фото'), likes: find('Лайки'), dislikes: find('Дизлайки'),
-    status: find('Статус'),
+    status: find('Статус'), added: find('Добавлено'),
   }
 }
 
@@ -62,6 +67,37 @@ function places(includeDrafts) {
   const cs = ss.getSheetByName(CATS)
   const categories = cs.getRange(2, 1, Math.max(cs.getLastRow() - 1, 1), 1).getValues().map((r) => String(r[0])).filter(Boolean)
   return {categories, places: list}
+}
+
+// Автодата «Добавлено»: срабатывает при ручной правке или вставке строк в листе «Места».
+function onEdit(e) {
+  const range = e && e.range
+  if (!range) return
+  const sh = range.getSheet()
+  if (sh.getName() !== PLACES) return
+  const c = columns(sh)
+  if (!c.added || !c.id || !c.name) return
+  const top = Math.max(range.getRow(), 2)
+  const bottom = range.getLastRow()
+  if (bottom < top) return
+  // Правка должна задеть столбец ID или Название
+  const left = range.getColumn(), right = range.getLastColumn()
+  const hits = (col) => col >= left && col <= right
+  if (!hits(c.id) && !hits(c.name)) return
+  const n = bottom - top + 1
+  const ids = sh.getRange(top, c.id, n, 1).getValues()
+  const names = sh.getRange(top, c.name, n, 1).getValues()
+  const dates = sh.getRange(top, c.added, n, 1)
+  const cur = dates.getValues()
+  const today = new Date()
+  today.setHours(0, 0, 0, 0)
+  let changed = false
+  for (let i = 0; i < n; i++) {
+    if (String(ids[i][0]).trim() && String(names[i][0]).trim() && cur[i][0] === '') { cur[i][0] = today; changed = true }
+  }
+  if (!changed) return
+  dates.setValues(cur)
+  dates.setNumberFormat('dd.mm.yyyy')
 }
 
 function doGet(e) {
