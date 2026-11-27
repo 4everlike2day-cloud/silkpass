@@ -322,6 +322,76 @@ function eatGuide(e: (typeof EAT)[number], lang: Lang): Guide {
   }
 }
 
+// Бухарская биеннале: /bukhara/biennale. Данные на ноябрь 2026, источник — bukharabiennial.uz.
+// Обновлять по мере новостей (художники, площадки, программа).
+function biennaleGuide(lang: Lang): Guide {
+  return {
+    slug: 'biennale',
+    citySlug: 'bukhara',
+    title: {en: 'Bukhara Biennial 2027', ru: 'Бухарская биеннале 2027', uz: 'Buxoro biennalesi 2027'}[lang],
+    summary: {
+      en: 'The second edition runs 3 September – 21 November 2027. What we know so far and how to plan your trip.',
+      ru: 'Вторая биеннале пройдёт с 3 сентября по 21 ноября 2027 года. Что уже известно и как спланировать поездку.',
+      uz: "Ikkinchi biennale 2027-yil 3-sentabrdan 21-noyabrgacha o'tadi. Hozircha nimalar ma'lum va safarni qanday rejalashtirish kerak.",
+    }[lang],
+    cover: null,
+    intro: {
+      en: 'In 2025 Bukhara hosted Uzbekistan’s first major international contemporary art biennial. Its theme was Recipes for Broken Hearts, curated by Diana Campbell: artists from around the world created works together with Uzbek master artisans. Over ten weeks it welcomed 1.8 million visitors, and admission was free.\n\nThe second edition comes back to Bukhara in autumn 2027. Its theme is The Long Welcome: Bukhara as a city on the Silk Road and a place where cultures meet. The artistic director is Kulapat Yantrasast. The biennial will spread to new historic buildings and public spaces across the city, and artists will again work with local craftspeople, as well as with ecologists.',
+      ru: 'В 2025 году Бухара впервые приняла большую международную биеннале современного искусства — первую такую в Узбекистане. Она называлась «Рецепты для разбитых сердец» (Recipes for Broken Hearts), куратор — Диана Кэмпбелл: художники со всего мира создавали работы вместе с узбекскими мастерами-ремесленниками. За десять недель её посетили 1,8 миллиона человек, вход был бесплатным.\n\nВторая биеннале вернётся в Бухару осенью 2027 года. Её тема — The Long Welcome: Бухара как город на Шёлковом пути и место встречи культур. Художественный руководитель — Кулапат Янтрасаст. Биеннале выйдет в новые исторические здания и общественные пространства по всему городу, а художники снова будут работать вместе с местными мастерами, а также с экологами.',
+      uz: "2025-yilda Buxoro O'zbekistondagi birinchi yirik xalqaro zamonaviy san'at biennalesiga mezbonlik qildi. Uning mavzusi Recipes for Broken Hearts edi, kuratori — Diana Kempbell: dunyoning turli burchaklaridan kelgan rassomlar o'zbek hunarmandlari bilan birga asarlar yaratdi. O'n hafta davomida biennaleni 1,8 million kishi tomosha qildi, kirish bepul edi.\n\nIkkinchi biennale 2027-yil kuzida Buxoroga qaytadi. Mavzusi — The Long Welcome: Buxoro Ipak yo'lidagi shahar va madaniyatlar uchrashadigan joy sifatida. Badiiy rahbar — Kulapat Yantrasast. Biennale shahar bo'ylab yangi tarixiy binolar va jamoat joylariga kengayadi, rassomlar esa yana mahalliy hunarmandlar, shuningdek ekologlar bilan birga ishlaydi.",
+    }[lang],
+    order: 1,
+    gallery: [],
+    items: [],
+    tips: {
+      title: {en: 'Planning your trip', ru: 'Как спланировать поездку', uz: 'Safarni qanday rejalashtirish kerak'}[lang],
+      items: {
+        en: [
+          'Dates: 3 September – 21 November 2027. The biennial runs for almost three months, so you don’t have to come for the opening.',
+          'Admission to the first edition was free. Check the ticket details for 2027 on the [official website](https://bukharabiennial.uz/) closer to the date.',
+          'Autumn is a comfortable season for walking around Bukhara: the summer heat is over.',
+          'Hotels in the old town fill up during the biennial: book early.',
+          'Combine it with the classic route Tashkent → Samarkand → Bukhara → Khiva.',
+          'What to see in Bukhara between exhibitions: our Telegram bot [@w2uz_bot](https://t.me/w2uz_bot).',
+        ],
+        ru: [
+          'Даты: 3 сентября — 21 ноября 2027 года. Биеннале длится почти три месяца, так что приезжать к открытию не обязательно.',
+          'На первую биеннале вход был бесплатным. Условия на 2027 год сверьте ближе к дате на [официальном сайте](https://bukharabiennial.uz/).',
+          'Осень — комфортный сезон для прогулок по Бухаре: летняя жара уже позади.',
+          'Отели в старом городе на время биеннале заполняются: бронируйте заранее.',
+          'Совместите биеннале с классическим маршрутом Ташкент → Самарканд → Бухара → Хива.',
+          'Что посмотреть в Бухаре между выставками — в нашем Telegram-боте [@w2uz_bot](https://t.me/w2uz_bot).',
+        ],
+        uz: [
+          "Sanalar: 2027-yil 3-sentabr — 21-noyabr. Biennale qariyb uch oy davom etadi, shuning uchun ochilishga kelish shart emas.",
+          "Birinchi biennalega kirish bepul edi. 2027-yil shartlarini sanaga yaqinroq [rasmiy saytda](https://bukharabiennial.uz/) tekshiring.",
+          "Kuz — Buxoro bo'ylab sayr qilish uchun qulay fasl: yozgi jazirama ortda qoladi.",
+          "Biennale vaqtida eski shahardagi mehmonxonalar to'lib qoladi: oldindan band qiling.",
+          "Biennaleni Toshkent → Samarqand → Buxoro → Xiva klassik yo'nalishi bilan birlashtiring.",
+          "Ko'rgazmalar orasida Buxoroda nimani ko'rish mumkin — Telegram-botimizda: [@w2uz_bot](https://t.me/w2uz_bot).",
+        ],
+      }[lang],
+      sourceUrl: 'https://bukharabiennial.uz/',
+      sourceLabel: {en: 'bukharabiennial.uz · as of November 2026', ru: 'bukharabiennial.uz · данные на ноябрь 2026', uz: "bukharabiennial.uz · 2026-yil noyabr holatiga"}[lang],
+    },
+    note: {
+      title: {en: 'We will keep this page updated', ru: 'Страница будет обновляться', uz: 'Sahifa yangilanib boradi'}[lang],
+      text: {
+        en: 'The list of artists, venues and the programme will be announced closer to autumn 2027. We will add them here as soon as they are published.',
+        ru: 'Список художников, площадки и программу объявят ближе к осени 2027 года. Мы добавим их сюда, как только они появятся.',
+        uz: "Rassomlar ro'yxati, maydonlar va dastur 2027-yil kuziga yaqin e'lon qilinadi. Ular chiqishi bilan shu yerga qo'shamiz.",
+      }[lang],
+    },
+    sourceUrl: 'https://bukharabiennial.uz/',
+    sourceLabel: {en: 'Official website', ru: 'Официальный сайт', uz: 'Rasmiy sayt'}[lang],
+    sourceText: {
+      en: 'News, artists and programme of the Bukhara Biennial.',
+      ru: 'Новости, художники и программа Бухарской биеннале.',
+      uz: "Buxoro biennalesi yangiliklari, rassomlari va dasturi.",
+    }[lang],
+  }
+}
+
 export function localGuides(lang: Lang): Guide[] {
   const ATTO = `https://atto.uz/${lang}`
   const METRO = `https://uzmetro.uz/${lang}`
@@ -424,5 +494,6 @@ export function localGuides(lang: Lang): Guide[] {
       items: MURALS.map((m) => mural(m, lang)),
     },
     ...EAT.map((e) => eatGuide(e, lang)),
+    biennaleGuide(lang),
   ]
 }
