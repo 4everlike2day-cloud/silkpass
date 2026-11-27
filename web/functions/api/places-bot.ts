@@ -3,6 +3,8 @@
 // Путь пользователя: /start → язык → город → категория или 🏆 Топ → места (с фото, если есть) и кнопками 👍 / 👎.
 // Любой текст, который не команда, — поиск места по названию и описанию во всех городах.
 // Ссылка t.me/w2uz_bot?start=p_T001 (кнопка «Оценить в Telegram» на сайте) сразу открывает место T001.
+// Викторина: кнопка «🎯 Викторина», команда /quiz или ссылка t.me/w2uz_bot?start=quiz (quiz_ru, quiz_ch_en …)
+// присылают кнопку, которая открывает страницу welcome2.uz/quiz внутри Telegram (Mini App).
 // Голоса пишутся в таблицу через веб-приложение Apps Script (tools/places-apps-script.js):
 // один голос на аккаунт Telegram, повторное нажатие той же кнопки снимает голос.
 // Языки: English, Русский, O'zbek. Язык хранится в данных кнопок, база пользователей не нужна.
@@ -30,6 +32,8 @@ const TOP_MIN_VOTES = 3 // в топ попадают места, у котор�
 const SEARCH_MAX = 8
 const LANGS: Lang[] = ['en', 'ru', 'uz']
 const SITE: Record<Lang, string> = {en: 'https://welcome2.uz', ru: 'https://welcome2.uz/ru', uz: 'https://welcome2.uz/uz'}
+// Викторины на узбекском пока нет: узбекскоязычным открываем русскую версию.
+const QUIZ_URL: Record<Lang, string> = {en: 'https://welcome2.uz/quiz', ru: 'https://welcome2.uz/ru/quiz', uz: 'https://welcome2.uz/ru/quiz'}
 
 // Города: порядок кнопок, значок, перевод. Название в таблице — русское.
 // Места из городов, которых нет в этом списке, бот не показывает (пустой город = Ташкент).
@@ -105,25 +109,33 @@ const T = {
   fail: {en: "Couldn't save your vote, please try again", ru: 'Не получилось сохранить голос, попробуйте ещё раз', uz: "Ovozni saqlab bo'lmadi, qayta urinib ko'ring"},
   site: {en: 'All places and ratings:', ru: 'Все места и рейтинг:', uz: 'Barcha joylar va reyting:'},
   error: {en: '⚠️ The bot could not answer:', ru: '⚠️ Бот не смог ответить:', uz: '⚠️ Bot javob bera olmadi:'},
+  quiz: {
+    en: '🎯 <b>How well do you know Uzbekistan?</b>\n\n10 questions, two modes: 🧳 Tourist and 🏡 Local. After each answer you get a short story and a place to see it. At the end, a title and a picture for your story.',
+    ru: '🎯 <b>Насколько ты знаешь Узбекистан?</b>\n\n10 вопросов, два режима: 🧳 «Турист» и 🏡 «Местный». После каждого ответа — короткая история и место, где это посмотреть. В конце — звание и картинка для сторис.',
+    uz: "🎯 <b>O'zbekistonni qanchalik bilasiz?</b>\n\n10 ta savol, ikki rejim: 🧳 «Sayyoh» va 🏡 «Mahalliy». Viktorina hozircha rus tilida.",
+  },
+  quizChallenge: {en: '⚔️ A friend challenged you! Can you beat their score?', ru: '⚔️ Друг бросил вам вызов! Сможете набрать больше?', uz: "⚔️ Do'stingiz sizni bellashuvga chaqirdi!"},
+  quizBtn: {en: '▶️ Start the quiz', ru: '▶️ Начать викторину', uz: '▶️ Viktorinani boshlash'},
 }
 const COMMANDS: Record<Lang, {command: string; description: string}[]> = {
-  en: [{command: 'places', description: 'Cities and places'}, {command: 'lang', description: 'Change language'}, {command: 'help', description: 'How it works'}, {command: 'site', description: 'All places and ratings'}],
-  ru: [{command: 'places', description: 'Города и места'}, {command: 'lang', description: 'Сменить язык'}, {command: 'help', description: 'Как это работает'}, {command: 'site', description: 'Все места и рейтинг'}],
-  uz: [{command: 'places', description: 'Shaharlar va joylar'}, {command: 'lang', description: "Tilni o'zgartirish"}, {command: 'help', description: 'Qanday ishlaydi'}, {command: 'site', description: 'Barcha joylar va reyting'}],
+  en: [{command: 'places', description: 'Cities and places'}, {command: 'quiz', description: 'Quiz: how well do you know Uzbekistan?'}, {command: 'lang', description: 'Change language'}, {command: 'help', description: 'How it works'}, {command: 'site', description: 'All places and ratings'}],
+  ru: [{command: 'places', description: 'Города и места'}, {command: 'quiz', description: 'Викторина: насколько ты знаешь Узбекистан?'}, {command: 'lang', description: 'Сменить язык'}, {command: 'help', description: 'Как это работает'}, {command: 'site', description: 'Все места и рейтинг'}],
+  uz: [{command: 'places', description: 'Shaharlar va joylar'}, {command: 'quiz', description: "Viktorina: O'zbekistonni qanchalik bilasiz?"}, {command: 'lang', description: "Tilni o'zgartirish"}, {command: 'help', description: 'Qanday ishlaydi'}, {command: 'site', description: 'Barcha joylar va reyting'}],
 }
 
 // Постоянные кнопки под полем ввода, чтобы не набирать команды. Нажатие приходит как обычный текст:
 // по надписи узнаём и действие, и язык (бот не хранит выбранный язык, а у кнопок он свой).
-type KbAction = 'cities' | 'search' | 'site' | 'lang' | 'help'
+type KbAction = 'cities' | 'quiz' | 'search' | 'site' | 'lang' | 'help'
 const KB: Record<KbAction, Record<Lang, string>> = {
   cities: {en: '🏙 Cities', ru: '🏙 Города', uz: '🏙 Shaharlar'},
+  quiz: {en: '🎯 Quiz', ru: '🎯 Викторина', uz: '🎯 Viktorina'},
   search: {en: '🔎 Search', ru: '🔎 Поиск', uz: '🔎 Qidirish'},
   site: {en: '🌍 Website', ru: '🌍 Сайт', uz: '🌍 Sayt'},
   lang: {en: '🌐 Language', ru: '🌐 Язык', uz: '🌐 Til'},
   help: {en: '❓ Help', ru: '❓ Помощь', uz: '❓ Yordam'},
 }
 const replyKb = (l: Lang) => ({
-  keyboard: [[{text: KB.cities[l]}], [{text: KB.search[l]}, {text: KB.site[l]}], [{text: KB.lang[l]}, {text: KB.help[l]}]],
+  keyboard: [[{text: KB.cities[l]}, {text: KB.quiz[l]}], [{text: KB.search[l]}, {text: KB.site[l]}], [{text: KB.lang[l]}, {text: KB.help[l]}]],
   resize_keyboard: true,
   is_persistent: true,
   input_field_placeholder: T.placeholder[l],
@@ -386,6 +398,19 @@ async function vote(env: Env, cb: NonNullable<Update['callback_query']>, place: 
   }
 }
 
+// Викторина открывается кнопкой web_app: Telegram показывает страницу сайта внутри чата (Mini App).
+// src — откуда пришёл человек, для статистики на листе «Викторина: статистика».
+async function quiz(env: Env, chat: number, l: Lang, challenge = false) {
+  const src = challenge ? 'challenge' : 'bot'
+  const text = challenge ? `${T.quizChallenge[l]}\n\n${T.quiz[l]}` : T.quiz[l]
+  await tg(env, 'sendMessage', {
+    chat_id: chat,
+    parse_mode: 'HTML',
+    text,
+    reply_markup: {inline_keyboard: [[{text: T.quizBtn[l], web_app: {url: `${QUIZ_URL[l]}?src=${src}`}}]]},
+  })
+}
+
 // Меню команд бота на трёх языках. Ставится при /start, повторный вызов ничего не ломает.
 async function setCommands(env: Env) {
   await Promise.all([
@@ -426,7 +451,15 @@ export const onRequestPost = async ({request, env, waitUntil}: {request: Request
       const payload = cmd === '/start' ? text.split(/\s+/)[1] || '' : ''
       const btn = cmd ? null : kbAction(text)
       if (btn) l = btn[1]
-      if (btn?.[0] === 'cities') {
+      if (payload.startsWith('quiz')) {
+        // t.me/w2uz_bot?start=quiz, quiz_ru, quiz_ch_en (вызов от друга): язык — в конце ссылки
+        const pl = payload.split('_').pop() as Lang
+        if (LANGS.includes(pl)) l = pl
+        await setCommands(env)
+        await quiz(env, chat, l, payload.startsWith('quiz_ch'))
+      } else if (btn?.[0] === 'quiz' || cmd === '/quiz') {
+        await quiz(env, chat, l)
+      } else if (btn?.[0] === 'cities') {
         await cities(env, chat, await load(env), l)
       } else if (btn?.[0] === 'search') {
         await tg(env, 'sendMessage', {chat_id: chat, text: T.searchHint[l], reply_markup: replyKb(l)})
@@ -498,8 +531,9 @@ export const onRequestPost = async ({request, env, waitUntil}: {request: Request
   }
   const who = u.message?.chat.type === 'private' ? u.message.from : u.callback_query?.from
   if (who) {
-    const fromSite = /^\/start\s+p_/.test((u.message?.text || '').trim())
-    waitUntil(seen(env, who, l, fromSite ? 'сайт' : 'Telegram'))
+    const t = (u.message?.text || '').trim()
+    const source = /^\/start\s+p_/.test(t) ? 'сайт' : /^\/start\s+quiz/.test(t) ? 'викторина' : 'Telegram'
+    waitUntil(seen(env, who, l, source))
   }
   return new Response('ok')
 }

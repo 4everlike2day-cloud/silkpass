@@ -364,3 +364,59 @@ a[data-zoom]{cursor:zoom-in}
 .pl-actions .btn.sm{margin-top:0}
 .pl-suggest{align-items:start}
 @media (max-width:760px){.pl-suggest{grid-template-columns:1fr}.pl-grid{grid-template-columns:1fr}}
+
+/* ---------- Викторина /quiz ---------- */
+/* Внутри Telegram (Mini App) шапка и подвал сайта не нужны */
+html.tg header.site,html.tg footer.site,html.tg .flagline{display:none}
+html.tg .quiz-page{padding-top:18px}
+.quiz{max-width:760px;margin:0 auto;scroll-margin-top:90px}
+.quiz h1{margin-top:14px;max-width:18ch}
+.quiz-lead{margin-top:14px;font-size:1.1rem;max-width:56ch}
+.quiz-modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.quiz-mode{display:flex;flex-direction:column;gap:8px;text-align:left;padding:20px;border:1.5px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);font:inherit;cursor:pointer;transition:border-color .15s,transform .15s}
+.quiz-mode b{font:700 1.25rem/1.2 var(--display)}
+.quiz-mode:hover:not(:disabled){border-color:var(--accent);transform:translateY(-2px)}
+.quiz-mode:disabled{opacity:.55;cursor:default}
+.quiz-go{margin-top:auto;padding-top:6px;color:var(--accent);font-weight:600}
+.quiz-hint{margin-top:22px;font-size:.92rem}
+.quiz-card{display:flex;flex-direction:column;gap:14px}
+.quiz-progress{height:6px;border-radius:99px;background:var(--line);overflow:hidden}
+.quiz-progress span{display:block;height:100%;background:var(--accent);transition:width .3s}
+.quiz-q{font-size:clamp(1.35rem,3.6vw,1.9rem);line-height:1.25}
+.quiz-options{display:grid;gap:10px}
+.quiz-opt{padding:15px 18px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);color:var(--ink);font:500 1rem/1.35 var(--body);text-align:left;cursor:pointer;transition:border-color .15s,background .15s}
+.quiz-opt:hover:not(:disabled){border-color:var(--accent)}
+.quiz-opt:disabled{cursor:default}
+.quiz-opt.ok{border-color:var(--green);background:var(--green-soft);font-weight:600}
+.quiz-opt.bad{border-color:var(--red);background:color-mix(in srgb,var(--red) 14%,var(--surface))}
+.quiz-opt.dim{opacity:.55}
+.quiz-explain{padding:18px;border-radius:var(--r);background:var(--accent-soft)}
+.quiz-explain p+p{margin-top:6px}
+.quiz-ok{color:var(--green)}
+.quiz-bad{color:var(--red)}
+.quiz-actions,.quiz-share{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
+.quiz-result{display:grid;grid-template-columns:1fr 240px;gap:28px;align-items:center}
+.quiz-score{font:800 clamp(4rem,14vw,6.5rem)/1 var(--display);margin-top:10px}
+.quiz-score small{font-size:.45em;color:var(--muted)}
+.quiz-result h2{margin-top:6px}
+.quiz-story{width:100%;height:auto;border-radius:16px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
+.quiz button:disabled.btn{opacity:.6;cursor:default}
+.quiz-opt.wait{border-color:var(--accent);opacity:.8}
+.quiz-err{margin-top:12px;color:var(--red)}
+.quiz-small{font-size:.86rem}
+.quiz-pub{margin-top:16px;padding:14px 16px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}
+.quiz-pub label{display:flex;gap:10px;align-items:flex-start;cursor:pointer;font-weight:500}
+.quiz-pub input{width:20px;height:20px;margin-top:1px;accent-color:var(--accent);flex:none}
+.quiz-pub p{margin-top:6px}
+.quiz-top{margin-top:34px;padding:20px;border:1px solid var(--line);border-radius:var(--r);background:var(--surface);display:flex;flex-direction:column;gap:12px}
+.quiz-top ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.quiz-top li{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:9px 4px;border-bottom:1px solid var(--line)}
+.quiz-top li:last-child{border-bottom:0}
+.quiz-top li b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.quiz-top li span:last-child{font:500 .88rem/1 var(--mono);color:var(--muted)}
+.quiz-top-n{text-align:center;font:600 .95rem/1 var(--mono);color:var(--muted)}
+@media (max-width:640px){
+  .quiz-modes{grid-template-columns:1fr}
+  .quiz-result{grid-template-columns:1fr}
+  .quiz-story{max-width:260px;margin:0 auto}
+}

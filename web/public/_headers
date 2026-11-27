@@ -1,0 +1,7 @@
+# Заголовки Cloudflare Pages.
+# Картинки итога викторины: кнопка «Скачать» в Telegram (downloadFile) требует эти заголовки,
+# иначе в веб-версии Telegram скачивание может не сработать.
+/quiz/story/*
+  Access-Control-Allow-Origin: https://web.telegram.org
+  Content-Disposition: attachment
+  Cache-Control: public, max-age=86400
